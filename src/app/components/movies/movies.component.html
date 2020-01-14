@@ -1,0 +1,89 @@
+<div class="listing">
+    <div class="listing__head">
+        <h3 class="listing__title">Popular Movies</h3>
+        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+    </div>
+    <p-carousel [value]="discover_movies_data" [numVisible]="6" [numScroll]="4" [circular]="false">
+        <ng-template let-discovermovies pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/movies/', discovermovies.id]">
+                <div class="overlay">
+                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                </div>
+                <img *ngIf="discovermovies?.poster_path"
+                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{discovermovies?.poster_path}}">
+                <img *ngIf="!discovermovies?.poster_path" src="assets/images/default-movie.png">
+                <h6>{{ discovermovies?.title }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{discovermovies?.vote_average}}</span> /10
+                </p>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+
+    <div class="listing">
+        <div class="listing__head">
+        <h3 class="listing__title">Upcoming Movies</h3>
+        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+    </div>
+    
+    <p-carousel [value]="upcoming_movies" [numVisible]="6" [numScroll]="4" [circular]="false">
+        <ng-template let-coming_movies pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/movies/', coming_movies.id]">
+                <div class="overlay">
+                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                </div>
+                <img *ngIf="coming_movies?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{coming_movies?.poster_path}}">
+                <img *ngIf="!coming_movies?.poster_path" src="assets/images/default-movie.png">
+                <h6>{{ coming_movies?.title }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{coming_movies?.vote_average}}</span>/10
+                </p>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+
+    <div class="listing">
+        <div class="listing__head">
+        <h3 class="listing__title">Top Rated Movies</h3>
+        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+    </div>
+
+    <p-carousel [value]="top_rated_movies_data" [numVisible]="6" [numScroll]="4" [circular]="false">
+        <ng-template let-toprated pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/movies/', toprated.id]">
+                <div class="overlay">
+                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                </div>
+                <img *ngIf="toprated?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{toprated?.poster_path}}">
+                <img *ngIf="!toprated?.poster_path" src="assets/images/default-movie.png">
+                <h6>{{ toprated?.title }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{toprated?.vote_average}}</span>/10
+                </p>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+
+<div class="listing">
+    <div class="listing__head">
+        <h3 class="listing__title">Now Playing Movies</h3>
+        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+    </div>
+    <p-carousel [value]="now_playing_movies" [numVisible]="6" [numScroll]="4" [circular]="false">
+        <ng-template let-nowplaying pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/movies/', nowplaying.id]">
+                <div class="overlay">
+                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                </div>
+                <img *ngIf="nowplaying?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{nowplaying?.poster_path}}">
+                <img *ngIf="!nowplaying?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{nowplaying?.poster_path}}">
+                <h6>{{ nowplaying?.title }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{nowplaying?.vote_average}}</span>/10
+                </p>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>

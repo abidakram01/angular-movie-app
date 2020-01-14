@@ -1,0 +1,50 @@
+<div>
+    <app-slider></app-slider>
+</div>
+<div class="listing">
+    <div class="listing__head">
+        <h3 class="listing__title">Trending Movies</h3>
+        <a [routerLink]="['/movies']" routerLinkActive="router-link-active" class="listing__explore">
+            <strong>Explore All</strong>
+        </a>
+    </div>
+    <p-carousel [value]="trending_movies" [numVisible]="6" [numScroll]="4" [circular]="false">
+        <ng-template let-trendingmovies pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/movies/', trendingmovies.id]">
+                <div class="overlay">
+                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                </div>
+                <img *ngIf="trendingmovies?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{trendingmovies?.poster_path}}">
+                <img *ngIf="!trendingmovies?.poster_path" src="assets/images/default-movie.png">
+                <h6>{{ trendingmovies?.title }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{trendingmovies?.vote_average}}</span> /10</p>
+                <p class="year"><span>{{trendingmovies?.release_date | date: 'yyyy'}}</span>
+                </p>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+    <!-- <mat-paginator (page)="pageChange($event)" [length]="length" [pageSize]="pageSize"></mat-paginator> -->
+
+
+<div class="listing">
+    <div class="listing__head">
+        <h3 class="listing__title">Trending TV Shows</h3>
+        <a [routerLink]="['/tv']" routerLinkActive="router-link-active" class="listing__explore">
+            <strong>Explore All</strong>
+        </a>
+    </div>
+    <p-carousel [value]="tv_shows" [numVisible]="6" [numScroll]="4" [circular]="false">
+        <ng-template let-tv pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/tv/', tv.id]">
+                <div class="overlay">
+                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                </div>
+                <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{tv?.poster_path}}">
+                <h6>{{ tv?.original_name }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{tv?.vote_average}}</span>/10</p>
+                <p class="year"><span>{{tv?.first_air_date | date: 'yyyy'}}</span>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>

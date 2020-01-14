@@ -1,0 +1,26 @@
+@import '../../../assets/scss/variables';
+
+.genre-card {
+  display: inline-block;
+  margin: 14px 10px;
+  padding: 12px 0px;
+  vertical-align: top;
+  color: white !important;
+  font-size: 2rem;
+}
+
+.mt_{
+  margin: 10rem 5rem 10rem;
+}
+
+
+@media (min-width: $breakpoint-large) {
+  .genre-card {
+    width: 20%;
+  }
+}
+
+.blue-theme {
+  background-color: $secondary-color;
+  border-radius: 1px;
+}

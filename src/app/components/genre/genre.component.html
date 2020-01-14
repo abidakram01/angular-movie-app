@@ -1,0 +1,22 @@
+<div class="listing">
+    <div class="listing__head">
+        <h2 class="listing__title">Movie Genre: {{ title }}</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-2 listing__items" *ngFor="let movie of movies; let i = index;">
+            <div [routerLink]="['/movies/', movie.id]">
+                <div class="listing-item-style">
+                    <div class="overlay">
+                        <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                    </div>
+                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
+
+                    <h6>{{ movie?.title }}</h6>
+                    <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+                    <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

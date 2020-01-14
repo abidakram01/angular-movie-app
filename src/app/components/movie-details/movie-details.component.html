@@ -1,0 +1,208 @@
+<div class="hero">
+    <div class="backdrop">
+        <div class="lazyloaded">
+            <button class="play" type="button" (click)="openDialogMovie(this.video)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+                    <circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" />
+                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z" /></svg>
+            </button>
+            <img class="lazyload image" src="https://image.tmdb.org/t/p/original/{{ movie?.backdrop_path }}">
+        </div>
+    </div>
+    <div class="pane">
+        <div>
+            <div class="name">{{ movie?.title }}</div>
+            <div class="meta">
+
+                <div class="info">
+                    <span class="rate">
+                        <i class="material-icons">star</i><span>{{ movie?.vote_average }}</span> /10
+                    </span>
+                    <span> {{movie?.vote_count | numberWithCommas }} Reviews</span>
+                    <span>{{movie?.release_date | date: 'yyyy' }}</span>
+                    <span>{{movie?.runtime | time  }}</span>
+                </div>
+            </div>
+            <div class="desc">{{ movie?.overview }}</div>
+            <button type="button" class="button button--icon trailer" (click)="openDialogMovie(this.video)">
+                <span class="mr-2"><img src="assets/images/play.svg"></span>
+                <span class="txt">Watch Trailer</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-tab-group class="mt-5 mb-5" mat-align-tabs="center" animationDuration="0ms">
+                <mat-tab label="Overview">
+                    <div class="listing-space info__movies">
+                        <div class="left">
+                            <div class="poster">
+                                <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ movie?.poster_path }}">
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="overview">
+                                <h2 class="title">Storyline</h2>
+                                <div>{{movie?.overview}}</div>
+                            </div>
+                            <div class="stats">
+                                <ul class="nolist">
+                                    <li>
+                                        <div class="label">
+                                            Released
+                                        </div>
+                                        <div class="value">
+                                            {{ movie?.release_date | fullDate }}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="label">
+                                            Runtime
+                                        </div>
+                                        <div class="value">
+                                            {{ movie?.runtime | time  }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="movie?.budget">
+                                        <div class="label">
+                                            Budget
+                                        </div>
+                                        <div class="value">
+                                            ${{ movie?.budget | numberWithCommas }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="movie?.revenue">
+                                        <div class="label">
+                                            Revenue
+                                        </div>
+                                        <div class="value">
+                                            ${{ movie?.revenue | numberWithCommas }}
+                                        </div>
+                                    </li>
+
+                                    <li *ngIf="movie?.genres.length">
+                                        <div class="label">
+                                            Genre
+                                        </div>
+                                        <div class="comma_" *ngFor="let genre of movie?.genres">
+                                            <a routerLink="/genres/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="movie?.status">
+                                        <div class="label">
+                                            Status
+                                        </div>
+                                        <div class="value">
+                                            {{movie?.status}}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="movie?.spoken_languages?.length">
+                                        <div class="label">
+                                            Language
+                                        </div>
+                                        <div class="comma_" *ngFor="let language of movie?.spoken_languages">
+                                            <a>{{ language?.name }}</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listing-space">
+                        <div class="listing__head">
+                            <h2 class="listing__title">Cast</h2>
+                        </div>
+                        <p-carousel [value]="casts" [numVisible]="6" [numScroll]="4" [circular]="false">
+                            <ng-template let-cast pTemplate="item">
+                                <div class="listing-item-style" [routerLink]="['/person/', cast.id]">
+                                    <div class="overlay">
+                                        <div class="hover">Details</div>
+                                    </div>
+                                    <img *ngIf="cast.profile_path"
+                                        src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{cast?.profile_path}}">
+                                    <img *ngIf="!cast?.profile_path" src="assets/images/default-movie.png">
+                                    <h6>{{ cast?.name }}</h6>
+                                </div>
+                            </ng-template>
+                        </p-carousel>
+                    </div>
+
+                </mat-tab>
+                <mat-tab label="Videos">
+                    <div class="listing-space videos__status">
+                        <div class="items">
+                            <div class="item" *ngFor="let list of related_video">
+                                <div (click)="openDialogMovie(list)" class="link">
+                                    <div class="image lazyloaded">
+                                        <img class="lazyload"
+                                            src="https://img.youtube.com/vi/{{list?.key}}/mqdefault.jpg">
+                                        <div class="play__icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                                viewBox="0 0 55 55">
+                                                <circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                                                <path fill="none" stroke="#fff" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        {{list?.name}}
+                                    </div>
+                                    <div class="type">
+                                        {{list?.type}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Photos">
+                    <div class="listing-space backdrop_">
+                        <div class="head">
+                            <h2 class="title">Backdrops</h2>
+                        </div>
+                        <div class="items">
+                            <div class="item backdrop_" *ngFor="let backdrop of _backdrops | slice: 1:17">
+                                <div class="image">
+                                    <img class="lazyload" src="https://image.tmdb.org/t/p/w533_and_h300_bestv2/{{ backdrop.file_path }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-tab>
+            </mat-tab-group>
+
+
+            <div class="listing-space mt-20 mb-5">
+                <div class="listing__head">
+                    <h2 class="listing__title">Recommended Movies</h2>
+                </div>
+                <p-carousel [value]="_recomend" [numVisible]="6" [numScroll]="4" [circular]="false">
+                    <ng-template let-recomend pTemplate="item">
+                        <div class="listing-item-style" [routerLink]="['/movies/', recomend.id]">
+                            <div class="overlay">
+                                <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                            </div>
+                            <img *ngIf="recomend?.poster_path"
+                                src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{recomend?.poster_path}}">
+                            <img *ngIf="!recomend?.poster_path" src="assets/images/default-movie.png">
+                            <h6>{{ recomend?.title }}</h6>
+                            <p class="rate"><i class="material-icons">star</i><span>{{recomend?.vote_average}}</span>
+                                /10</p>
+                            <div class="year"><span>{{recomend?.release_date | date: 'yyyy'}}</span></div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+    </div>
+</div>
