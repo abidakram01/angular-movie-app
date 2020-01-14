@@ -6,22 +6,26 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Angular  FlixMovies & TV Shows was generated with:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular CLI version 8.3.0
+- Angular 8.2.3
+- Angular Material 8.1.4
+- AngularFire 5.2.1
+- Firebase js SDK 7.1.0
+- Rxjs 6.5.2
+- PrimeNg Library 8.0 -> https://www.primefaces.org/primeng/#/
+- The Movie DB get Your own api key -> https://www.themoviedb.org
+- Firebase get your own firebase data -> https://firebase.google.com
 
-## Build
+Live Demo https://flixmovies-82298.firebaseapp.com/
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```bash
+git clone https://github.com/abidakram01/FlixMovies.git
+cd FlixMovies
+npm install
+ng serve and go to http://localhost:4200/
+```
