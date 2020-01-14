@@ -8,8 +8,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Angular  FlixMovies & TV Shows was generated with:
 
-- Angular CLI version 8.3.0
-- Angular 8.2.3
+- Angular CLI version 8.3.9
+- Angular 8.3.9
 - Angular Material 8.1.4
 - AngularFire 5.2.1
 - Firebase js SDK 7.1.0
@@ -29,4 +29,3 @@ cd FlixMovies
 npm install
 ng serve and go to http://localhost:4200/
 ```
-
