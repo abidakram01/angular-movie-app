@@ -25,7 +25,7 @@ Live Demo https://flixmovies-82298.firebaseapp.com
 
 ```bash
 git clone https://github.com/abidakram01/angular-movie-app.git
-cd Angular-FlixMovies
+cd angular-movie-app
 npm install
 ng serve and go to http://localhost:4200/
 ```
