@@ -15,6 +15,7 @@ import { FooterComponent } from '../includes/footer/footer.component';
 import { PipeModule } from './shared/pipe/pipe.module';
 import { CarouselModule } from 'primeng/carousel';
 import { SidebarModule } from 'primeng/sidebar';
+import { SearchMoviesComponent } from './search-movies/search-movies.component';
 
 
 
@@ -26,6 +27,7 @@ import { SidebarModule } from 'primeng/sidebar';
     SliderComponent,
     HomeComponent,
     FooterComponent,
+    SearchMoviesComponent,
     
   ],
   imports: [

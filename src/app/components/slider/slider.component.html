@@ -1,6 +1,6 @@
 <div class="hero">
-    <div *ngFor="let slider of movies_data; let i = index">
-        <div class="hero-slide" *ngIf="current == i" @fade>
+    <ng-container *ngFor="let slider of movies_data; let i = index">
+        <div class="slider" *ngIf="current == i" @fade>
             <div class="backdrop">
                 <div class="lazyloaded">
                     <img alt="{{slider?.title}}" class="lazyload image" src="https://image.tmdb.org/t/p/original/{{slider?.backdrop_path}}">
@@ -24,5 +24,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>

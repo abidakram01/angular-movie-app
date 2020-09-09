@@ -24,13 +24,32 @@ export class TvShowDetailsComponent implements OnInit {
   _backdrops: any;
   _posters: any;
   _recomend: any;
+  responsiveOptions;
 
   constructor(
     private _tv: MoviesService,
     private _router: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 3
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 2
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
+   }
 
   ngOnInit() {
     this._router.params.subscribe((params: Params) => {

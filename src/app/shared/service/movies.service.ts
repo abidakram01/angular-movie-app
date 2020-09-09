@@ -16,7 +16,7 @@ export class MoviesService {
   baseUrl: string;
   apiKey: string;
 
-  
+
 
 
   constructor(
@@ -25,14 +25,14 @@ export class MoviesService {
   ) {
     this.baseUrl = 'https://api.themoviedb.org/3/';
     this.apiKey = 'dd4d819639705d332d531217b4f7c6b6';
-   }
+  }
 
 
   /*
     Movies Listing
   */
   getdiscoverMovies() {
-    const url = this.base_url + `${API_LIST.MOVIES.GET_ALL_MOVIES}?` + this.api_key + '&append_to_response=videos' +'&' + 'page=1';
+    const url = this.base_url + `${API_LIST.MOVIES.GET_ALL_MOVIES}?` + this.api_key + '&append_to_response=videos' + '&' + 'page=1';
     return this._http.get(url);
   }
 
@@ -60,7 +60,7 @@ export class MoviesService {
   }
 
   /*
-   Single Videos 
+   Single Videos
   */
   getMoviesVideos(id: any) {
     const url = this.base_url + `${API_LIST.VIDEOS.GET_MOVIES_TRAILER}` + '/' + id + '/videos?' + this.api_key;
@@ -68,24 +68,24 @@ export class MoviesService {
   }
 
   /*
-   Single Movies Image 
+   Single Movies Image
   */
- getBackdropsImages(id: string) {
-  const url = this.base_url + `${API_LIST.IMAGES.GET_ALL_MOVIES_BACKDROPS_IMAGE}` + '/' + id + '/images' + '?' + this.api_key;
-  return this._http.get(url);
-}
+  getBackdropsImages(id: string) {
+    const url = this.base_url + `${API_LIST.IMAGES.GET_ALL_MOVIES_BACKDROPS_IMAGE}` + '/' + id + '/images' + '?' + this.api_key;
+    return this._http.get(url);
+  }
 
-/*
-  Recomend Movies
-*/
-getRecomendMovies(id: string){
-  const url = this.base_url + `${API_LIST.MOVIES.GET_RECOMMENDATIONS_MOVIES}` + '/' + id + '/recommendations' + '?' + this.api_key;
-  return this._http.get(url);
-}
+  /*
+    Recomend Movies
+  */
+  getRecomendMovies(id: string) {
+    const url = this.base_url + `${API_LIST.MOVIES.GET_RECOMMENDATIONS_MOVIES}` + '/' + id + '/recommendations' + '?' + this.api_key;
+    return this._http.get(url);
+  }
 
 
   /*
-   TV Discover Listing 
+   TV Discover Listing
   */
   getDiscoverTvShows() {
     const url = this.base_url + `${API_LIST.TV.GET_ALL_TV_SHOWS}?` + this.api_key + '&' + 'page=1';
@@ -93,7 +93,7 @@ getRecomendMovies(id: string){
   }
 
   /*
-    TV Popular Listing 
+    TV Popular Listing
   */
   getPopularTvShows() {
     const url = this.base_url + `${API_LIST.TV.GET_POPULAR_TV_SHOWS}?` + this.api_key + '&' + 'page=1';
@@ -125,7 +125,7 @@ getRecomendMovies(id: string){
   }
 
   /*
-   Single TV Details 
+   Single TV Details
   */
   getTvDetails(id: any) {
     const url = this.base_url + `${API_LIST.TV.GET_SINGLE_TV_DETAILS}` + '/' + id + '?' + this.api_key;
@@ -133,7 +133,7 @@ getRecomendMovies(id: string){
   }
 
   /*
-   Single TV Videos 
+   Single TV Videos
   */
   getTvVideos(id: any) {
     const url = this.base_url + `${API_LIST.VIDEOS.GET_TV_TRAILER}` + '/' + id + '/videos?' + this.api_key;
@@ -141,23 +141,23 @@ getRecomendMovies(id: string){
   }
 
   /*
-   Single TV Image 
+   Single TV Image
   */
- getTvBackdropsImages(id: string) {
-  const url = this.base_url + `${API_LIST.IMAGES.GET_ALL_TV_BACKDROPS_IMAGE}` + '/' + id + '/images' + '?' + this.api_key;
-  return this._http.get(url);
-}
-
- /*
-   Recomend TV  
-  */
- getRecomendTv(id: string){
-  const url = this.base_url + `${API_LIST.TV.GET_RECOMMENDATIONS_TV}` + '/' + id + '/recommendations' + '?' + this.api_key;
-  return this._http.get(url);
-}
+  getTvBackdropsImages(id: string) {
+    const url = this.base_url + `${API_LIST.IMAGES.GET_ALL_TV_BACKDROPS_IMAGE}` + '/' + id + '/images' + '?' + this.api_key;
+    return this._http.get(url);
+  }
 
   /*
-   Genre Listing 
+    Recomend TV
+   */
+  getRecomendTv(id: string) {
+    const url = this.base_url + `${API_LIST.TV.GET_RECOMMENDATIONS_TV}` + '/' + id + '/recommendations' + '?' + this.api_key;
+    return this._http.get(url);
+  }
+
+  /*
+   Genre Listing
   */
   getGenres() {
     const url = this.base_url + `${API_LIST.GENRE.GET_GENRE}` + '?' + this.api_key;
@@ -175,7 +175,7 @@ getRecomendMovies(id: string){
 
 
   /*
-   Single Genre 
+   Single Genre
   */
   getMoviesByGenre(id: string) {
     const url = this.base_url + `${API_LIST.GENRE.GET_GENRE_LIST}` + '/' + id + '/movies' + '?' + this.api_key;
@@ -183,7 +183,7 @@ getRecomendMovies(id: string){
   }
 
   /*
-   Single Cast 
+   Single Cast
   */
   getMovieCredits(id: string) {
     const url = this.base_url + `${API_LIST.GENRE.GET_PERSON_CAST}` + '/' + id + '/credits' + '?' + this.api_key;
@@ -194,34 +194,24 @@ getRecomendMovies(id: string){
   /*
     Person Details
   */
- getPersonDetail(id: string) {
-  const url = this.base_url + `${API_LIST.PERSON.GET_PERSON_DETAILS}` + '/' + id + '?' + this.api_key;
-  return this._http.get(url);
- }
+  getPersonDetail(id: string) {
+    const url = this.base_url + `${API_LIST.PERSON.GET_PERSON_DETAILS}` + '/' + id + '?' + this.api_key;
+    return this._http.get(url);
+  }
 
   /*
     Person Similar Movies
   */
 
- getPersonCast(id: string) {
-  const url = this.base_url + `${API_LIST.PERSON.GET_PERSON_MOVIES}` + '/' + id + '/movie_credits' + '?' + this.api_key;
-  return this._http.get(url);
- }
+  getPersonCast(id: string) {
+    const url = this.base_url + `${API_LIST.PERSON.GET_PERSON_MOVIES}` + '/' + id + '/movie_credits' + '?' + this.api_key;
+    return this._http.get(url);
+  }
 
-  // searchMovies(searchStr: string, page: number) {
-  //   return this.http.get(`${this.baseUrl}search/movie?api_key=${this.apiKey}&query=${searchStr}&page=${page}&language=${this.language}&region=${this.region}`)
-  // }
-  // getMovieReviews(id: string) {
-  //   return this.http.get(`${this.baseUrl}movie/${id}/reviews?api_key=${this.apiKey}`)
-  // }
+  searchMovies(searchStr: string) {
+    const url =  `${this.base_url}${API_LIST.SEARCH.SEARCH_MOVIES}movie?${this.api_key}&query=${searchStr}`;
+    return this._http.get(url);
+  }
 
-
-  // getPersonExternalData(id: string) {
-  //   return this.http.get(`${this.baseUrl}person/${id}/external_ids?api_key=${this.apiKey}`)
-  // }
-
-  // getPersonCast(id: string) {
-  //   return this.http.get(`${this.baseUrl}person/${id}/movie_credits?api_key=${this.apiKey}`)
-  // }
 
 }

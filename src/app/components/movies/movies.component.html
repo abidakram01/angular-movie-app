@@ -3,7 +3,7 @@
         <h3 class="listing__title">Popular Movies</h3>
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
-    <p-carousel [value]="discover_movies_data" [numVisible]="6" [numScroll]="4" [circular]="false">
+    <p-carousel [value]="discover_movies_data" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-discovermovies pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/movies/', discovermovies.id]">
                 <div class="overlay">
@@ -27,7 +27,7 @@
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
     
-    <p-carousel [value]="upcoming_movies" [numVisible]="6" [numScroll]="4" [circular]="false">
+    <p-carousel [value]="upcoming_movies" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-coming_movies pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/movies/', coming_movies.id]">
                 <div class="overlay">
@@ -50,7 +50,7 @@
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
 
-    <p-carousel [value]="top_rated_movies_data" [numVisible]="6" [numScroll]="4" [circular]="false">
+    <p-carousel [value]="top_rated_movies_data" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-toprated pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/movies/', toprated.id]">
                 <div class="overlay">
@@ -72,7 +72,7 @@
         <h3 class="listing__title">Now Playing Movies</h3>
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
-    <p-carousel [value]="now_playing_movies" [numVisible]="6" [numScroll]="4" [circular]="false">
+    <p-carousel [value]="now_playing_movies" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-nowplaying pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/movies/', nowplaying.id]">
                 <div class="overlay">

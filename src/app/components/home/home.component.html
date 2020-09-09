@@ -8,7 +8,7 @@
             <strong>Explore All</strong>
         </a>
     </div>
-    <p-carousel [value]="trending_movies" [numVisible]="6" [numScroll]="4" [circular]="false">
+    <p-carousel [value]="trending_movies" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-trendingmovies pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/movies/', trendingmovies.id]">
                 <div class="overlay">
@@ -34,7 +34,7 @@
             <strong>Explore All</strong>
         </a>
     </div>
-    <p-carousel [value]="tv_shows" [numVisible]="6" [numScroll]="4" [circular]="false">
+    <p-carousel [value]="tv_shows" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-tv pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/tv/', tv.id]">
                 <div class="overlay">

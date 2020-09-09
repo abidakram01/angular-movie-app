@@ -1,27 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MoviesService } from '../../shared/service/movies.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class HomeComponent implements OnInit {
   trending_movies: any;
   tv_shows: any
   responsiveOptions;
-  responsiveOptions1;
+  responsive;
 
   constructor(
     private _movies: MoviesService,
   ) {
-      
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 3
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 2
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
+
+ 
   }
 
   ngOnInit() {
     this.trendingMovies();
     this.tvShow();
+    
+    
   }
 
   trendingMovies() {
@@ -35,5 +56,6 @@ export class HomeComponent implements OnInit {
       this.tv_shows = res.results;
     })
   }
+
 
 }

@@ -105,9 +105,9 @@
   margin-bottom: 20px;
 }
 
-#pr_id_2 .ui-carousel-item{
-  flex: 0 0 16.666666666666668% !important;
-}
+// #pr_id_2 .ui-carousel-item{
+//   flex: 0 0 16.666666666666668% !important;
+// }
 
 .ui-carousel-prev, .ui-carousel-next{
   background-color: $secondary-color !important;
@@ -120,9 +120,9 @@
     box-shadow: none !important
   }
 
-  @media (max-width: $breakpoint-xsmall) {
-    display: none;
-  }
+  // @media (max-width: $breakpoint-xsmall) {
+  //   display: none;
+  // }
 }
 
 .ui-carousel-content,

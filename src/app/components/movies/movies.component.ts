@@ -11,12 +11,31 @@ export class MoviesComponent implements OnInit {
   top_rated_movies_data: any;
   upcoming_movies: any;
   now_playing_movies: any;
+  responsiveOptions;
 
   // page = 1;
   // length;
   // pageSize = 12;
 
-  constructor(private _movies: MoviesService) {}
+  constructor(private _movies: MoviesService) {
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 3
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 2
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
+  }
 
   ngOnInit() {
     this.discoverMovies();

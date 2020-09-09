@@ -21,6 +21,7 @@ export class MovieDetailsComponent implements OnInit {
   _backdrops: any = [];
   _posters:any = []
   _recomend: any = [];
+  responsiveOptions;
   
 
   constructor(
@@ -29,7 +30,23 @@ export class MovieDetailsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private dialog: MatDialog
   ) {
-    
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 3
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 2
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
   }
 
   ngOnInit() {
