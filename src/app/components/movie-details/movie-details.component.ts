@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MoviesService } from '../../shared/service/movies.service';
-import { ActivatedRoute ,Params} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { MoviesService } from 'src/app/service/movies.service';
+import { ActivatedRoute , Params} from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material';
 import { AppMovieDialogComponent } from '../movie-details/app-movie-dialog/app-movie-dialog.component';
@@ -16,17 +16,16 @@ export class MovieDetailsComponent implements OnInit {
   movie: any;
   baseUrl = 'https://www.youtube.com/embed/';
   autoplay = '?rel=0;&autoplay=1&mute=0';
-  related_video: any;
-  casts:any = [];
-  _backdrops: any = [];
-  _posters:any = []
-  _recomend: any = [];
+  relatedvideo: any;
+  casts: any = [];
+  backdrops: any = [];
+  recomendMovies: any = [];
   responsiveOptions;
-  
+
 
   constructor(
-    private _movies: MoviesService,
-    private _router: ActivatedRoute,
+    private movieService: MoviesService,
+    private router: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private dialog: MatDialog
   ) {
@@ -50,7 +49,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._router.params.subscribe((params: Params) => {
+    this.router.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.getSingleMoviesVideos(this.id);
       this.getSingleMoviesDetails(this.id);
@@ -61,16 +60,16 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   getSingleMoviesDetails(id){
-    this._movies.getMoviesDetails(id).subscribe((res:any) => {
+    this.movieService.getMovie(id).subscribe((res: any) => {
       this.movie = res;
     });
   }
 
   getSingleMoviesVideos(id) {
-    this._movies.getMoviesVideos(id).subscribe((res: any) => {
+    this.movieService.getMovieVideos(id).subscribe((res: any) => {
       if (res.results.length) {
         this.video = res.results[0];
-        this.related_video = res.results;
+        this.relatedvideo = res.results;
       }
     });
   }
@@ -84,22 +83,22 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
   
-  getCast(id){
-    this._movies.getMovieCredits(id).subscribe((res:any)=>{
+  getCast(id) {
+    this.movieService.getMovieCredits(id).subscribe((res: any) => {
       this.casts = res.cast;
-    })
+    });
   }
 
-  getBackropsImages(id){
-    this._movies.getBackdropsImages(id).subscribe((res:any) =>{
-      this._backdrops = res.backdrops;
-    })
+  getBackropsImages(id) {
+    this.movieService.getBackdropsImages(id).subscribe((res: any) => {
+      this.backdrops = res.backdrops;
+    });
   }
 
-  getRecomendMovie(id){
-    this._movies.getRecomendMovies(id).subscribe((res:any) =>{
-      this._recomend = res.results;
-    })
+  getRecomendMovie(id) {
+    this.movieService.getRecomendMovies(id).subscribe((res: any) => {
+      this.recomendMovies = res.results;
+    });
   }
  
 }

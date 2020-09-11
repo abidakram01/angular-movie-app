@@ -3,7 +3,8 @@
         <h3 class="listing__title">Popular TV Shows</h3>
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
-    <p-carousel [value]="popular_data" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <p-carousel [value]="popular_data" *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-item pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
                 <div class="overlay">
@@ -27,7 +28,8 @@
         <h3 class="listing__title">Top Rated TV Shows</h3>
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
-    <p-carousel [value]="top_rated_tv" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <p-carousel [value]="top_rated_tv"  *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-item pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
                 <div class="overlay">
@@ -49,7 +51,8 @@
         <h3 class="listing__title">Currently Airing TV Shows</h3>
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
-    <p-carousel [value]="airing_tv" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <p-carousel [value]="airing_tv"  *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-item pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
                 <div class="overlay">
@@ -72,7 +75,8 @@
         <h3 class="listing__title">TV Shows Airing Today</h3>
         <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
     </div>
-    <p-carousel [value]="tv_show_airing_today" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <p-carousel [value]="tv_show_airing_today"  *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
         <ng-template let-item pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
                 <div class="overlay">

@@ -1,6 +1,7 @@
-<div>
+<ng-container>
     <app-slider></app-slider>
-</div>
+</ng-container>
+
 <div class="listing">
     <div class="listing__head">
         <h3 class="listing__title">Trending Movies</h3>
@@ -8,24 +9,26 @@
             <strong>Explore All</strong>
         </a>
     </div>
-    <p-carousel [value]="trending_movies" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
-        <ng-template let-trendingmovies pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/movies/', trendingmovies.id]">
+    
+    <app-skeleton *ngIf="loader" ></app-skeleton>
+    <p-carousel [value]="nowPlaying" [numVisible]="6" [numScroll]="4" [circular]="false" *ngIf="!loader"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-movie pTemplate="item">
+            <div class="listing-item-style" [routerLink]="['/movies/', movie.id]">
                 <div class="overlay">
                     <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
                 </div>
-                <img *ngIf="trendingmovies?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{trendingmovies?.poster_path}}">
-                <img *ngIf="!trendingmovies?.poster_path" src="assets/images/default-movie.png">
-                <h6>{{ trendingmovies?.title }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{trendingmovies?.vote_average}}</span> /10</p>
-                <p class="year"><span>{{trendingmovies?.release_date | date: 'yyyy'}}</span>
+                <img *ngIf="movie?.poster_path"
+                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
+                <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png">
+                <h6>{{ movie?.title }}</h6>
+                <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+                <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
                 </p>
             </div>
         </ng-template>
     </p-carousel>
 </div>
-    <!-- <mat-paginator (page)="pageChange($event)" [length]="length" [pageSize]="pageSize"></mat-paginator> -->
-
 
 <div class="listing">
     <div class="listing__head">
@@ -34,7 +37,9 @@
             <strong>Explore All</strong>
         </a>
     </div>
-    <p-carousel [value]="tv_shows" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <p-carousel [value]="tvShows" [numVisible]="6" [numScroll]="4" [circular]="false" *ngIf="!loader"
+        [responsiveOptions]="responsiveOptions">
         <ng-template let-tv pTemplate="item">
             <div class="listing-item-style" [routerLink]="['/tv/', tv.id]">
                 <div class="overlay">

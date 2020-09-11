@@ -29,13 +29,12 @@
     <div class="form">
         <form autocomplete="off">
             <div class="field">
-                <input id="search" name="search" type="text" [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()" placeholder="Search for a movie, tv show or person...">
+                <input id="search" name="search" type="text" placeholder="Search for a movie, tv show or person...">
             </div>
         </form>
     </div>
 </p-sidebar>
 
-<app-search-movies *ngIf="searchBarUp" [movieSearchResults]="movieSearchResults" (moviesEventEmitter)="moviesEventEmitter($event)"></app-search-movies>
 
 <p-sidebar [(visible)]="leftSidebar" position="left" [baseZIndex]="10000">
     <div class="sidebarNav">

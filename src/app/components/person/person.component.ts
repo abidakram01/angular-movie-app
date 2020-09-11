@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../../shared/service/movies.service';
+import { MoviesService } from 'src/app/service/movies.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -10,15 +10,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class PersonComponent implements OnInit {
   public id: number;
   person: any;
-  person_cast:any = [];
+  // tslint:disable-next-line: variable-name
+  person_cast: any = [];
 
   constructor(
-    private _movies: MoviesService,
-    private _router: ActivatedRoute,
+    private movieServices: MoviesService,
+    private router: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this._router.params.subscribe((params: Params) => {
+    this.router.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.gerPersonDetails(this.id);
       this.getPersonCastMovie(this.id);
@@ -26,16 +27,15 @@ export class PersonComponent implements OnInit {
   }
 
   gerPersonDetails(id) {
-    this._movies.getPersonDetail(id).subscribe((result: any) => {
-      this.person = result
-    })
+    this.movieServices.getPersonDetail(id).subscribe((result: any) => {
+      this.person = result;
+    });
   }
 
   getPersonCastMovie(id) {
-    this._movies.getPersonCast(id).subscribe((res: any) => {
+    this.movieServices.getPersonCast(id).subscribe((res: any) => {
       this.person_cast = res.cast;
-    })
+    });
   }
-
 
 }

@@ -2,8 +2,9 @@
     <div class="listing__head">
         <h2 class="listing__title">Movie Genre: {{ title }}</h2>
     </div>
-    <div class="row">
-        <div class="col-md-2 listing__items" *ngFor="let movie of movies; let i = index;">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <div class="row" *ngIf="!loader">
+        <div class="col-md-2 listing__items" *ngFor="let movie of moviesGenre; let i = index;">
             <div [routerLink]="['/movies/', movie.id]">
                 <div class="listing-item-style">
                     <div class="overlay">

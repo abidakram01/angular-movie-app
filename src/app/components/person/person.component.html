@@ -23,7 +23,6 @@
                                     {{ person?.known_for_department }}
                                 </div>
                             </li>
-
                             <li *ngIf="person.birthday">
                                 <div class="label">
                                     Born
@@ -32,7 +31,6 @@
                                     {{ person?.birthday | fullDate }}
                                 </div>
                             </li>
-
                             <li *ngIf="person?.deathday">
                                 <div class="label">
                                     Death
@@ -41,7 +39,6 @@
                                     {{ person?.deathday | fullDate }}
                                 </div>
                             </li>
-
                             <li *ngIf="person.place_of_birth">
                                 <div class="label">
                                     Place of Birth
@@ -54,33 +51,30 @@
                     </div>
                 </div>
             </div>
-
-
-            
-                <div class="listing-space mb-20">
-                    <div class="listing__head">
-                        <h2 class="listing__title">Similar Movies</h2>
-                    </div>
-                    <p-carousel [value]="person_cast" [numVisible]="6" [numScroll]="4" [circular]="false">
-                        <ng-template let-similar_movies pTemplate="item">
-                            <div class="listing-item-style" [routerLink]="['/movies/', similar_movies.id]">
-                                <div class="overlay">
-                                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW
-                                    </div>
-                                </div>
-                                <img *ngIf="similar_movies?.poster_path"
-                                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{similar_movies?.poster_path}}">
-                                <img *ngIf="!similar_movies?.poster_path" src="assets/images/default-movie.png">
-                                <h6>{{ similar_movies?.title }}</h6>
-                                <p class="rate"><i
-                                        class="material-icons">star</i><span>{{similar_movies?.vote_average}}</span>
-                                    /10</p>
-                                <div class="year"><span>{{similar_movies?.release_date | date: 'yyyy'}}</span>
+            <div class="listing-space mb-20" *ngIf="!person_cast">
+                <div class="listing__head">
+                    <h2 class="listing__title">Similar Movies</h2>
+                </div>
+                <p-carousel [value]="person_cast" [numVisible]="6" [numScroll]="4" [circular]="false">
+                    <ng-template let-similar_movies pTemplate="item">
+                        <div class="listing-item-style" [routerLink]="['/movies/', similar_movies.id]">
+                            <div class="overlay">
+                                <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW
                                 </div>
                             </div>
-                        </ng-template>
-                    </p-carousel>
-                </div>
+                            <img *ngIf="similar_movies?.poster_path"
+                                src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{similar_movies?.poster_path}}">
+                            <img *ngIf="!similar_movies?.poster_path" src="assets/images/default-movie.png">
+                            <h6>{{ similar_movies?.title }}</h6>
+                            <p class="rate"><i
+                                    class="material-icons">star</i><span>{{similar_movies?.vote_average}}</span>
+                                /10</p>
+                            <div class="year"><span>{{similar_movies?.release_date | date: 'yyyy'}}</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
             </div>
         </div>
     </div>
+</div>

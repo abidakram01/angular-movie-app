@@ -1,4 +1,4 @@
-@import '../../assets/scss/variables';
+@import '../../../../assets/scss/variables';
 
 .navbar {
   height: 65px;
@@ -34,7 +34,7 @@
   }
 
   .search-icon {
-    background-image: url(../../assets/images/Search.svg);
+    background-image: url(../../../../assets/images/Search.svg);
     background-repeat: no-repeat;
     background-size: 100%;
     width: 25px;

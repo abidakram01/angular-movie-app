@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { GenreRoutingModule } from './genre-routing.module';
 import { GenreComponent } from './genre.component';
-import { PipeModule } from 'src/app/shared/pipe/pipe.module';
+import { PipeModule } from 'src/app/pipe/pipe.module';
+import { SkeletonModule } from 'src/app/shared/skeleton/skeleton.module';
+
+
 
 
 @NgModule({
@@ -11,7 +14,8 @@ import { PipeModule } from 'src/app/shared/pipe/pipe.module';
   imports: [
     CommonModule,
     GenreRoutingModule,
-    PipeModule
+    PipeModule,
+    SkeletonModule
   ]
 })
 export class GenreModule { }

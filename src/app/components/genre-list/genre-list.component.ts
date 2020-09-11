@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../../shared/service/movies.service';
+import { MoviesService } from 'src/app/service/movies.service';
+import { delay } from 'rxjs/internal/operators/delay';
+
 
 @Component({
   selector: 'app-genre-list',
@@ -8,20 +10,22 @@ import { MoviesService } from '../../shared/service/movies.service';
 })
 export class GenreListComponent implements OnInit {
 
-  genres:any;
+  genreslist: any;
+  loader = true;
 
   constructor(
     private _movie: MoviesService
   ) { }
 
   ngOnInit() {
-    this.genreList();
+    this.MovieGenre();
   }
-  
-  genreList(){
-    this._movie.getGenres().subscribe((res: any) => {
-      this.genres = res.genres
-    })
+
+  MovieGenre() {
+    this._movie.getGenres().pipe(delay(2000)).subscribe((res: any) => {
+      this.genreslist = res.genres;
+      this.loader = false;
+    });
   }
 
 }

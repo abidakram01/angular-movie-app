@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../../shared/service/movies.service';
+import { MoviesService } from 'src/app/service/movies.service';
+import { delay } from 'rxjs/internal/operators/delay';
 
 @Component({
   selector: 'app-movies',
@@ -12,12 +13,9 @@ export class MoviesComponent implements OnInit {
   upcoming_movies: any;
   now_playing_movies: any;
   responsiveOptions;
+  loader = true;
 
-  // page = 1;
-  // length;
-  // pageSize = 12;
-
-  constructor(private _movies: MoviesService) {
+  constructor(private movieService: MoviesService) {
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -38,41 +36,38 @@ export class MoviesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.discoverMovies();
-    this.topRatedMovies();
-    this.nowPlaingMovies();
-    this.upComingMovies();
+    this.getDiscoverMovies();
+    this.getTopRatedMovies();
+    this.getNowPlaingMovies(1);
+    this.getUpComingMovies(1);
   }
 
-  discoverMovies() {
-    this._movies.getdiscoverMovies().subscribe((res: any) => {
+  getDiscoverMovies() {
+    this.movieService.getDiscoverMovies().pipe(delay(2000)).subscribe((res: any) => {
       this.discover_movies_data = res.results;
-    })
+      this.loader = false;
+    });
   }
 
-  topRatedMovies() {
-    this._movies.gettopRatedMovies().subscribe((res: any) => {
+  getTopRatedMovies() {
+    this.movieService.getTopRatedMovies().pipe(delay(2000)).subscribe((res: any) => {
       this.top_rated_movies_data = res.results;
-
-    })
+      this.loader = false;
+    });
   }
 
-  upComingMovies() {
-    this._movies.getupComingMovies().subscribe((res: any) => {
+  getUpComingMovies(page: number) {
+    this.movieService.getUpComingMovies(page).pipe(delay(2000)).subscribe((res: any) => {
       this.upcoming_movies = res.results;
-
-    })
+      this.loader = false;
+    });
   }
 
-  nowPlaingMovies() {
-    this._movies.getnowPlayingMovies().subscribe((res: any) => {
+  getNowPlaingMovies(page: number) {
+    this.movieService.getNowPlaying(page).pipe(delay(2000)).subscribe((res: any) => {
       this.now_playing_movies = res.results;
-
-    })
+      this.loader = false;
+    });
   }
 
-  // pageChange(event) {
-  //   this.page = event.pageIndex + 1;
-  //   this.discoverMovies();
-  // }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../../shared/service/movies.service';
+import { MoviesService } from 'src/app/service/movies.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { delay } from 'rxjs/internal/operators/delay';
 
 @Component({
   selector: 'app-genre',
@@ -8,26 +9,28 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./genre.component.scss']
 })
 export class GenreComponent implements OnInit {
-  movies: Object;
+  moviesGenre: Object;
   title: string;
   public id: number;
+  loader = true;
 
   constructor(
-    private _movie: MoviesService,
-    private _router: ActivatedRoute
+    private movieService: MoviesService,
+    private router: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this._router.params.subscribe((params: Params) => {
+    this.router.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.title = params['name'];
-      this.getMoviesByGenre(this.id);
+      this.getMoviesGenre(this.id);
     });
   }
 
-  getMoviesByGenre(id) {
-    this._movie.getMoviesByGenre(id).subscribe((res: any) => {
-        this.movies = res.results;
+  getMoviesGenre(id) {
+    this.movieService.getMoviesByGenre(id).pipe(delay(2000)).subscribe((res: any) => {
+        this.moviesGenre = res.results;
+        this.loader = false;
     });
   }
 

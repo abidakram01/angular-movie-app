@@ -5,15 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CharacterWithCommasPipe implements PipeTransform {
 
-  transform(array:any){
-    if(array){
+  transform(array: any) {
+    if (array) {
       return array.map(item => item.name).join(', ');
     }
-    
-    
   }
-    
+
 }
-  
+
 
 

@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesComponent } from './movies.component';
-import { PipeModule } from 'src/app/shared/pipe/pipe.module';
 import {CarouselModule} from 'primeng/carousel';
+import { PipeModule } from 'src/app/pipe/pipe.module';
+import { SkeletonModule } from 'src/app/shared/skeleton/skeleton.module';
+
 
 
 @NgModule({
@@ -12,11 +14,11 @@ import {CarouselModule} from 'primeng/carousel';
     CommonModule,
     MoviesRoutingModule,
     PipeModule,
-    CarouselModule
+    CarouselModule,
+    SkeletonModule
   ],
   declarations:[
     MoviesComponent,
   ]
-  
 })
 export class MoviesModule { }

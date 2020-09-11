@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { TvGenreRoutingModule } from './tv-genre-routing.module';
 import { TvGenreComponent } from './tv-genre.component';
-import { PipeModule } from 'src/app/shared/pipe/pipe.module';
+import { PipeModule } from 'src/app/pipe/pipe.module';
+
 
 
 @NgModule({

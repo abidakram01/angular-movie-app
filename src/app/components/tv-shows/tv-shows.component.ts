@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../../shared/service/movies.service';
+import { TvService } from 'src/app/service/tv.service';
+import { delay } from 'rxjs/internal/operators/delay';
 
 
 @Component({
@@ -13,10 +14,11 @@ export class TvShowsComponent implements OnInit {
   airing_tv: any;
   tv_show_airing_today: any;
   responsiveOptions;
+  loader = true;
 
   constructor(
-    private _movies: MoviesService
-  ) { 
+    private tvService: TvService
+  ) {
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -33,41 +35,42 @@ export class TvShowsComponent implements OnInit {
           numVisible: 1,
           numScroll: 1
       }
-  ]; 
+  ];
    }
 
   ngOnInit() {
-    this.PopularTvShows();
-    this.TopRatedTVShows();
-    this.CurrentlyAiringTVShows();
-    this.TVShowsAiringToday();
+    this.PopularTvShows(1);
+    this.TopRatedTVShows(1);
+    this.CurrentlyAiringTVShows(1);
+    this.TVShowsAiringToday(1);
   }
 
-  PopularTvShows() {
-    this._movies.getPopularTvShows().subscribe((res: any) => {
+  PopularTvShows(page: number) {
+    this.tvService.getPopularTVShow(page).pipe(delay(2000)).subscribe((res: any) => {
       this.popular_data = res.results;
-      console.log(res)
-    })
+      this.loader = false;
+    });
   }
 
-  TopRatedTVShows() {
-    this._movies.getTopRatedTvShows().subscribe((res: any) => {
+  TopRatedTVShows(page: number) {
+    this.tvService.getTopRatedTVShows(page).pipe(delay(2000)).subscribe((res: any) => {
       this.top_rated_tv = res.results;
-
-    })
+      this.loader = false;
+    });
   }
 
-  CurrentlyAiringTVShows() {
-    this._movies.getAiringTvShows().subscribe((res: any) => {
+  CurrentlyAiringTVShows(page: number) {
+    this.tvService.getTvOnTheAir(page).pipe(delay(2000)).subscribe((res: any) => {
       this.airing_tv = res.results;
-    })
+      this.loader = false;
+    });
   }
 
-  TVShowsAiringToday() {
-    this._movies.TvShowsAiringToday().subscribe((res: any) => {
+  TVShowsAiringToday(page: number) {
+    this.tvService.getTVAiringToday(page).pipe(delay(2000)).subscribe((res: any) => {
       this.tv_show_airing_today = res.results;
-
-    })
+      this.loader = false;
+    });
   }
 
 }
