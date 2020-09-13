@@ -21,7 +21,7 @@ export class TvShowDetailsComponent implements OnInit {
   autoplay = '?rel=0;&autoplay=1&mute=0';
   related_video: any;
   casts: any;
-  _backdrops: any;
+  backdrop: any;
   _posters: any;
   _recomend: any;
   responsiveOptions;
@@ -94,7 +94,7 @@ export class TvShowDetailsComponent implements OnInit {
 
   getTvBackropsImages(id) {
     this.tvService.getTvBackdropsImages(id).subscribe((res: any) => {
-      this._backdrops = res.backdrops;
+      this.backdrop = res.backdrops;
     });
   }
 

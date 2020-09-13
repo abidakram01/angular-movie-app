@@ -44,7 +44,7 @@ export class TvService {
   }
 
   getTvBackdropsImages(id: string) {
-    return this.http.get(`${this.baseUrl}tv/${id}/images?api_key=${this.apiKey}&language=${this.language}`);
+    return this.http.get(`${this.baseUrl}tv/${id}/images?api_key=${this.apiKey}`);
   }
 
   getMovieCredits(id: string) {

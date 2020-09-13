@@ -161,22 +161,22 @@
                     </div>
                 </mat-tab>
                 <mat-tab label="Photos">
-                    <div class="listing-space backdrop_" *ngIf="!_backdrops">
+                    <div class="listing-space backdrop_">
                         <div class="head">
                             <h2 class="title">Backdrops</h2>
                         </div>
                         <div class="items">
-                            <div class="item backdrop_" *ngFor="let backdrop of _backdrops | slice: 1:10">
+                            <div class="item backdrop_" *ngFor="let item of backdrop | slice: 1:10">
                                 <div class="image">
                                     <img class="lazyload"
-                                        src="https://image.tmdb.org/t/p/w533_and_h300_bestv2/{{ backdrop.file_path }}">
+                                        src="https://image.tmdb.org/t/p/w533_and_h300_bestv2/{{ item?.file_path }}">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </mat-tab>
             </mat-tab-group>
-            <div class="listing-space mt-20 mb-5" *ngIf="!_recomend">
+            <div class="listing-space mt-20 mb-5">
                 <div class="listing__head">
                     <h2 class="listing__title">Recommended Movies</h2>
                 </div>
