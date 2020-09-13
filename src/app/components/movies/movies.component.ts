@@ -8,12 +8,11 @@ import { delay } from 'rxjs/internal/operators/delay';
   styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit {
-  discover_movies_data: any;
-  top_rated_movies_data: any;
-  upcoming_movies: any;
-  now_playing_movies: any;
+  topRated: any;
   responsiveOptions;
   loader = true;
+  totalResults: any;
+  total_results: any;
 
   constructor(private movieService: MoviesService) {
     this.responsiveOptions = [
@@ -36,38 +35,22 @@ export class MoviesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDiscoverMovies();
-    this.getTopRatedMovies();
-    this.getNowPlaingMovies(1);
-    this.getUpComingMovies(1);
+    this.getTopRatedMovies(1);
   }
 
-  getDiscoverMovies() {
-    this.movieService.getDiscoverMovies().pipe(delay(2000)).subscribe((res: any) => {
-      this.discover_movies_data = res.results;
+  getTopRatedMovies(page: number) {
+    this.movieService.getTopRatedMovies(page).pipe(delay(2000)).subscribe((res: any) => {
+      this.topRated = res.results;
+      this.totalResults = res.total_results;
       this.loader = false;
-    });
+    },
+    error => console.log(error));
   }
 
-  getTopRatedMovies() {
-    this.movieService.getTopRatedMovies().pipe(delay(2000)).subscribe((res: any) => {
-      this.top_rated_movies_data = res.results;
-      this.loader = false;
-    });
+  changePage(event) {
+    this.loader = true;
+    this.getTopRatedMovies(event.pageIndex + 1);
   }
 
-  getUpComingMovies(page: number) {
-    this.movieService.getUpComingMovies(page).pipe(delay(2000)).subscribe((res: any) => {
-      this.upcoming_movies = res.results;
-      this.loader = false;
-    });
-  }
-
-  getNowPlaingMovies(page: number) {
-    this.movieService.getNowPlaying(page).pipe(delay(2000)).subscribe((res: any) => {
-      this.now_playing_movies = res.results;
-      this.loader = false;
-    });
-  }
 
 }

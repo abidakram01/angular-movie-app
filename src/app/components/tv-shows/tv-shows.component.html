@@ -1,94 +1,26 @@
 <div class="listing">
     <div class="listing__head">
-        <h3 class="listing__title">Popular TV Shows</h3>
-        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+        <h3 class="listing__title">TV Shows</h3>
     </div>
     <app-skeleton *ngIf="loader"></app-skeleton>
-    <p-carousel [value]="popular_data" *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
-        <ng-template let-item pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
-                <div class="overlay">
-                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+    <div class="row" *ngIf="!loader">
+        <div class="col-md-2 listing__items" *ngFor="let item of topRatedTv | slice:0:18">
+            <div [routerLink]="['/tv/', item.id]">
+                <div class="listing-item-style">
+                    <div class="overlay">
+                        <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                    </div>
+                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{item?.poster_path}}" [alt]="item.title ? item.title : item.name">
+                    <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png" [alt]="item.title ? item.title : item.name">
+                    <h6>{{ item?.name }}</h6>
+                    <p class="rate"><i class="material-icons">star</i><span>{{item?.vote_average}}</span> /10</p>
+                    <p class="year"><span>{{item?.first_air_date | date: 'yyyy'}}</span>
+                    </p>
                 </div>
-                <img *ngIf="item?.poster_path"
-                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ item?.poster_path }}">
-                <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png">
-                <h6>{{ item?.name }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{ item?.vote_average }}</span> /10
-                </p>
             </div>
-        </ng-template>
-    </p-carousel>
-</div>
-<!-- <mat-paginator (page)="pageChange($event)" [length]="length" [pageSize]="pageSize"></mat-paginator> -->
-
-
-<div class="listing">
-    <div class="listing__head">
-        <h3 class="listing__title">Top Rated TV Shows</h3>
-        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+        </div>
     </div>
-    <app-skeleton *ngIf="loader"></app-skeleton>
-    <p-carousel [value]="top_rated_tv"  *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
-        <ng-template let-item pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
-                <div class="overlay">
-                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                </div>
-                <img *ngIf="item?.poster_path"
-                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{item?.poster_path}}">
-                <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png">
-                <h6>{{ item?.name }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{item?.vote_average}}</span>/10
-                </p>
-            </div>
-        </ng-template>
-    </p-carousel>
-</div>
-
-<div class="listing">
-    <div class="listing__head">
-        <h3 class="listing__title">Currently Airing TV Shows</h3>
-        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
+    <div class="col-md-12">
+        <mat-paginator [length]="totalResults" [pageSize]="20" (page)="changePage($event)"></mat-paginator>
     </div>
-    <app-skeleton *ngIf="loader"></app-skeleton>
-    <p-carousel [value]="airing_tv"  *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
-        <ng-template let-item pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
-                <div class="overlay">
-                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                </div>
-                <img *ngIf="item?.poster_path"
-                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{item?.poster_path}}">
-                <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png">
-                <h6>{{ item?.name }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{item?.vote_average}}</span>/10
-                </p>
-            </div>
-        </ng-template>
-    </p-carousel>
-</div>
-
-
-<div class="listing">
-    <div class="__Movies_head">
-        <h3 class="listing__title">TV Shows Airing Today</h3>
-        <!-- <a class="listing__explore"><strong>Explore All</strong></a> -->
-    </div>
-    <app-skeleton *ngIf="loader"></app-skeleton>
-    <p-carousel [value]="tv_show_airing_today"  *ngIf="!loader" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
-        <ng-template let-item pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/tv/', item.id]">
-                <div class="overlay">
-                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                </div>
-                <img *ngIf="item?.poster_path"
-                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{item?.poster_path}}">
-                <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png">
-                <h6>{{ item?.name }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{item?.vote_average}}</span>/10
-                </p>
-            </div>
-        </ng-template>
-    </p-carousel>
 </div>

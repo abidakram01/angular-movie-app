@@ -16,25 +16,8 @@
             <a class="nav-link" [routerLink]="['/genres']" routerLinkActive="router-link-active">Genres</a>
         </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item" (click)="searchBarUp = true">
-            <a class="search-icon"></a>
-        </li>
-    </ul>
-
     <span class="sidebar-nav-btn"  pButton icon="pi pi-plus" label="Show" (click)="leftSidebar = true"><img src="assets/images/menu.svg"></span>
 </nav>
-
-<p-sidebar [(visible)]="searchBarUp" position="top" [baseZIndex]="10000">
-    <div class="form">
-        <form autocomplete="off">
-            <div class="field">
-                <input id="search" name="search" type="text" placeholder="Search for a movie, tv show or person...">
-            </div>
-        </form>
-    </div>
-</p-sidebar>
-
 
 <p-sidebar [(visible)]="leftSidebar" position="left" [baseZIndex]="10000">
     <div class="sidebarNav">

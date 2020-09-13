@@ -9,12 +9,11 @@ import { delay } from 'rxjs/internal/operators/delay';
   styleUrls: ['./tv-shows.component.scss']
 })
 export class TvShowsComponent implements OnInit {
-  popular_data: any;
-  top_rated_tv: any;
-  airing_tv: any;
-  tv_show_airing_today: any;
+  topRatedTv: any;
   responsiveOptions;
   loader = true;
+  totalResults: any;
+  total_results: any;
 
   constructor(
     private tvService: TvService
@@ -39,38 +38,20 @@ export class TvShowsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.PopularTvShows(1);
     this.TopRatedTVShows(1);
-    this.CurrentlyAiringTVShows(1);
-    this.TVShowsAiringToday(1);
-  }
-
-  PopularTvShows(page: number) {
-    this.tvService.getPopularTVShow(page).pipe(delay(2000)).subscribe((res: any) => {
-      this.popular_data = res.results;
-      this.loader = false;
-    });
   }
 
   TopRatedTVShows(page: number) {
     this.tvService.getTopRatedTVShows(page).pipe(delay(2000)).subscribe((res: any) => {
-      this.top_rated_tv = res.results;
+      this.topRatedTv = res.results;
+      this.totalResults = res.total_results;
       this.loader = false;
-    });
+    },
+    error => console.log(error));
   }
 
-  CurrentlyAiringTVShows(page: number) {
-    this.tvService.getTvOnTheAir(page).pipe(delay(2000)).subscribe((res: any) => {
-      this.airing_tv = res.results;
-      this.loader = false;
-    });
+  changePage(event) {
+    this.TopRatedTVShows(event.pageIndex + 1);
+    this.loader = false;
   }
-
-  TVShowsAiringToday(page: number) {
-    this.tvService.getTVAiringToday(page).pipe(delay(2000)).subscribe((res: any) => {
-      this.tv_show_airing_today = res.results;
-      this.loader = false;
-    });
-  }
-
 }
