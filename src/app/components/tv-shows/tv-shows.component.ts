@@ -14,6 +14,8 @@ export class TvShowsComponent implements OnInit {
   loader = true;
   totalResults: any;
   total_results: any;
+  searchRes: any;
+  searchStr: string;
 
   constructor(
     private tvService: TvService
@@ -54,4 +56,11 @@ export class TvShowsComponent implements OnInit {
     this.TopRatedTVShows(event.pageIndex + 1);
     this.loader = false;
   }
+
+  searchMovies() {
+    this.tvService.searchtv(this.searchStr).subscribe(res => {
+      this.searchRes = res.results;
+    });
+  }
+
 }

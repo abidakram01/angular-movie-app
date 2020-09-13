@@ -63,4 +63,8 @@ export class TvService {
     return this.http.get(`${this.baseUrl}tv/${id}/recommendations?api_key=${this.apiKey}&language=${this.language}`);
   }
 
+  searchtv(searchStr: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}search/tv?api_key=${this.apiKey}&query=${searchStr}`);
+  }
+
 }

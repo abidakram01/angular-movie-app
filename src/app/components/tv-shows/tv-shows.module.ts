@@ -7,6 +7,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { PipeModule } from 'src/app/pipe/pipe.module';
 import { SkeletonModule } from 'src/app/shared/skeleton/skeleton.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     PipeModule,
     CarouselModule,
     SkeletonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule
   ],
   declarations: [
     TvShowsComponent,
