@@ -13,6 +13,8 @@ export class MoviesComponent implements OnInit {
   loader = true;
   totalResults: any;
   total_results: any;
+  searchRes: any;
+  searchStr: string;
 
   constructor(private movieService: MoviesService) {
     this.responsiveOptions = [
@@ -50,6 +52,12 @@ export class MoviesComponent implements OnInit {
   changePage(event) {
     this.loader = true;
     this.getTopRatedMovies(event.pageIndex + 1);
+  }
+
+  searchMovies() {
+    this.movieService.searchMovies(this.searchStr).subscribe(res => {
+      this.searchRes = res.results;
+    });
   }
 
 
