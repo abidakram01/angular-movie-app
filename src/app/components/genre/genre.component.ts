@@ -9,7 +9,7 @@ import { delay } from 'rxjs/internal/operators/delay';
   styleUrls: ['./genre.component.scss']
 })
 export class GenreComponent implements OnInit {
-  moviesGenre: Object;
+  moviesGenre: any;
   title: string;
   public id: number;
   loader = true;
