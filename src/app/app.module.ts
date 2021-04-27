@@ -17,8 +17,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SkeletonModule } from './shared/skeleton/skeleton.module';
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

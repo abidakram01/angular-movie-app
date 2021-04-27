@@ -12,3 +12,24 @@
 @import '../src/assets/scss/overview';
 @import '../src/assets/scss/videos';
 @import '../src/assets/scss/image';
+
+.paybtn{
+    text-align: center;
+    background: #212121;
+    padding-bottom: 20px;
+    .PaymentButton-securedBy{
+        display: none;
+    }
+    svg{
+        display: none;
+    }
+    .PaymentButton {
+        background: #dc4666 !important;
+    }
+    .PaymentButton-contents {
+        padding: 10px 0px 10px 0px !important;
+        .PaymentButton-text{
+            color: #fff;
+        }
+    }
+}
