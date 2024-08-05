@@ -1,0 +1,17 @@
+<app-carousel [title]="'Popular TV Shows'" [exploreLink]="'/movie/category/popularTv'"
+    [items]="tvCategories['popularTv']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
+
+
+<app-carousel [title]="'Top Rated TV Shows'" [exploreLink]="'/movie/category/top_rated'"
+    [items]="tvCategories['onTheAir']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
+
+
+<app-carousel [title]="'Currently Airing TV Shows'" [exploreLink]="'/movie/category/on_the_air'"
+    [items]="tvCategories['onTheAir']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
+
+<app-carousel [title]="'TV Shows Airing Today'" [exploreLink]="'/movie/category/airing_today'"
+    [items]="tvCategories['airingToday']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>

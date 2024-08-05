@@ -1,68 +1,50 @@
-<div class="listing">
-    <div class="listing__head">
-        <h3 class="listing__title" *ngIf="!searchRes">Movies</h3>
-        <h3 class="listing__title" *ngIf="searchRes">Search Movies</h3>
-    </div>
-    <form>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control searchdesign" placeholder="Search for movies..." [(ngModel)]="searchStr"
-                            name="searchStr" (keyup.enter)="searchMovies()">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary btnDesign" type="button" (click)="searchMovies()">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>    
-    </form>
-
-    <ng-container *ngIf="searchRes">
-        <app-skeleton *ngIf="loader"></app-skeleton>
-        <div class="row" *ngIf="!loader">
-            <div class="col-md-2 listing__items" *ngFor="let movie of searchRes | slice:0:18">
-                <div [routerLink]="['/movies/', movie.id]">
-                    <div class="listing-item-style">
-                        <div class="overlay">
-                            <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                        </div>
-                        <img *ngIf="movie?.poster_path" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}"
-                            [alt]="movie.title ? movie.title : movie.name">
-                        <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png"
-                            [alt]="movie.title ? movie.title : movie.name">
-                        <h6>{{ movie?.title }}</h6>
-                        <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
-                        <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-container>
-
-    <app-skeleton *ngIf="loader"></app-skeleton>
-    <div class="row" *ngIf="!loader">
-        <div class="col-md-2 listing__items" *ngFor="let movie of topRated | slice:0:18">
-            <div [routerLink]="['/movies/', movie.id]">
-                <div class="listing-item-style">
-                    <div class="overlay">
-                        <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                    </div>
-                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}"
-                        [alt]="movie.title ? movie.title : movie.name">
-                    <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png"
-                        [alt]="movie.title ? movie.title : movie.name">
-                    <h6>{{ movie?.title }}</h6>
-                    <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
-                    <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
-                    </p>
-                </div>
+<div *ngIf="hero" class="hero">
+    <div class="backdrop">
+        <div class="lazyloaded">
+            <div class="lazyloaded">
+                <img alt="{{hero?.title}}" class="lazyload image" [src]="'https://image.tmdb.org/t/p/original/' + hero?.backdrop_path">
             </div>
         </div>
     </div>
-    
-    <mat-paginator [length]="totalResults" [pageSize]="20" (page)="changePage($event)"></mat-paginator>
-    
+    <div class="pane">
+        <div>
+            <h1 class="name" [routerLink]="['/movies/', hero?.id]">
+                {{hero?.title}}
+            </h1>
+            <div class="meta">
+                <div class="rating">
+                    <div class="stars">
+                        <div [style.width.%]="(hero?.vote_average / 10) * 100"></div>
+                    </div>
+                    <div *ngIf="hero?.vote_count > 0">
+                        {{ hero?.vote_count | number }} Reviews
+                    </div>
+                </div>
+                <div class="info">
+                    <span *ngIf="hero?.number_of_seasons">Season {{ hero?.number_of_seasons }}</span>
+                    <span *ngIf="hero?.release_date">{{ hero?.release_date | date }}</span>
+                    <span>Cert. {{ hero?.popularity }}</span>
+                </div>
+            </div>
+            <div class="desc">
+                {{ hero?.overview }}
+            </div>
+        </div>
+    </div>
 </div>
+
+<app-carousel [title]="'Popular Movies'" [exploreLink]="'/movie/category/popular'"
+    [items]="movieCategories['popularMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
+
+<app-carousel [title]="'Top Rated Movies'" [exploreLink]="'/movie/category/top_rated'"
+    [items]="movieCategories['topRatedMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
+
+<app-carousel [title]="'Upcoming Movies'" [exploreLink]="'/movie/category/upcoming'"
+    [items]="movieCategories['upcomingMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
+
+<app-carousel [title]="'Now Playing Movies'" [exploreLink]="'/movie/category/now_playing'"
+    [items]="movieCategories['nowPlayingMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>

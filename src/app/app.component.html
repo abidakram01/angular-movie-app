@@ -1,7 +1,9 @@
-<app-header></app-header>
-<div class="loading" *ngIf="loading">
-    <mat-progress-bar [color]="color" [mode]="mode" [value]="value"></mat-progress-bar>
-</div>
-
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div *ngIf="searchOpen$ | async" @fadeAnimation>
+    <form><app-search></app-search></form>
+  </div>
+  
+  <app-navbar></app-navbar>
+  
+  <router-outlet @fadeAnimation></router-outlet>
+  
+  <app-footer @fadeAnimation></app-footer>
