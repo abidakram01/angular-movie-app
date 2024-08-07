@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { delay } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-tv',
@@ -16,11 +17,15 @@ export class TvComponent {
     topRatedTv: []
   };
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.loadMovies();
     this.getTvDiscover(1);
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
   }
 
   loadMovies(): void {

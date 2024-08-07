@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { delay } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -13,12 +14,16 @@ export class HomeComponent implements OnInit {
   movies_data: any[] = [];
 
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.fetchTrendingContent('movie', 1, 'movies');
     this.fetchTrendingContent('tv', 1, 'tvShows');
     this.getNowPlaying('movie', 1);
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
   }
 
   getNowPlaying(mediaType: 'movie' | 'tv', page: number) {

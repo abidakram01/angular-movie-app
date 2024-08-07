@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { delay } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-movies',
@@ -19,11 +20,15 @@ export class MoviesComponent implements OnInit {
     topRatedMovies: [],
   };
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
+    this.spinner.show();
     this.loadMovies();
     this.getNowPlaying('movie', 2);
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
   }
 
   getNowPlaying(mediaType: 'movie' | 'tv', page: number) {
@@ -63,7 +68,7 @@ export class MoviesComponent implements OnInit {
       },
       (error) => {
         console.error(`Error fetching ${category} movies:`, error);
-      }
-    );
+      });
   }
+  
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from './store/app.state';
 import { selectSearchOpen } from './store/search.selectors';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -24,10 +25,14 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class AppComponent implements OnInit {
   searchOpen$!: Observable<boolean>; // Observable for searchOpen
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
-    // Initialize the observable
     this.searchOpen$ = this.store.pipe(select(selectSearchOpen));
+
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
   }
 }

@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { StoreModule } from '@ngrx/store';
 import { searchReducer } from './store/search.reducer';
 
@@ -32,11 +32,6 @@ import { SearchComponent } from './components/global/search/search.component';
 import { CarouselComponent } from './components/global/carousel/carousel.component';
 import { MoviesInfoComponent } from './components/movies-info/movies-info.component';
 import { TvInfoComponent } from './components/tv-info/tv-info.component';
-
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -70,9 +65,11 @@ import { TvInfoComponent } from './components/tv-info/tv-info.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     StoreModule.forRoot({ search: searchReducer })
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

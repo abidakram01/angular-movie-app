@@ -39,6 +39,7 @@
               }
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/ball-triangle-path.css",
               "src/styles.scss"
             ],
             "scripts": []
