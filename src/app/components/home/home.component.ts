@@ -1,5 +1,6 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +10,31 @@ import { ApiService } from '../../api/api.service';
 export class HomeComponent implements OnInit {
   moviesSlider: any[] = [];
   tvSlider: any[] = [];
+  movies_data: any[] = [];
+
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.fetchTrendingContent('movie', 1, 'movies');
     this.fetchTrendingContent('tv', 1, 'tvShows');
+    this.getNowPlaying('movie', 1);
+  }
+
+  getNowPlaying(mediaType: 'movie' | 'tv', page: number) {
+    this.apiService.getNowPlaying(mediaType, page).pipe(delay(2000)).subscribe(
+      (res: any) => {
+        if (mediaType === 'movie') {
+          this.movies_data = res.results.map((item: any) => ({
+            ...item,
+            link: `/movie/${item.id}`
+          }));
+        }
+      },
+      error => {
+        console.error('Error fetching now playing data', error);
+      }
+    );
   }
 
   fetchTrendingContent(media: string, page: number, type: string): void {
@@ -44,5 +64,6 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  
+
+
 }

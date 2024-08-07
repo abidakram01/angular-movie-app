@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class MoviesComponent implements OnInit {
   hero: any;
-  id: number | undefined; // Hardcoded id for testing
+  movies_data: any[] = [];
 
   movieCategories: { [key: string]: any[] } = {
     nowPlayingMovies: [],
@@ -22,25 +23,21 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit() {
     this.loadMovies();
-
-    this.route.params.subscribe((params: Params) => {
-      console.log('Route params:', params); // Log the route params
-      this.id = +params['id']; // Extract id from route parameters and convert to number
-      console.log('Extracted id:', this.id); // Log the extracted id
-      if (this.id) {
-        this.getSingleMoviesDetails(this.id);
-      }
-    });
+    this.getNowPlaying('movie', 2);
   }
 
-  getSingleMoviesDetails(id: number): void {
-    this.apiService.getMovie(id).subscribe(
+  getNowPlaying(mediaType: 'movie' | 'tv', page: number) {
+    this.apiService.getNowPlaying(mediaType, page).pipe(delay(2000)).subscribe(
       (res: any) => {
-        this.hero = res;
-        console.log('Movie data:', res);
+        if (mediaType === 'movie') {
+          this.movies_data = res.results.map((item: any) => ({
+            ...item,
+            link: `/movie/${item.id}`
+          }));
+        }
       },
-      (error) => {
-        console.error('Error fetching movie data:', error);
+      error => {
+        console.error('Error fetching now playing data', error);
       }
     );
   }

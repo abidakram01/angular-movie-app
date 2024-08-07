@@ -57,6 +57,7 @@
   text-overflow: ellipsis;
   letter-spacing: $letter-spacing;
   white-space: nowrap;
+  text-transform: capitalize;
 
   @media (min-width: $breakpoint-large) {
     margin-bottom: 0.5rem;

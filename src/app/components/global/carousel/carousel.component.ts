@@ -1,17 +1,32 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, input } from '@angular/core';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.scss'
+  styleUrl: './carousel.component.scss',
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
+
+
 export class CarouselComponent implements AfterViewInit, OnChanges {
   @Input() title!: string;
+  @Input() id!: number | string;
   @Input() exploreLink!: string;
   @Input() items: any[] = [];
   @Input() canNavigateLeft = false;
   @Input() canNavigateRight = false;
-
+  @Input() infoLink!: string;
 
   @ViewChild('carouselContainer') carouselContainer!: ElementRef;
 

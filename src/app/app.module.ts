@@ -2,19 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/global/navbar/navbar.component';
-import { HeroComponent } from './components/hero/hero.component';
-import { MoviesComponent } from './components/movies/movies.component';
-import { TvComponent } from './components/tv/tv.component';
-import { FooterComponent } from './components/global/footer/footer.component';
-import { HomeComponent } from './components/home/home.component';
+
 import { StoreModule } from '@ngrx/store';
 import { searchReducer } from './store/search.reducer';
-import { SearchComponent } from './components/global/search/search.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Pipes
 import { RuntimePipe } from './components/global/pipe/runtime.pipe';
@@ -27,23 +20,27 @@ import { NumberWithCommasPipe } from './components/global/pipe/number-with-comma
 import { NumberWithDoubleDigitsPipe } from './components/global/pipe/number-with-double-digits.pipe';
 import { RatingPipe } from './components/global/pipe/rating.pipe';
 import { TimePipe } from './components/global/pipe/time.pipe';
+import { TruncatePipe } from './components/global/pipe/elipsis.pipe';
+// Components
+import { NavbarComponent } from './components/global/navbar/navbar.component';
+import { HeroComponent } from './components/global/hero/hero.component';
+import { MoviesComponent } from './components/movies/movies.component';
+import { TvComponent } from './components/tv/tv.component';
+import { FooterComponent } from './components/global/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { SearchComponent } from './components/global/search/search.component';
 import { CarouselComponent } from './components/global/carousel/carousel.component';
 import { MoviesInfoComponent } from './components/movies-info/movies-info.component';
+import { TvInfoComponent } from './components/tv-info/tv-info.component';
+
+
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    HeroComponent,
-    MoviesComponent,
-    TvComponent,
-    FooterComponent,
-    HomeComponent,
-    SearchComponent,
-
-    // pipes
     RuntimePipe,
     ArrayToListPipe,
     CharacterWithCommasPipe,
@@ -53,10 +50,19 @@ import { MoviesInfoComponent } from './components/movies-info/movies-info.compon
     NumberWithCommasPipe,
     NumberWithDoubleDigitsPipe,
     RatingPipe,
+    TruncatePipe,
     RuntimePipe,
     TimePipe,
+    NavbarComponent,
+    HeroComponent,
+    MoviesComponent,
+    TvComponent,
+    FooterComponent,
+    HomeComponent,
+    SearchComponent,
     CarouselComponent,
     MoviesInfoComponent,
+    TvInfoComponent,
   ],
   imports: [
     BrowserModule,

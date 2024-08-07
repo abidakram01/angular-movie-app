@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { TvComponent } from './components/tv/tv.component';
 import { MoviesInfoComponent } from './components/movies-info/movies-info.component';
+import { TvInfoComponent } from './components/tv-info/tv-info.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,12 @@ const routes: Routes = [
     component: TvComponent
   },
   {
-    path: 'movies:id',
+    path: 'movie/:id',
     component: MoviesInfoComponent
+  },
+  {
+    path: 'tv/:id',
+    component: TvInfoComponent
   },
   {
     path: '**',

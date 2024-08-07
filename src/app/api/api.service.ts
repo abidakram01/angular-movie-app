@@ -234,6 +234,7 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/movie/${category}`, { params })
       .pipe(catchError(this.handleError));
   }
+  
   getTvCategory(category: string, page: number): Observable<any> {
     const params = this.buildParams({ page: page.toString() });
     return this.http.get(`${this.apiUrl}/tv/${category}`, { params })
@@ -249,6 +250,12 @@ export class ApiService {
   getTvShows(query: string, page: number): Observable<any> {
     const params = this.buildParams({ query, page: page.toString() });
     return this.http.get(`${this.apiUrl}/search/tv`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  getTvDiscover(page: number): Observable<any> {
+    const params = this.buildParams({ page: page.toString() });
+    return this.http.get(`${this.apiUrl}/discover/tv`, { params })
       .pipe(catchError(this.handleError));
   }
 

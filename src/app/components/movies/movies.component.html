@@ -1,37 +1,4 @@
-<div *ngIf="hero" class="hero">
-    <div class="backdrop">
-        <div class="lazyloaded">
-            <div class="lazyloaded">
-                <img alt="{{hero?.title}}" class="lazyload image" [src]="'https://image.tmdb.org/t/p/original/' + hero?.backdrop_path">
-            </div>
-        </div>
-    </div>
-    <div class="pane">
-        <div>
-            <h1 class="name" [routerLink]="['/movies/', hero?.id]">
-                {{hero?.title}}
-            </h1>
-            <div class="meta">
-                <div class="rating">
-                    <div class="stars">
-                        <div [style.width.%]="(hero?.vote_average / 10) * 100"></div>
-                    </div>
-                    <div *ngIf="hero?.vote_count > 0">
-                        {{ hero?.vote_count | number }} Reviews
-                    </div>
-                </div>
-                <div class="info">
-                    <span *ngIf="hero?.number_of_seasons">Season {{ hero?.number_of_seasons }}</span>
-                    <span *ngIf="hero?.release_date">{{ hero?.release_date | date }}</span>
-                    <span>Cert. {{ hero?.popularity }}</span>
-                </div>
-            </div>
-            <div class="desc">
-                {{ hero?.overview }}
-            </div>
-        </div>
-    </div>
-</div>
+<app-hero [data]="movies_data"></app-hero>
 
 <app-carousel [title]="'Popular Movies'" [exploreLink]="'/movie/category/popular'"
     [items]="movieCategories['popularMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
