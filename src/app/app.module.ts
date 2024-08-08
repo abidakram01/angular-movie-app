@@ -14,13 +14,14 @@ import { RuntimePipe } from './components/global/pipe/runtime.pipe';
 import { ArrayToListPipe } from './components/global/pipe/array-to-list.pipe';
 import { CharacterWithCommasPipe } from './components/global/pipe/character-with-commas.pipe';
 import { DateFormatPipe } from './components/global/pipe/date.pipe';
-import { FullLangPipe } from './components/global/pipe/full-language.pipe';
 import { FullDatePipe } from './components/global/pipe/full-date.pipe';
 import { NumberWithCommasPipe } from './components/global/pipe/number-with-commas.pipe';
 import { NumberWithDoubleDigitsPipe } from './components/global/pipe/number-with-double-digits.pipe';
 import { RatingPipe } from './components/global/pipe/rating.pipe';
 import { TimePipe } from './components/global/pipe/time.pipe';
 import { TruncatePipe } from './components/global/pipe/elipsis.pipe';
+
+
 // Components
 import { NavbarComponent } from './components/global/navbar/navbar.component';
 import { HeroComponent } from './components/global/hero/hero.component';
@@ -40,7 +41,6 @@ import { TvInfoComponent } from './components/tv-info/tv-info.component';
     ArrayToListPipe,
     CharacterWithCommasPipe,
     DateFormatPipe,
-    FullLangPipe,
     FullDatePipe,
     NumberWithCommasPipe,
     NumberWithDoubleDigitsPipe,
