@@ -32,6 +32,7 @@
         </div>
     </div>
 </div>
+
 <div class="movieInfo">
     <div class="nav">
         <button type="button" id="overview" class="buttonTab" [class.buttonActive]="activeTab === 'overview'"
@@ -196,11 +197,11 @@
                     <option *ngFor="let type of videoTypes" [value]="type">{{ type }}</option>
                 </select>
                 <strong class="count">
-                    {{ filteredVideos.length }} Videos
+                    {{ (filteredVideos | slice: 1:13).length }} Videos
                 </strong>
             </div>
             <div class="items">
-                <div class="item" *ngFor="let video_data of filteredVideos">
+                <div class="item" *ngFor="let video_data of filteredVideos | slice: 1:13">
                     <div href="https://youtube.com/watch?v=BId1AMHzItQ" class="link">
                         <div class="image lazyloaded">
                             <img class="lazyload" src="https://img.youtube.com/vi/{{video_data?.key}}/mqdefault.jpg">
@@ -213,7 +214,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="name">
+                        <div class="vname">
                             {{video_data?.name}}
                         </div>
                         <div class="type">
@@ -227,17 +228,32 @@
         <div *ngIf="activeTab === 'backdrop'" id="backdrop">
             <div class="head">
                 <h2 class="title">Backdrops</h2>
-                <!-- <strong class="count">{{ backdrops.length }} Images</strong> -->
+                <strong class="count">{{ (backdrops | slice: 1:13).length }} Images</strong>
               </div>
               <div class="items">
-                <!-- <div class="item backdrop_" *ngFor="let backdrop of backdrops">
+                <div class="item backdrop_" *ngFor="let backdrop of backdrops | slice: 1:13">
                     <div class="image lazyloaded">
                         <img class="lazyload" src="https://image.tmdb.org/t/p/w533_and_h300_bestv2/{{ backdrop?.file_path }}">
                     </div>
-                </div> -->
+                </div>
               </div>
-            
-        </div>
 
+              <div class="head">
+                <h2 class="title">Posters</h2>
+                <strong class="count">{{ (posters | slice: 1:20).length }} Images</strong>
+              </div>
+              <div class="items">
+                <div class="item poster" *ngFor="let backdrop of posters | slice: 1:20">
+                    <div class="image lazyloaded">
+                        <img class="lazyload" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ backdrop?.file_path }}">
+                    </div>
+                </div>
+              </div>
+        </div>
     </div>
 </div>
+
+
+<app-carousel [title]="'Cast'" [exploreLink]="'/person'" [items]="cast_data" [isCastCarousel]="true" [isDefaultCarousel]="false"></app-carousel>
+
+<app-carousel [title]="'More Like This'" [exploreLink]="'/movie'"  [items]="recom_data" [canNavigateLeft]="true" [canNavigateRight]="true"></app-carousel>

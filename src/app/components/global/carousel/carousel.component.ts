@@ -27,6 +27,8 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
   @Input() canNavigateLeft = false;
   @Input() canNavigateRight = false;
   @Input() infoLink!: string;
+  @Input() isCastCarousel = false;
+  @Input() isDefaultCarousel = true;
 
   @ViewChild('carouselContainer') carouselContainer!: ElementRef;
 

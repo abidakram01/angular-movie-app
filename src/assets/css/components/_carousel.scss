@@ -186,3 +186,32 @@
     }
   }
 }
+
+.credits-item__link:hover,
+.credits-item__link:focus {
+  .credits-item__img {
+    transform: scale(1.02);
+  }
+}
+
+.credits-item__name {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: $letter-spacing;
+
+  @media (min-width: $breakpoint-large) {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+.credits-item__character {
+  font-size: 1.2rem;
+  color: $text-color-grey;
+  letter-spacing: $letter-spacing;
+
+  @media (min-width: $breakpoint-large) {
+    font-size: 1.4rem;
+  }
+}
+

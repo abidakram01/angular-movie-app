@@ -8,7 +8,6 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
   private apiUrl = 'https://api.themoviedb.org/3';
-  private apiImgUrl = 'https://image.tmdb.org/t/p';
   private apiKey = 'dd4d819639705d332d531217b4f7c6b6';
   private language = 'en-US';
   
@@ -96,15 +95,15 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  getCredits(id: number, type: string): Observable<any> {
-    const params = this.buildParams({});
-    return this.http.get(`${this.apiUrl}/${type}/${id}/credits`, { params })
-      .pipe(catchError(this.handleError));
-  }
-
   getGenreList(media: string): Observable<any> {
     const params = this.buildParams({});
     return this.http.get(`${this.apiUrl}/genre/${media}/list`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  getCredits(id: number, type: string): Observable<any> {
+    const params = this.buildParams({});
+    return this.http.get(`${this.apiUrl}/${type}/${id}/credits`, { params })
       .pipe(catchError(this.handleError));
   }
 
@@ -125,8 +124,12 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/movie/${id}/videos`, { params })
     .pipe(catchError(this.handleError));
   }
+  
+  getBackdrops(id: number): Observable<any> {
+    const url = `${this.apiUrl}/movie/${id}/images?api_key=${this.apiKey}`;
+    return this.http.get<any>(url);
+  }
 
-  // Build the query parameters including the API key
   private buildParams(params: any): HttpParams {
     let httpParams = new HttpParams().set('api_key', this.apiKey).set('language', this.language);
     for (const key in params) {
@@ -136,7 +139,6 @@ export class ApiService {
     }
     return httpParams;
   }
-
 
   private handleError(error: any): Observable<never> {
     console.error('An error occurred', error);
