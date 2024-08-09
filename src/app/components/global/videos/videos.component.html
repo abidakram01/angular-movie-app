@@ -1,0 +1,20 @@
+<div class="head">
+    <select (change)="filterVideos($event)">
+        <option *ngFor="let type of videoTypes" [value]="type">{{ type }}</option>
+    </select>
+    <strong class="count">{{ (filteredVideos | slice: 1:13).length }} Videos</strong>
+</div>
+<div class="items">
+    <div class="item" *ngFor="let videoData of filteredVideos | slice: 1:13">
+        <a [href]="'https://youtube.com/watch?v=' + videoData?.key" target="_blank" class="link">
+            <div class="image lazyloaded">
+                <img class="lazyload" [src]="'https://img.youtube.com/vi/' + videoData?.key + '/mqdefault.jpg'">
+                <div class="play">
+                    <!-- Play SVG -->
+                </div>
+            </div>
+            <div class="vname">{{videoData?.name}}</div>
+            <div class="type">{{videoData?.type}}</div>
+        </a>
+    </div>
+</div>

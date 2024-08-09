@@ -24,7 +24,7 @@ import { TruncatePipe } from './components/global/pipe/elipsis.pipe';
 
 // Components
 import { NavbarComponent } from './components/global/navbar/navbar.component';
-import { HeroComponent } from './components/global/hero/hero.component';
+import { SliderComponent } from './components/global/slider/slider.component';
 import { MoviesComponent } from './components/movies/movies.component';
 import { TvComponent } from './components/tv/tv.component';
 import { FooterComponent } from './components/global/footer/footer.component';
@@ -33,6 +33,10 @@ import { SearchComponent } from './components/global/search/search.component';
 import { CarouselComponent } from './components/global/carousel/carousel.component';
 import { MoviesInfoComponent } from './components/movies-info/movies-info.component';
 import { TvInfoComponent } from './components/tv-info/tv-info.component';
+import { HeroComponent } from './components/global/hero/hero.component';
+import { MediaComponent } from './components/global/media/media.component';
+import { VideosComponent } from './components/global/videos/videos.component';
+import { ImagesComponent } from './components/global/images/images.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,7 @@ import { TvInfoComponent } from './components/tv-info/tv-info.component';
     RuntimePipe,
     TimePipe,
     NavbarComponent,
-    HeroComponent,
+    SliderComponent,
     MoviesComponent,
     TvComponent,
     FooterComponent,
@@ -58,6 +62,10 @@ import { TvInfoComponent } from './components/tv-info/tv-info.component';
     CarouselComponent,
     MoviesInfoComponent,
     TvInfoComponent,
+    HeroComponent,
+    MediaComponent,
+    VideosComponent,
+    ImagesComponent,
   ],
   imports: [
     BrowserModule,
