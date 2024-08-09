@@ -1,4 +1,4 @@
-<ng-container *ngIf="type === 'person'">
+<ng-container *ngIf="type === 'person' || 'tv' || 'movie' ">
     <div class="head">
         <h2 class="title">Backdrops</h2>
         <strong class="count">{{ (backdrops | slice: 1:13).length }} Images</strong>
@@ -12,7 +12,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="type !== 'person'">
+<ng-container *ngIf="type === 'person' || 'tv' || 'movie' ">
     <div class="head">
         <h2 class="title">Posters</h2>
         <strong class="count">{{ (posters | slice: 1:20).length }} Images</strong>

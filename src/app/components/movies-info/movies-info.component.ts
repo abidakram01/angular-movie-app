@@ -37,7 +37,6 @@ export class MoviesInfoComponent implements OnInit {
         this.spinner.hide();
       }, 2000);
     });
-    
   }
 
   setActiveTab(tab: string) {
@@ -59,7 +58,6 @@ export class MoviesInfoComponent implements OnInit {
 
   getMovieVideos(id: number) {
     this.apiService.getYouTubeVideo(id).subscribe((res: any) => {
-      this.video_data = res.results.length ? res.results[0] : null;
       this.videos = res.results;
       this.filteredVideos = this.videos;
       this.videoTypes = ['ALL', ...new Set(this.videos.map(video => video.type))];
@@ -74,7 +72,7 @@ export class MoviesInfoComponent implements OnInit {
   }
 
   getMoviesBackdrop(id: number) {
-    this.apiService.getBackdrops(this.id).subscribe((res) => {
+    this.apiService.getBackdrops(this.id).subscribe((res: any) => {
       this.backdrops = res.backdrops || [];
       this.posters = res.posters || [];
     });

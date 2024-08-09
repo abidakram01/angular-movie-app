@@ -25,30 +25,6 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/movie/${category}`, { params })
       .pipe(catchError(this.handleError));
   }
-  
-  getTvCategory(category: string, page: number): Observable<any> {
-    const params = this.buildParams({ page: page.toString() });
-    return this.http.get(`${this.apiUrl}/tv/${category}`, { params })
-      .pipe(catchError(this.handleError));
-  }
-
-  getMovies(query: string, page: number): Observable<any> {
-    const params = this.buildParams({ query, page: page.toString() });
-    return this.http.get(`${this.apiUrl}/search/movie`, { params })
-      .pipe(catchError(this.handleError));
-  }
-
-  getTvShows(query: string, page: number): Observable<any> {
-    const params = this.buildParams({ query, page: page.toString() });
-    return this.http.get(`${this.apiUrl}/search/tv`, { params })
-      .pipe(catchError(this.handleError));
-  }
-
-  getTvDiscover(page: number): Observable<any> {
-    const params = this.buildParams({ page: page.toString() });
-    return this.http.get(`${this.apiUrl}/discover/tv`, { params })
-      .pipe(catchError(this.handleError));
-  }
 
   getMovie(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/movie/${id}`, { params: this.buildParams({}) })
@@ -59,6 +35,63 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/movie/${id}/external_ids`, { params: this.buildParams({}) })
       .pipe(catchError(this.handleError));
   }
+
+  getMovieRecommended(id: number, page: number): Observable<any> {
+    const params = this.buildParams({ page: page.toString() });
+    return this.http.get(`${this.apiUrl}/movie/${id}/recommendations`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  getBackdrops(id: number): Observable<any> {
+    const url = `${this.apiUrl}/movie/${id}/images?api_key=${this.apiKey}`;
+    return this.http.get<any>(url);
+  }
+
+  getYouTubeVideo(id: number): Observable<any> {
+    const params = this.buildParams({});
+    return this.http.get(`${this.apiUrl}/movie/${id}/videos`, { params })
+    .pipe(catchError(this.handleError));
+  }
+  
+  // getMovies(query: string, page: number): Observable<any> {
+  //   const params = this.buildParams({ query, page: page.toString() });
+  //   return this.http.get(`${this.apiUrl}/search/movie`, { params })
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  // getTvShows(query: string, page: number): Observable<any> {
+  //   const params = this.buildParams({ query, page: page.toString() });
+  //   return this.http.get(`${this.apiUrl}/search/tv`, { params })
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  getTrending(media: string, page: number): Observable<any> {
+    const params = this.buildParams({ page: page.toString() });
+    return this.http.get(`${this.apiUrl}/trending/${media}/week`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  getTvDiscover(page: number): Observable<any> {
+    const params = this.buildParams({ page: page.toString() });
+    return this.http.get(`${this.apiUrl}/discover/tv`, { params })
+      .pipe(catchError(this.handleError));
+  }
+  getTvCategory(category: string, page: number): Observable<any> {
+    const params = this.buildParams({ page: page.toString() });
+    return this.http.get(`${this.apiUrl}/tv/${category}`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  geTvExternalId(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/tv/${id}/external_ids`, { params: this.buildParams({}) })
+      .pipe(catchError(this.handleError));
+  }
+
+  getTvBackdrops(id: number): Observable<any> {
+    const url = `${this.apiUrl}/tv/${id}/images?api_key=${this.apiKey}`;
+    return this.http.get<any>(url);
+  }
+
   getPersonExternalId(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/person/${id}/external_ids`, { params: this.buildParams({}) })
       .pipe(catchError(this.handleError));
@@ -69,17 +102,6 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  getTrending(media: string, page: number): Observable<any> {
-    const params = this.buildParams({ page: page.toString() });
-    return this.http.get(`${this.apiUrl}/trending/${media}/week`, { params })
-      .pipe(catchError(this.handleError));
-  }
-
-  getMovieRecommended(id: number, page: number): Observable<any> {
-    const params = this.buildParams({ page: page.toString() });
-    return this.http.get(`${this.apiUrl}/movie/${id}/recommendations`, { params })
-      .pipe(catchError(this.handleError));
-  }
 
   getTvShowRecommended(id: number, page: number): Observable<any> {
     const params = this.buildParams({ page: page.toString() });
@@ -93,29 +115,30 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  getMediaByGenre(media: string, genreId: number, page: number): Observable<any> {
-    const params = this.buildParams({ page: page.toString(), with_genres: genreId.toString() });
-    return this.http.get(`${this.apiUrl}/discover/${media}`, { params })
-      .pipe(catchError(this.handleError));
+  getTvYouTubeVideo(id: number): Observable<any> {
+    const params = this.buildParams({});
+    return this.http.get(`${this.apiUrl}/tv/${id}/videos`, { params })
+    .pipe(catchError(this.handleError));
   }
 
-  getGenreList(media: string): Observable<any> {
-    const params = this.buildParams({});
-    return this.http.get(`${this.apiUrl}/genre/${media}/list`, { params })
-      .pipe(catchError(this.handleError));
-  }
+  
+
+  // getMediaByGenre(media: string, genreId: number, page: number): Observable<any> {
+  //   const params = this.buildParams({ page: page.toString(), with_genres: genreId.toString() });
+  //   return this.http.get(`${this.apiUrl}/discover/${media}`, { params })
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  // getGenreList(media: string): Observable<any> {
+  //   const params = this.buildParams({});
+  //   return this.http.get(`${this.apiUrl}/genre/${media}/list`, { params })
+  //     .pipe(catchError(this.handleError));
+  // }
 
   getByGenre(id: number, type: string, page: number): Observable<any> {
-    // Adding the page parameter to the request
-    const params = this.buildParams({ page: page.toString() });
-  
-    // Log the URL and parameters for debugging purposes
-    console.log(`Requesting: ${this.apiUrl}/genre/${id}/${type} with params:`, params);
-  
+    const params = this.buildParams({ page: page.toString() });  
     return this.http.get(`${this.apiUrl}/genre/${id}/${type}`, { params })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
   getCredits(id: number, type: string): Observable<any> {
@@ -147,16 +170,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  getYouTubeVideo(id: number): Observable<any> {
-    const params = this.buildParams({});
-    return this.http.get(`${this.apiUrl}/movie/${id}/videos`, { params })
-    .pipe(catchError(this.handleError));
-  }
   
-  getBackdrops(id: number): Observable<any> {
-    const url = `${this.apiUrl}/movie/${id}/images?api_key=${this.apiKey}`;
-    return this.http.get<any>(url);
-  }
 
   private buildParams(params: any): HttpParams {
     let httpParams = new HttpParams().set('api_key', this.apiKey).set('language', this.language);

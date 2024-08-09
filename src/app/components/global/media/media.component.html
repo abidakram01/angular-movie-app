@@ -1,7 +1,7 @@
 <div class="left">
     <div class="poster">
         <!-- Poster for Movies or TV Shows -->
-        <img *ngIf="type !== 'person' && data?.poster_path" alt="{{data?.title || data?.name}}" class="lazyload" 
+        <img *ngIf="type === 'movie' && data?.poster_path" alt="{{data?.title || data?.name}}" class="lazyload" 
             [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.poster_path" />
 
         <!-- Person Image -->
@@ -12,30 +12,32 @@
 <div class="right">
     <div class="overview">
         <h2 class="title">Storyline</h2>
-        <div *ngIf="type !== 'person' && data?.overview">{{data?.overview}}</div>
-        <div *ngIf="type === 'person' && data?.biography">{{data?.biography}}</div>
+        <!-- Bio for Movies or TV Shows -->
+        <div *ngIf="data?.overview || data?.biography">{{data?.overview || data?.biography}}</div>
     </div>
     <div class="stats">
-        <ul class="nolist" *ngIf="type === 'person' && data?.biography">
-            <li>
+        <!-- Person -->
+        <ul class="nolist" *ngIf="type === 'person'">
+            <li *ngIf="data?.known_for_department">
                 <div class="label">Known For</div>
                 <div class="value">{{ data?.known_for_department }}</div>
             </li>
-            <li>
+            <li *ngIf="data?.birthday | date">
                 <div class="label">Born</div>
                 <div class="value">{{ data?.birthday | date }}</div>
             </li>
-            <li>
+            <li *ngIf="data?.place_of_birth">
                 <div class="label">Place of Birth</div>
                 <div class="value">{{ data?.place_of_birth }}</div>
             </li>
         </ul>
-        <ul class="nolist" *ngIf="type !== 'person' && data?.overview">
-            <li>
+        <ul class="nolist" *ngIf="type === 'movie'">     
+            <li *ngIf="data?.release_date | date">
                 <div class="label">Released</div>
                 <div class="value">{{ data?.release_date | date }}</div>
             </li>
-            <li>
+
+            <li *ngIf="data?.runtime | time">
                 <div class="label">Runtime</div>
                 <div class="value">{{ data?.runtime | time }}</div>
             </li>
@@ -64,6 +66,51 @@
                 </div>
             </li>
         </ul>
+
+        <ul class="nolist" *ngIf="type === 'tv'">     
+            <li *ngIf="data?.first_air_date | date">
+                <div class="label">First Aired</div>
+                <div class="value">{{ data?.first_air_date | date }}</div>
+            </li>
+            <li *ngIf="data?.last_air_date">
+                <div class="label">Last Aired</div>
+                <div class="value">${{ data?.last_air_date | date }}</div>
+            </li>
+
+            <li *ngIf="data?.created_by?.name">
+                <div class="label">Created By</div>
+                <div class="value">{{ data?.created_by?.name }}</div>
+            </li>
+         
+            <li *ngIf="data?.season_number">
+                <div class="label">Seasons</div>
+                <div class="value">{{ data?.season_number }}</div>
+            </li>
+            <li *ngIf="data?.genres?.length">
+                <div class="label">Genre</div>
+                <div class="comma_" *ngFor="let genre of data?.genres">
+                    <a routerLink="/genres/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a>
+                </div>
+            </li>
+            <li *ngIf="data?.last_episode_to_air?.episode_number">
+                <div class="label">Episodes</div>
+                <div class="value">{{data?.last_episode_to_air?.episode_number}}</div>
+            </li>
+            <li *ngIf="data?.status">
+                <div class="label">Status</div>
+                <div class="value">{{ data?.status }}</div>
+            </li>
+            <li *ngIf="data?.languages">
+                <div class="label">language</div>
+                <div class="value">{{ data?.languages  }}</div>
+            </li>
+            <li *ngIf="data?.networks">
+                <div class="label">Network</div>
+                <div class="value">{{ data?.networks }}</div>
+            </li>
+        </ul>
+
+
     </div>
     <div class="external">
         <ul class="nolist">
