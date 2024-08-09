@@ -17,7 +17,7 @@ export class PersonComponent {
   posters: any;
   knownfor: any
 
-  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService, private cdr: ChangeDetectorRef) {}
+  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.router.params.subscribe((params: Params) => {
@@ -30,7 +30,7 @@ export class PersonComponent {
         this.spinner.hide();
       }, 2000);
     });
-    
+
   }
 
   setActiveTab(tab: string) {
@@ -57,23 +57,23 @@ export class PersonComponent {
   }
   getKnowFor(id: number) {
     this.apiService.getPersonCredit(id).subscribe((result: any) => {
-        this.knownfor = result.cast.map((item: any) => {
-            const releaseDate = item.release_date || item.first_air_date;
-            const year = releaseDate ? new Date(releaseDate).getFullYear() : null;
-            return {
-                link: `/movie/${item.id}`,
-                imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
-                title: item.title,
-                rating: item.vote_average * 10,
-                vote: item.vote_average,
-                year: year
-            };
-        });
-        this.cdr.detectChanges(); // Add this line
+      this.knownfor = result.cast.map((item: any) => {
+        const releaseDate = item.release_date || item.first_air_date;
+        const year = releaseDate ? new Date(releaseDate).getFullYear() : null;
+        return {
+          link: `/movie/${item.id}`,
+          imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
+          title: item.title,
+          rating: item.vote_average * 10,
+          vote: item.vote_average,
+          year: year
+        };
+      });
+      this.cdr.detectChanges();
     },
-    error => {
+      error => {
         console.error('Error fetching credits data', error);
-    });
-}
+      });
+  }
 
 }
