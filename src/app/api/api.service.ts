@@ -59,6 +59,10 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/movie/${id}/external_ids`, { params: this.buildParams({}) })
       .pipe(catchError(this.handleError));
   }
+  getPersonExternalId(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/person/${id}/external_ids`, { params: this.buildParams({}) })
+      .pipe(catchError(this.handleError));
+  }
 
   getTvShow(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/tv/${id}`, { params: this.buildParams({}) })
@@ -110,6 +114,17 @@ export class ApiService {
   getPerson(id: number): Observable<any> {
     const params = this.buildParams({});
     return this.http.get(`${this.apiUrl}/person/${id}`, { params })
+      .pipe(catchError(this.handleError));
+  }
+  getPersonImages(id: number): Observable<any> {
+    const params = this.buildParams({});
+    return this.http.get(`${this.apiUrl}/person/${id}/images`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
+  getPersonCredit(id: number): Observable<any> {
+    const params = this.buildParams({});
+    return this.http.get(`${this.apiUrl}/person/${id}/movie_credits`, { params })
       .pipe(catchError(this.handleError));
   }
 

@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 export class MediaComponent {
   @Input() data: any;
   @Input() externalData: any;
-
+  @Input() type: 'movie' | 'tv' | 'person' = 'movie';
 }

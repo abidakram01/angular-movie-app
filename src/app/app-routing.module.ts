@@ -5,6 +5,7 @@ import { MoviesComponent } from './components/movies/movies.component';
 import { TvComponent } from './components/tv/tv.component';
 import { MoviesInfoComponent } from './components/movies-info/movies-info.component';
 import { TvInfoComponent } from './components/tv-info/tv-info.component';
+import { PersonComponent } from './components/person/person.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'tv/:id',
     component: TvInfoComponent
+  },
+  {
+    path: 'person/:id',
+    component: PersonComponent
   },
   {
     path: '**',

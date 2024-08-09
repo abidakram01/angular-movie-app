@@ -1,16 +1,36 @@
 <div class="left">
     <div class="poster">
-        <img alt="{{data?.title || data?.name}}" class="lazyload"
+        <!-- Poster for Movies or TV Shows -->
+        <img *ngIf="type !== 'person' && data?.poster_path" alt="{{data?.title || data?.name}}" class="lazyload" 
             [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.poster_path" />
+
+        <!-- Person Image -->
+        <img *ngIf="type === 'person' && data?.profile_path" alt="{{data?.name}}" class="lazyload" 
+            [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.profile_path" />
     </div>
 </div>
 <div class="right">
     <div class="overview">
         <h2 class="title">Storyline</h2>
-        <div>{{data?.overview}}</div>
+        <div *ngIf="type !== 'person' && data?.overview">{{data?.overview}}</div>
+        <div *ngIf="type === 'person' && data?.biography">{{data?.biography}}</div>
     </div>
     <div class="stats">
-        <ul class="nolist">
+        <ul class="nolist" *ngIf="type === 'person' && data?.biography">
+            <li>
+                <div class="label">Known For</div>
+                <div class="value">{{ data?.known_for_department }}</div>
+            </li>
+            <li>
+                <div class="label">Born</div>
+                <div class="value">{{ data?.birthday | date }}</div>
+            </li>
+            <li>
+                <div class="label">Place of Birth</div>
+                <div class="value">{{ data?.place_of_birth }}</div>
+            </li>
+        </ul>
+        <ul class="nolist" *ngIf="type !== 'person' && data?.overview">
             <li>
                 <div class="label">Released</div>
                 <div class="value">{{ data?.release_date | date }}</div>
@@ -45,9 +65,9 @@
             </li>
         </ul>
     </div>
-    <div class="external" *ngIf="data?.homepage">
+    <div class="external">
         <ul class="nolist">
-            <li>
+            <li *ngIf="externalData?.twitter_id">
                 <a href="https://twitter.com/{{externalData?.twitter_id}}" target="_blank"
                     aria-label="Link to Twitter account" rel="noopener">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
@@ -57,7 +77,7 @@
                     </svg>
                 </a>
             </li>
-            <li>
+            <li *ngIf="externalData?.facebook_id">
                 <a href="https://www.facebook.com/{{externalData?.facebook_id}}" target="_blank"
                     aria-label="Link to Facebook account" rel="noopener">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
@@ -67,7 +87,7 @@
                     </svg>
                 </a>
             </li>
-            <li>
+            <li *ngIf="externalData?.instagram_id">
                 <a href="https://instagram.com/{{externalData?.instagram_id}}" target="_blank"
                     aria-label="Link to Instagram account" rel="noopener">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
@@ -77,7 +97,7 @@
                     </svg>
                 </a>
             </li>
-            <li>
+            <li *ngIf="externalData?.imdb_id">
                 <a href="https://www.imdb.com/title/{{externalData?.imdb_id}}" target="_blank"
                     aria-label="Link to IMDb account" rel="noopener">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
@@ -93,7 +113,7 @@
                     </svg>
                 </a>
             </li>
-            <li>
+            <li *ngIf="data?.homepage">
                 <a href="{{data?.homepage}}" target="_blank" aria-label="Link to Homepage" rel="noopener">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
                         <path

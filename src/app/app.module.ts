@@ -20,6 +20,7 @@ import { NumberWithDoubleDigitsPipe } from './components/global/pipe/number-with
 import { RatingPipe } from './components/global/pipe/rating.pipe';
 import { TimePipe } from './components/global/pipe/time.pipe';
 import { TruncatePipe } from './components/global/pipe/elipsis.pipe';
+import { SortByReleaseDatePipe } from './components/global/pipe/sortByReleaseDate.pipe';
 
 
 // Components
@@ -37,11 +38,15 @@ import { HeroComponent } from './components/global/hero/hero.component';
 import { MediaComponent } from './components/global/media/media.component';
 import { VideosComponent } from './components/global/videos/videos.component';
 import { ImagesComponent } from './components/global/images/images.component';
+import { PersonComponent } from './components/person/person.component';
+import { ListingComponent } from './components/listing/listing.component';
+import { SortByYearPipe } from './components/global/pipe/sort-by-year.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     RuntimePipe,
+    SortByReleaseDatePipe,
     ArrayToListPipe,
     CharacterWithCommasPipe,
     DateFormatPipe,
@@ -66,6 +71,9 @@ import { ImagesComponent } from './components/global/images/images.component';
     MediaComponent,
     VideosComponent,
     ImagesComponent,
+    PersonComponent,
+    ListingComponent,
+    SortByYearPipe,
   ],
   imports: [
     BrowserModule,

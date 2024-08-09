@@ -4,7 +4,6 @@
     <a *ngIf="isDefaultCarousel" [routerLink]="[exploreLink]" routerLinkActive="router-link-active" class="listing__explore">
       <strong>Explore All</strong>
     </a>
-    
   </div>
   <div class="carousel">
     <button aria-label="Previous" type="button" [attr.disabled]="!canNavigateLeftInternal ? true : null"

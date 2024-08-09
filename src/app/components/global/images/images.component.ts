@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 export class ImagesComponent {
   @Input() backdrops: any[] = [];
   @Input() posters: any[] = [];
-
+  @Input() type: 'movie' | 'tv' | 'person' = 'movie';
 }

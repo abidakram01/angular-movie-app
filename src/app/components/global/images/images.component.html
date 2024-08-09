@@ -1,23 +1,27 @@
-<div class="head">
-    <h2 class="title">Backdrops</h2>
-    <strong class="count">{{ (backdrops | slice: 1:13).length }} Images</strong>
-</div>
-<div class="items">
-    <div class="item backdrop_" *ngFor="let backdrop of backdrops | slice: 1:13">
-        <div class="image lazyloaded">
-            <img class="lazyload" [src]="'https://image.tmdb.org/t/p/w533_and_h300_bestv2/' + backdrop?.file_path">
+<ng-container *ngIf="type === 'person'">
+    <div class="head">
+        <h2 class="title">Backdrops</h2>
+        <strong class="count">{{ (backdrops | slice: 1:13).length }} Images</strong>
+    </div>
+    <div class="items">
+        <div class="item backdrop_" *ngFor="let backdrop of backdrops | slice: 1:13">
+            <div class="image lazyloaded">
+                <img class="lazyload" [src]="'https://image.tmdb.org/t/p/w533_and_h300_bestv2/' + backdrop?.file_path">
+            </div>
         </div>
     </div>
-</div>
+</ng-container>
 
-<div class="head">
-    <h2 class="title">Posters</h2>
-    <strong class="count">{{ (posters | slice: 1:20).length }} Images</strong>
-</div>
-<div class="items">
-    <div class="item poster" *ngFor="let poster of posters | slice: 1:20">
-        <div class="image lazyloaded">
-            <img class="lazyload" [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + poster?.file_path">
+<ng-container *ngIf="type !== 'person'">
+    <div class="head">
+        <h2 class="title">Posters</h2>
+        <strong class="count">{{ (posters | slice: 1:20).length }} Images</strong>
+    </div>
+    <div class="items">
+        <div class="item poster" *ngFor="let poster of posters | slice: 1:20">
+            <div class="image lazyloaded">
+                <img class="lazyload" [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + poster?.file_path">
+            </div>
         </div>
     </div>
-</div>
+</ng-container>

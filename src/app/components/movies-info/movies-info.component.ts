@@ -84,7 +84,7 @@ export class MoviesInfoComponent implements OnInit {
     this.apiService.getCredits(id, 'movie').subscribe(
       (res: any) => {
         this.cast_data = res.cast.map((item: any) => ({
-          link: `/movie/${item.id}`,
+          link: `/person/${item.id}`,
           imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
           name: item.name,
           character: item.character,
