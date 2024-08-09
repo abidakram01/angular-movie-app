@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -25,21 +25,19 @@ export class MoviesComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.loadMovies();
-    this.getNowPlaying('movie', 2);
+    this.getNowPlaying(2);
     setTimeout(() => {
       this.spinner.hide();
     }, 2000);
   }
 
-  getNowPlaying(mediaType: 'movie' | 'tv', page: number) {
-    this.apiService.getNowPlaying(mediaType, page).pipe(delay(2000)).subscribe(
+  getNowPlaying(page: number) {
+    this.apiService.getNowPlaying('movie', page).pipe(delay(2000)).subscribe(
       (res: any) => {
-        if (mediaType === 'movie') {
-          this.movies_data = res.results.map((item: any) => ({
-            ...item,
-            link: `/movie/${item.id}`
-          }));
-        }
+        this.movies_data = res.results.map((item: any) => ({
+          ...item,
+          link: `/movie/${item.id}`
+        }));
       },
       error => {
         console.error('Error fetching now playing data', error);
@@ -59,6 +57,7 @@ export class MoviesComponent implements OnInit {
       (response) => {
         this.movieCategories[property] = response.results.map((item: any) => ({
           link: `/movie/${item.id}`,
+          linkExplorer: `/movie/category/${category}`,  // Dynamically set the category
           imgSrc: `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`,
           title: item.title,
           rating: item.vote_average * 10,
@@ -70,5 +69,4 @@ export class MoviesComponent implements OnInit {
         console.error(`Error fetching ${category} movies:`, error);
       });
   }
-  
 }

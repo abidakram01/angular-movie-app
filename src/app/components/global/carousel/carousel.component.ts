@@ -1,11 +1,12 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.scss',
+  styleUrls: ['./carousel.component.scss'],
   animations: [
     trigger('fade', [
       transition(':enter', [
@@ -19,29 +20,35 @@ import { Subscription } from 'rxjs';
   ]
 })
 
-
-export class CarouselComponent implements AfterViewInit, OnChanges {
+export class CarouselComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() title!: string;
   @Input() id!: number | string;
   @Input() exploreLink!: string;
   @Input() items: any[] = [];
   @Input() canNavigateLeft = false;
-  @Input() canNavigateRight = false;
+  @Input() canNavigateRight = true; // Defaulting to true to enable navigation by default
   @Input() infoLink!: string;
   @Input() isCastCarousel = false;
   @Input() isDefaultCarousel = true;
 
   @ViewChild('carouselContainer') carouselContainer!: ElementRef;
 
-  canNavigateLeftInternal = false;
-  canNavigateRightInternal = true;
-
   private routerSubscription!: Subscription;
+
+  constructor(private router: Router) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.resetCarousel();
-    }, 100); // Adjust timeout as necessary
+      this.updateNavigation();
+    }, 100);
+
+    // Subscribe to router events to reset the carousel on route change
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.resetCarousel();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -56,7 +63,9 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
         left: this.carouselContainer.nativeElement.scrollLeft - 1000,
         behavior: 'smooth'
       });
-      this.updateNavigation();
+      setTimeout(() => {
+        this.updateNavigation();
+      }, 300);
     }
   }
 
@@ -66,19 +75,28 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
         left: this.carouselContainer.nativeElement.scrollLeft + 1000,
         behavior: 'smooth'
       });
-      this.updateNavigation();
+      setTimeout(() => {
+        this.updateNavigation();
+      }, 300);
     }
   }
 
   private updateNavigation() {
-    this.canNavigateLeftInternal = this.carouselContainer.nativeElement.scrollLeft > 0;
-    this.canNavigateRightInternal = this.carouselContainer.nativeElement.scrollWidth > this.carouselContainer.nativeElement.scrollLeft + this.carouselContainer.nativeElement.clientWidth;
+    const container = this.carouselContainer.nativeElement;
+    this.canNavigateLeft = container.scrollLeft > 0;
+    this.canNavigateRight = container.scrollWidth > container.scrollLeft + container.clientWidth;
   }
 
   private resetCarousel() {
     if (this.carouselContainer) {
-      this.carouselContainer.nativeElement.scrollLeft = 0; // Reset to the start
-      this.updateNavigation();
+      this.carouselContainer.nativeElement.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
+
+      setTimeout(() => {
+        this.updateNavigation();
+      }, 300);
     } else {
       console.warn('Carousel container not found.');
     }

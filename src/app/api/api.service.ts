@@ -105,6 +105,19 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  getByGenre(id: number, type: string, page: number): Observable<any> {
+    // Adding the page parameter to the request
+    const params = this.buildParams({ page: page.toString() });
+  
+    // Log the URL and parameters for debugging purposes
+    console.log(`Requesting: ${this.apiUrl}/genre/${id}/${type} with params:`, params);
+  
+    return this.http.get(`${this.apiUrl}/genre/${id}/${type}`, { params })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getCredits(id: number, type: string): Observable<any> {
     const params = this.buildParams({});
     return this.http.get(`${this.apiUrl}/${type}/${id}/credits`, { params })

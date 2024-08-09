@@ -6,6 +6,9 @@ import { TvComponent } from './components/tv/tv.component';
 import { MoviesInfoComponent } from './components/movies-info/movies-info.component';
 import { TvInfoComponent } from './components/tv-info/tv-info.component';
 import { PersonComponent } from './components/person/person.component';
+import { MovieCategoryComponent } from './components/movie-category/movie-category.component';
+import { TvCategoryComponent } from './components/tv-category/tv-category.component';
+import { GenreComponent } from './components/genre/genre.component';
 
 const routes: Routes = [
   {
@@ -14,32 +17,48 @@ const routes: Routes = [
   },
   {
     path: 'movie',
-    component: MoviesComponent
+    component: MoviesComponent,
   },
   {
     path: 'tv',
-    component: TvComponent
+    component: TvComponent,
   },
   {
     path: 'movie/:id',
-    component: MoviesInfoComponent
+    component: MoviesInfoComponent,
   },
   {
     path: 'tv/:id',
-    component: TvInfoComponent
+    component: TvInfoComponent,
   },
   {
     path: 'person/:id',
-    component: PersonComponent
+    component: PersonComponent,
+  },
+  { 
+    path: 'movie/category/:category', 
+    component: MovieCategoryComponent 
+  },
+  { 
+    path: 'tv/category/:category', 
+    component: TvCategoryComponent 
+  },
+  {
+    path: 'genres/:id/:name',
+    component: GenreComponent
+  },
+  {
+    path: 'tv/category/:id',
+    component: TvCategoryComponent,
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

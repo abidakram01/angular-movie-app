@@ -11,9 +11,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class TvComponent {
   tv_data: any[] = [];
   tvCategories: { [key: string]: any[] } = {
-    onTheAir: [],
+    onTheAirTv: [],
     popularTv: [],
-    airingToday: [],
+    airingTodayTv: [],
     topRatedTv: []
   };
 
@@ -31,8 +31,8 @@ export class TvComponent {
   loadMovies(): void {
     this.fetchMovies('popular', 'popularTv');
     this.fetchMovies('top_rated', 'topRatedTv');
-    this.fetchMovies('on_the_air', 'onTheAir');
-    this.fetchMovies('airing_today', 'airingToday');
+    this.fetchMovies('on_the_air', 'onTheAirTv');
+    this.fetchMovies('airing_today', 'airingTodayTv');
     
   }
 

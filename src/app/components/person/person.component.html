@@ -8,18 +8,19 @@
         (click)="setActiveTab('knownfor')">
         Known For
     </button>
-   
+
     <button type="button" id="poster" class="buttonTab" [class.buttonActive]="activeTab === 'poster'"
         (click)="setActiveTab('poster')">
         Photos
     </button>
 </div>
 
-<div class="spacing">
-    <div *ngIf="activeTab === 'knownfor'" id="knownfor">
-        <app-listing [items]="knownfor | sortByYear:'year'"   class="listing"></app-listing>
-    </div>
 
+<div *ngIf="activeTab === 'knownfor'" id="knownfor">
+    <app-listing [items]="knownfor | sortByYear:'year'"></app-listing>
+</div>
+
+<div class="spacing">
     <div *ngIf="activeTab === 'poster'" id="posters">
         <app-images [posters]="posters"></app-images>
     </div>

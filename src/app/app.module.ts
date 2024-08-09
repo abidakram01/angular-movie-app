@@ -20,7 +20,7 @@ import { NumberWithDoubleDigitsPipe } from './components/global/pipe/number-with
 import { RatingPipe } from './components/global/pipe/rating.pipe';
 import { TimePipe } from './components/global/pipe/time.pipe';
 import { TruncatePipe } from './components/global/pipe/elipsis.pipe';
-import { SortByReleaseDatePipe } from './components/global/pipe/sortByReleaseDate.pipe';
+import { SortByReleaseDatePipe } from './components/global/pipe/sortbydate.pipe';
 
 
 // Components
@@ -41,6 +41,9 @@ import { ImagesComponent } from './components/global/images/images.component';
 import { PersonComponent } from './components/person/person.component';
 import { ListingComponent } from './components/global/listing/listing.component';
 import { SortByYearPipe } from './components/global/pipe/sort-by-year.pipe';
+import { MovieCategoryComponent } from './components/movie-category/movie-category.component';
+import { TvCategoryComponent } from './components/tv-category/tv-category.component';
+import { GenreComponent } from './components/genre/genre.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,7 @@ import { SortByYearPipe } from './components/global/pipe/sort-by-year.pipe';
     TruncatePipe,
     RuntimePipe,
     TimePipe,
+    SortByYearPipe,
     NavbarComponent,
     SliderComponent,
     MoviesComponent,
@@ -73,7 +77,9 @@ import { SortByYearPipe } from './components/global/pipe/sort-by-year.pipe';
     ImagesComponent,
     PersonComponent,
     ListingComponent,
-    SortByYearPipe,
+    MovieCategoryComponent,
+    TvCategoryComponent,
+    GenreComponent,
   ],
   imports: [
     BrowserModule,

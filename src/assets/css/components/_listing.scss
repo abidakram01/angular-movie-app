@@ -103,3 +103,13 @@
     width: 12.5%;
   }
 }
+
+.infinite-scroll-loading {
+  text-align: center;
+  margin: 20px 0;
+
+  svg {
+      width: 60px;
+      height: 60px;
+  }
+}
