@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-movies-info',
@@ -21,17 +22,22 @@ export class MoviesInfoComponent implements OnInit {
   cast_data: any;
   recom_data: any[] = [];
 
-  constructor(private apiService: ApiService, private router: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
     this.router.params.subscribe((params: Params) => {
+      this.spinner.show();
       this.id = +params['id'];
       this.getMovieInfo(this.id);
       this.getMovieVideos(this.id);
       this.getMoviesBackdrop(this.id);
       this.getMovieCast(this.id);
       this.getMovieRecommended(this.id, 1); 
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 2000);
     });
+    
   }
 
   setActiveTab(tab: string) {
@@ -79,7 +85,7 @@ export class MoviesInfoComponent implements OnInit {
       (res: any) => {
         this.cast_data = res.cast.map((item: any) => ({
           link: `/movie/${item.id}`,
-          imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : 'path/to/default/image', // Replace with a default image path if needed
+          imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
           name: item.name,
           character: item.character,
           popularity: item.popularity,
@@ -96,7 +102,7 @@ export class MoviesInfoComponent implements OnInit {
       (res: any) => {
         this.recom_data = res.results.map((item: any) => ({
           link: `/movie/${item.id}`,
-          imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : 'path/to/default/image', // Replace with a default image path if needed
+          imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
           title: item.title,
           vote: item.vote_average ? item.vote_average : 'N/A',
           rating: item.vote_average ? item.vote_average * 10 : 'N/A',

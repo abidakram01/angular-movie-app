@@ -17,6 +17,15 @@
   background-color: $secondary-color;
   transition: transform 0.3s ease-in-out;
 
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.97);
+    width: 50px;
+    height: 50px;
+  }
+
   img,
   span {
     position: absolute;
@@ -87,7 +96,7 @@
   background-repeat: no-repeat;
   background-size: auto 100%;
 
-  > div {
+  >div {
     height: 100%;
     background-image: url(../../images/stars-filled.png);
     background-repeat: no-repeat;
@@ -96,6 +105,7 @@
 }
 
 @media (max-width: $breakpoint-xsmall - 1) {
+
   .card__name,
   .card__rating {
     display: none;

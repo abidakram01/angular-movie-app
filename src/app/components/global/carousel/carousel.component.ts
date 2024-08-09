@@ -1,5 +1,6 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-carousel',
@@ -34,6 +35,8 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   canNavigateLeftInternal = false;
   canNavigateRightInternal = true;
+
+  private routerSubscription!: Subscription;
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -78,6 +81,12 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
       this.updateNavigation();
     } else {
       console.warn('Carousel container not found.');
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
     }
   }
 }
