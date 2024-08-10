@@ -243,6 +243,27 @@
         margin-left: -1rem;
     }
 
+    .ename{
+        font-size: 1.6rem;
+        letter-spacing: .4px;
+        margin-bottom: 1rem;
+        strong{
+            color: #a6db38;
+        }
+    }
+
+    .overview {
+        color: #ebd9f8;
+        flex: 1 0 auto;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .aired{
+        color: #80868b;
+        font-size: 1.4rem;
+        letter-spacing: .4px;
+    }
+
     .item {
         display: flex;
         width: 100%;

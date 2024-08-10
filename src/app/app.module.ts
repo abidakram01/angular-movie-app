@@ -44,6 +44,7 @@ import { SortByYearPipe } from './components/global/pipe/sort-by-year.pipe';
 import { MovieCategoryComponent } from './components/movie-category/movie-category.component';
 import { TvCategoryComponent } from './components/tv-category/tv-category.component';
 import { GenreComponent } from './components/genre/genre.component';
+import { LanguageNamePipe } from './components/global/pipe/language-name.pipe';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { GenreComponent } from './components/genre/genre.component';
     MovieCategoryComponent,
     TvCategoryComponent,
     GenreComponent,
+    LanguageNamePipe,
   ],
   imports: [
     BrowserModule,

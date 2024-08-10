@@ -7,6 +7,9 @@
         <!-- Person Image -->
         <img *ngIf="type === 'person' && data?.profile_path" alt="{{data?.name}}" class="lazyload"
             [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.profile_path" />
+
+        <img *ngIf="type === 'tv' && data?.poster_path" alt="{{data?.name}}" class="lazyload"
+            [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.poster_path" />
     </div>
 </div>
 <div class="right">
@@ -89,7 +92,7 @@
             <li *ngIf="data?.genres?.length">
                 <div class="label">Genre</div>
                 <div class="comma_" *ngFor="let genre of data?.genres">
-                    <a routerLink="/genres/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a>
+                    <a [routerLink]="['/genres', genre?.id, type]">{{ genre?.name }}</a>
                 </div>
             </li>
             <li *ngIf="data?.last_episode_to_air?.episode_number">
@@ -102,11 +105,11 @@
             </li>
             <li *ngIf="data?.languages">
                 <div class="label">language</div>
-                <div class="value">{{ data?.languages }}</div>
+                <div class="value">{{ data?.languages | languageName }}</div>
             </li>
-            <li *ngIf="data?.networks">
+            <li *ngIf="data?.networks?.length">
                 <div class="label">Network</div>
-                <div class="value">{{ data?.networks }}</div>
+                <div class="value">{{ data?.networks?.name }}</div>
             </li>
         </ul>
 

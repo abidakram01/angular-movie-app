@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api/api.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-tv-info',
   templateUrl: './tv-info.component.html',
-  styleUrl: './tv-info.component.scss'
+  styleUrls: ['./tv-info.component.scss'] // Corrected to 'styleUrls'
 })
-export class TvInfoComponent {
+export class TvInfoComponent implements OnInit {
   id!: number;
   tv_data: any;
   external_data: any;
@@ -22,34 +23,50 @@ export class TvInfoComponent {
   cast_data: any;
   recom_data: any[] = [];
   type: 'tv' = 'tv';
+  episodes_data: any[] = [];
+  selectedSeason: number = 1;
+  seasons: any[] = [];
 
-  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) {}
+  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.router.params.subscribe((params: Params) => {
       this.spinner.show();
       this.id = +params['id'];
-      this.getTvInfo(this.id);
-      this.getTvVideos(this.id);
-      this.getTvBackdrop(this.id);
-      this.getMovieCast(this.id);
-      this.getTvRecommended(this.id, 1); 
-      setTimeout(() => {
+      
+      // Use forkJoin to make multiple API calls in parallel
+      forkJoin({
+        tvInfo: this.apiService.getTvShow(this.id),
+        tvVideos: this.apiService.getYouTubeVideo(this.id, 'tv'),
+        tvBackdrop: this.apiService.getBackdrops(this.id, 'tv'),
+        movieCast: this.apiService.getCredits(this.id, 'tv'),
+        tvRecommended: this.apiService.getRecommended(this.id, 1, 'tv')
+      }).subscribe(results => {
+        this.handleTvInfo(results.tvInfo);
+        this.handleTvVideos(results.tvVideos);
+        this.handleTvBackdrop(results.tvBackdrop);
+        this.handleMovieCast(results.movieCast);
+        this.handleTvRecommended(results.tvRecommended);
         this.spinner.hide();
-      }, 2000);
+      }, error => {
+        console.error('Error fetching data', error);
+        this.spinner.hide();
+      });
     });
-    
   }
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
   }
 
-  getTvInfo(id: number) {
-    this.apiService.getTvShow(id).subscribe((result: any) => {
-      this.tv_data = result;
-      this.getExternal(id);
-    });
+  handleTvInfo(result: any) {
+    this.seasons = result.seasons.filter((season: any) => season.season_number !== 0);
+    
+    this.selectedSeason = this.seasons.length > 0 ? this.seasons[0].season_number : 1;
+    
+    this.loadEpisodes(this.id, this.selectedSeason);
+    this.tv_data = result;
+    this.getExternal(this.id);
   }
 
   getExternal(id: number) {
@@ -58,13 +75,11 @@ export class TvInfoComponent {
     });
   }
 
-  getTvVideos(id: number) {
-    this.apiService.getYouTubeVideo(id, 'tv').subscribe((res: any) => {
-      this.video_data = res.results.length ? res.results[0] : null;
-      this.videos = res.results;
-      this.filteredVideos = this.videos;
-      this.videoTypes = ['ALL', ...new Set(this.videos.map(video => video.type))];
-    });
+  handleTvVideos(res: any) {
+    this.video_data = res.results.length ? res.results[0] : null;
+    this.videos = res.results;
+    this.filteredVideos = this.videos;
+    this.videoTypes = ['ALL', ...new Set(this.videos.map(video => video.type))];
   }
 
   filterVideos(event: Event): void {
@@ -74,44 +89,45 @@ export class TvInfoComponent {
       : this.videos.filter(video => video.type === filterValue);
   }
 
-  getTvBackdrop(id: number) {
-    this.apiService.getBackdrops(id, 'tv').subscribe((res) => {
-      this.backdrops = res.backdrops || [];
-      this.posters = res.posters || [];
-    });
+  handleTvBackdrop(res: any) {
+    this.backdrops = res.backdrops || [];
+    this.posters = res.posters || [];
   }
 
-  getMovieCast(id: number) {
-    this.apiService.getCredits(id, 'tv').subscribe(
-      (res: any) => {
-        this.cast_data = res.cast.map((item: any) => ({
-          link: `/person/${item.id}`,
-          imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
-          name: item.name,
-          character: item.character,
-          popularity: item.popularity,
-        }));
-      },
-      error => {
-        console.error('Error fetching credits data', error);
-      }
-    );
+  handleMovieCast(res: any) {
+    this.cast_data = res.cast.map((item: any) => ({
+      link: `/person/${item.id}`,
+      imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
+      name: item.name,
+      character: item.character,
+      popularity: item.popularity,
+    }));
   }
 
-  getTvRecommended(id: number, page: number) {
-    this.apiService.getRecommended(id, page, 'tv').subscribe(
-      (res: any) => {
-        this.recom_data = res.results.map((item: any) => ({
-          link: `/tv/${item.id}`,
-          imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
-          title: item.name,
-          vote: item.vote_average ? item.vote_average : 'N/A',
-          rating: item.vote_average ? item.vote_average * 10 : 'N/A',
-        }));
-      },
-      error => {
-        console.error('Error fetching recommended movies data', error);
-      }
-    );
+  handleTvRecommended(res: any) {
+    this.recom_data = res.results.map((item: any) => ({
+      link: `/tv/${item.id}`,
+      imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
+      title: item.name,
+      vote: item.vote_average ? item.vote_average : 'N/A',
+      rating: item.vote_average ? item.vote_average * 10 : 'N/A',
+    }));
+  }
+
+  loadEpisodes(id: number, season: number): void {
+    this.apiService.getTvShowEpisodes(id, season)
+      .subscribe(
+        (data) => {
+          this.episodes_data = data.episodes;
+        },
+        (error) => {
+          console.error('Error fetching episodes:', error);
+        }
+      );
+  }
+
+  onSeasonChange(event: any): void {
+    const selectedSeason = event.target.value;
+    this.loadEpisodes(this.id, selectedSeason);
   }
 }

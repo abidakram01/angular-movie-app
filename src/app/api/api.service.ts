@@ -109,7 +109,7 @@ export class ApiService {
 
   getTvShowEpisodes(id: number, season: number): Observable<any> {
     const params = this.buildParams({});
-    return this.http.get(`${this.apiUrl}/tv/${id}/season/${season}/episodes`, { params })
+    return this.http.get(`${this.apiUrl}/tv/${id}/season/${season}`, { params })
       .pipe(catchError(this.handleError));
   }
 
