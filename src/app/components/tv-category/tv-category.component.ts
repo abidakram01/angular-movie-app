@@ -48,7 +48,7 @@ export class TvCategoryComponent {
     if (this.isLoading) return;
     this.isLoading = true;
 
-    this.apiService.getTvCategory(category, this.page).subscribe(
+    this.apiService.getCategory(category, this.page, 'tv').subscribe(
       (response) => {
         this.tvCategories[property].push(...response.results.map((item: any) => ({
           link: `/tv/${item.id}`,

@@ -48,7 +48,7 @@ export class MovieCategoryComponent implements OnInit {
     if (this.isLoading) return;
     this.isLoading = true;
 
-    this.apiService.getMoviesCategory(category, this.page).subscribe(
+    this.apiService.getCategory(category, this.page, 'movie').subscribe(
       (response) => {
         this.movieCategories[property].push(...response.results.map((item: any) => ({
           link: `/movie/${item.id}`,

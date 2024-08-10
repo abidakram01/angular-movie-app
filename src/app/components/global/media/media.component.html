@@ -1,11 +1,11 @@
 <div class="left">
     <div class="poster">
         <!-- Poster for Movies or TV Shows -->
-        <img *ngIf="type === 'movie' && data?.poster_path" alt="{{data?.title || data?.name}}" class="lazyload" 
+        <img *ngIf="type === 'movie' && data?.poster_path" alt="{{data?.title || data?.name}}" class="lazyload"
             [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.poster_path" />
 
         <!-- Person Image -->
-        <img *ngIf="type === 'person' && data?.profile_path" alt="{{data?.name}}" class="lazyload" 
+        <img *ngIf="type === 'person' && data?.profile_path" alt="{{data?.name}}" class="lazyload"
             [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + data?.profile_path" />
     </div>
 </div>
@@ -31,7 +31,7 @@
                 <div class="value">{{ data?.place_of_birth }}</div>
             </li>
         </ul>
-        <ul class="nolist" *ngIf="type === 'movie'">     
+        <ul class="nolist" *ngIf="type === 'movie'">
             <li *ngIf="data?.release_date | date">
                 <div class="label">Released</div>
                 <div class="value">{{ data?.release_date | date }}</div>
@@ -52,7 +52,7 @@
             <li *ngIf="data?.genres.length">
                 <div class="label">Genre</div>
                 <div class="comma_" *ngFor="let genre of data?.genres">
-                    <a routerLink="/genres/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a>
+                    <a [routerLink]="['/genres', genre?.id, type]">{{ genre?.name }}</a>
                 </div>
             </li>
             <li *ngIf="data?.status">
@@ -67,7 +67,7 @@
             </li>
         </ul>
 
-        <ul class="nolist" *ngIf="type === 'tv'">     
+        <ul class="nolist" *ngIf="type === 'tv'">
             <li *ngIf="data?.first_air_date | date">
                 <div class="label">First Aired</div>
                 <div class="value">{{ data?.first_air_date | date }}</div>
@@ -81,7 +81,7 @@
                 <div class="label">Created By</div>
                 <div class="value">{{ data?.created_by?.name }}</div>
             </li>
-         
+
             <li *ngIf="data?.season_number">
                 <div class="label">Seasons</div>
                 <div class="value">{{ data?.season_number }}</div>
@@ -102,7 +102,7 @@
             </li>
             <li *ngIf="data?.languages">
                 <div class="label">language</div>
-                <div class="value">{{ data?.languages  }}</div>
+                <div class="value">{{ data?.languages }}</div>
             </li>
             <li *ngIf="data?.networks">
                 <div class="label">Network</div>

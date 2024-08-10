@@ -53,7 +53,7 @@ export class MoviesComponent implements OnInit {
   }
 
   fetchMovies(category: string, property: string): void {
-    this.apiService.getMoviesCategory(category, 1).subscribe(
+    this.apiService.getCategory(category, 1, 'movie').subscribe(
       (response) => {
         this.movieCategories[property] = response.results.map((item: any) => ({
           link: `/movie/${item.id}`,

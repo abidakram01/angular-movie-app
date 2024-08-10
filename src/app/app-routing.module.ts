@@ -44,7 +44,7 @@ const routes: Routes = [
     component: TvCategoryComponent 
   },
   {
-    path: 'genres/:id/:name',
+    path: 'genres/:id/:type',
     component: GenreComponent
   },
   {

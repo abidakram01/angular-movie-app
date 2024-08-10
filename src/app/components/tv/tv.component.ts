@@ -51,7 +51,7 @@ export class TvComponent {
   }
 
   fetchMovies(category: string, property: string): void {
-    this.apiService.getTvCategory(category, 1)
+    this.apiService.getCategory(category, 1, 'tv')
       .subscribe(
         response => {
           this.tvCategories[property] = response.results.map((item: any) => ({

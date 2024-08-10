@@ -26,15 +26,14 @@ export class HomeComponent implements OnInit {
     }, 2000);
   }
 
-  getNowPlaying(mediaType: 'movie' | 'tv', page: number) {
+  // Slider Data
+  getNowPlaying(mediaType: 'movie', page: number) {
     this.apiService.getNowPlaying(mediaType, page).pipe(delay(2000)).subscribe(
       (res: any) => {
-        if (mediaType === 'movie') {
           this.movies_data = res.results.map((item: any) => ({
             ...item,
             link: `/movie/${item.id}`
           }));
-        }
       },
       error => {
         console.error('Error fetching now playing data', error);
@@ -68,7 +67,5 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
-
 
 }

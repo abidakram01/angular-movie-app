@@ -21,6 +21,7 @@ export class TvInfoComponent {
   posters: any[] = [];
   cast_data: any;
   recom_data: any[] = [];
+  type: 'tv' = 'tv';
 
   constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) {}
 
@@ -52,13 +53,13 @@ export class TvInfoComponent {
   }
 
   getExternal(id: number) {
-    this.apiService.geTvExternalId(id).subscribe((result: any) => {
+    this.apiService.getExternalId(id, 'tv').subscribe((result: any) => {
       this.external_data = result;
     });
   }
 
   getTvVideos(id: number) {
-    this.apiService.getTvYouTubeVideo(id).subscribe((res: any) => {
+    this.apiService.getYouTubeVideo(id, 'tv').subscribe((res: any) => {
       this.video_data = res.results.length ? res.results[0] : null;
       this.videos = res.results;
       this.filteredVideos = this.videos;
@@ -74,7 +75,7 @@ export class TvInfoComponent {
   }
 
   getTvBackdrop(id: number) {
-    this.apiService.getTvBackdrops(this.id).subscribe((res) => {
+    this.apiService.getBackdrops(id, 'tv').subscribe((res) => {
       this.backdrops = res.backdrops || [];
       this.posters = res.posters || [];
     });
@@ -98,7 +99,7 @@ export class TvInfoComponent {
   }
 
   getTvRecommended(id: number, page: number) {
-    this.apiService.getTvShowRecommended(id, page).subscribe(
+    this.apiService.getRecommended(id, page, 'tv').subscribe(
       (res: any) => {
         this.recom_data = res.results.map((item: any) => ({
           link: `/tv/${item.id}`,

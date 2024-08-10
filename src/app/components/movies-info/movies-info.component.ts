@@ -21,6 +21,9 @@ export class MoviesInfoComponent implements OnInit {
   posters: any[] = [];
   cast_data: any;
   recom_data: any[] = [];
+  person_data: any;
+  type: 'movie' = 'movie';
+
 
   constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) {}
 
@@ -51,13 +54,13 @@ export class MoviesInfoComponent implements OnInit {
   }
 
   getExternal(id: number) {
-    this.apiService.getExternalId(id).subscribe((result: any) => {
+    this.apiService.getExternalId(id, 'movie').subscribe((result: any) => {
       this.external_data = result;
     });
   }
 
   getMovieVideos(id: number) {
-    this.apiService.getYouTubeVideo(id).subscribe((res: any) => {
+    this.apiService.getYouTubeVideo(id, 'movie').subscribe((res: any) => {
       this.videos = res.results;
       this.filteredVideos = this.videos;
       this.videoTypes = ['ALL', ...new Set(this.videos.map(video => video.type))];
@@ -72,7 +75,7 @@ export class MoviesInfoComponent implements OnInit {
   }
 
   getMoviesBackdrop(id: number) {
-    this.apiService.getBackdrops(this.id).subscribe((res: any) => {
+    this.apiService.getBackdrops(id, 'movie').subscribe((res: any) => {
       this.backdrops = res.backdrops || [];
       this.posters = res.posters || [];
     });
@@ -81,7 +84,9 @@ export class MoviesInfoComponent implements OnInit {
   getMovieCast(id: number) {
     this.apiService.getCredits(id, 'movie').subscribe(
       (res: any) => {
+        console.log(res.cast);
         this.cast_data = res.cast.map((item: any) => ({
+          
           link: `/person/${item.id}`,
           imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
           name: item.name,
@@ -96,7 +101,7 @@ export class MoviesInfoComponent implements OnInit {
   }
 
   getMovieRecommended(id: number, page: number) {
-    this.apiService.getMovieRecommended(id, page).subscribe(
+    this.apiService.getRecommended(id, page, 'movie').subscribe(
       (res: any) => {
         this.recom_data = res.results.map((item: any) => ({
           link: `/movie/${item.id}`,
@@ -111,4 +116,6 @@ export class MoviesInfoComponent implements OnInit {
       }
     );
   }
+
+  
 }
