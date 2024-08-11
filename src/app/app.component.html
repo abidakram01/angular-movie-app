@@ -1,7 +1,4 @@
 <div @fade>
-  <div *ngIf="searchOpen$ | async" @fadeAnimation>
-    <form><app-search></app-search></form>
-  </div>
   <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "ball-triangle-path" [fullScreen] = "true"></ngx-spinner>
   <app-navbar></app-navbar>
   <router-outlet #routerOutlet="outlet"></router-outlet>

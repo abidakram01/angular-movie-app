@@ -9,6 +9,7 @@ import { PersonComponent } from './components/person/person.component';
 import { MovieCategoryComponent } from './components/movie-category/movie-category.component';
 import { TvCategoryComponent } from './components/tv-category/tv-category.component';
 import { GenreComponent } from './components/genre/genre.component';
+import { SearchComponent } from './components/global/search/search.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'tv/category/:id',
     component: TvCategoryComponent,
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   },
   {
     path: '**',
