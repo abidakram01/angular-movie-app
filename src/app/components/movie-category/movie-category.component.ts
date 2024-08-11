@@ -50,14 +50,17 @@ export class MovieCategoryComponent implements OnInit {
 
     this.apiService.getCategory(category, this.page, 'movie').subscribe(
       (response) => {
-        this.movieCategories[property].push(...response.results.map((item: any) => ({
-          link: `/movie/${item.id}`,
-          imgSrc: `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`,
-          title: item.title,
-          rating: item.vote_average * 10,
-          vote: item.vote_average,
-        })));
-        console.log(`${category} movies (page ${this.page}):`, response.results);
+        const results = response.results;
+        for (const item of results) {
+          const movie = {
+            link: `/movie/${item.id}`,
+            imgSrc: `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`,
+            title: item.title,
+            rating: item.vote_average * 10,
+            vote: item.vote_average,
+          };
+          this.movieCategories[property].push(movie);
+        }
         this.isLoading = false;
         this.page++;
       },

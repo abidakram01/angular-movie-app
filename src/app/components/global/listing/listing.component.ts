@@ -6,9 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './listing.component.scss'
 })
 export class ListingComponent {
-
   @Input() title!: string;
   @Input() id!: number | string;
   @Input() items: any[] = [];
-
+  @Input() name!: string;
 }

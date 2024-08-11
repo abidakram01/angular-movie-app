@@ -53,14 +53,11 @@ export class PersonComponent {
 
   getPersonPoster(id: number) {
     this.apiService.getPersonImages(id).subscribe((res: any) => {
-        this.posters_data = [];
+        this.posters = res.profiles.map((profile: any) => ({
+            ...profile,
+            full_path: profile.file_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2/${profile.file_path}` : null,
+        }));
 
-        for (let profile of res.images.profiles) {  // Fixed the loop variable and path
-            this.posters_data.push({
-                ...profile,
-                full_path: `https://image.tmdb.org/t/p/w342${profile.file_path}`  // Fixed the reference to `profile`
-            });
-        }
     });
 }
 

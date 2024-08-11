@@ -17,11 +17,13 @@
 
 
 <div *ngIf="activeTab === 'knownfor'" id="knownfor">
-    <app-listing [items]="knownfor | sortByYear:'year'"></app-listing>
+    <div class="spacing">
+        <app-listing [items]="knownfor | sortByYear:'year'"></app-listing>
+    </div>
 </div>
 
-<div class="spacing">
-    <div *ngIf="activeTab === 'poster'" id="posters">
+<div *ngIf="activeTab === 'poster'" id="posters">
+    <div class="spacing">
         <app-images [posters]="posters"></app-images>
     </div>
 </div>

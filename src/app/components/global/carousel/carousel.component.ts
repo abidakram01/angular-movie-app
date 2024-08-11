@@ -35,13 +35,16 @@ export class CarouselComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   private routerSubscription!: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    // Add window resize listener to update navigation buttons
+    window.addEventListener('resize', this.updateNavigation.bind(this));
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.resetCarousel();
       this.updateNavigation();
-    }, 100);
+    }, 300); // Increased timeout to ensure elements are fully rendered
 
     // Subscribe to router events to reset the carousel on route change
     this.routerSubscription = this.router.events.subscribe(event => {
@@ -83,8 +86,9 @@ export class CarouselComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   private updateNavigation() {
     const container = this.carouselContainer.nativeElement;
+    const tolerance = 5; // small tolerance to handle rounding issues
     this.canNavigateLeft = container.scrollLeft > 0;
-    this.canNavigateRight = container.scrollWidth > container.scrollLeft + container.clientWidth;
+    this.canNavigateRight = container.scrollWidth > container.scrollLeft + container.clientWidth + tolerance;
   }
 
   private resetCarousel() {
@@ -106,5 +110,6 @@ export class CarouselComponent implements AfterViewInit, OnChanges, OnDestroy {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+    window.removeEventListener('resize', this.updateNavigation.bind(this));
   }
 }

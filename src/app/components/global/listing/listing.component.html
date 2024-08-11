@@ -1,3 +1,6 @@
+<div class="listing__head">
+    <h2 class="listing__title">{{title || name}}</h2>
+</div>
 <div class="listing__items">
     <div *ngFor="let item of items" class="card">
         <a [routerLink]="[item.link]" class="card__link">
