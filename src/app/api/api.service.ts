@@ -10,7 +10,7 @@ export class ApiService {
   private apiUrl = 'https://api.themoviedb.org/3';
   private apiKey = 'dd4d819639705d332d531217b4f7c6b6';
   private language = 'en-US';
-  
+
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class ApiService {
     const params = this.buildParams({ page: page.toString() });
     return this.http.get(`${this.apiUrl}/${mediaType}/now_playing`, { params })
       .pipe(catchError(this.handleError));
-}
+  }
 
   getCategory(category: string, page: number, mediaType: string): Observable<any> {
     const params = this.buildParams({ page: page.toString() });
@@ -48,20 +48,8 @@ export class ApiService {
   getYouTubeVideo(id: number, mediaType: string): Observable<any> {
     const params = this.buildParams({});
     return this.http.get(`${this.apiUrl}/${mediaType}/${id}/videos`, { params })
-    .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
-  
-  // getMovies(query: string, page: number): Observable<any> {
-  //   const params = this.buildParams({ query, page: page.toString() });
-  //   return this.http.get(`${this.apiUrl}/search/movie`, { params })
-  //     .pipe(catchError(this.handleError));
-  // }
-
-  // getTvShows(query: string, page: number): Observable<any> {
-  //   const params = this.buildParams({ query, page: page.toString() });
-  //   return this.http.get(`${this.apiUrl}/search/tv`, { params })
-  //     .pipe(catchError(this.handleError));
-  // }
 
   getTrending(media: string, page: number): Observable<any> {
     const params = this.buildParams({ page: page.toString() });
@@ -74,21 +62,6 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/discover/tv`, { params })
       .pipe(catchError(this.handleError));
   }
-  // getTvCategory(category: string, page: number): Observable<any> {
-  //   const params = this.buildParams({ page: page.toString() });
-  //   return this.http.get(`${this.apiUrl}/tv/${category}`, { params })
-  //     .pipe(catchError(this.handleError));
-  // }
-
-  // geTvExternalId(id: number): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/tv/${id}/external_ids`, { params: this.buildParams({}) })
-  //     .pipe(catchError(this.handleError));
-  // }
-
-  // getTvBackdrops(id: number): Observable<any> {
-  //   const url = `${this.apiUrl}/tv/${id}/images?api_key=${this.apiKey}`;
-  //   return this.http.get<any>(url);
-  // }
 
   getPersonExternalId(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/person/${id}/external_ids`, { params: this.buildParams({}) })
@@ -100,26 +73,11 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-
-  // getTvShowRecommended(id: number, page: number): Observable<any> {
-  //   const params = this.buildParams({ page: page.toString() });
-  //   return this.http.get(`${this.apiUrl}/tv/${id}/recommendations`, { params })
-  //     .pipe(catchError(this.handleError));
-  // }
-
   getTvShowEpisodes(id: number, season: number): Observable<any> {
     const params = this.buildParams({});
     return this.http.get(`${this.apiUrl}/tv/${id}/season/${season}`, { params })
       .pipe(catchError(this.handleError));
   }
-
-  // getTvYouTubeVideo(id: number): Observable<any> {
-  //   const params = this.buildParams({});
-  //   return this.http.get(`${this.apiUrl}/tv/${id}/videos`, { params })
-  //   .pipe(catchError(this.handleError));
-  // }
-
-  
 
   getMediaByGenre(media: string, genreId: number, page: number): Observable<any> {
     const params = this.buildParams({ page: page.toString(), with_genres: genreId.toString() });
@@ -134,7 +92,7 @@ export class ApiService {
   }
 
   getByGenre(id: number, type: string, page: number): Observable<any> {
-    const params = this.buildParams({ page: page.toString() });  
+    const params = this.buildParams({ page: page.toString() });
     return this.http.get(`${this.apiUrl}/genre/${id}/${type}`, { params })
       .pipe(catchError(this.handleError));
   }
@@ -167,8 +125,6 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/search/multi`, { params })
       .pipe(catchError(this.handleError));
   }
-
-  
 
   private buildParams(params: any): HttpParams {
     let httpParams = new HttpParams().set('api_key', this.apiKey).set('language', this.language);
