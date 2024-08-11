@@ -1,0 +1,58 @@
+@import '../../../assets/css/utilities/variables';
+
+.episode {
+    .eitems {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -.4rem;
+        margin-right: -.4rem;
+    }
+
+    .eitem {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+        padding: .4rem;
+        width: 100%;
+
+        @media (min-width: $breakpoint-xsmall) {
+            width: 50%;
+        }
+
+        @media (min-width: $breakpoint-medium) {
+            width: 33.3333333%;
+        }
+
+        @media (min-width: 1450px) {
+            width: 25%;
+        }
+
+        @media (min-width: 2000px) {
+            width: 20%;
+        }
+
+        @media (min-width: 3000px) {
+            width: 16.6666667%;
+        }
+    }
+
+    .eimage {
+        background-color: #17291c;
+        height: 0;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        padding-top: 56.25%;
+        position: relative;
+
+        span {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+    }
+}

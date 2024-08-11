@@ -39,12 +39,13 @@ import { MediaComponent } from './components/global/media/media.component';
 import { VideosComponent } from './components/global/videos/videos.component';
 import { ImagesComponent } from './components/global/images/images.component';
 import { PersonComponent } from './components/person/person.component';
-import { ListingComponent } from './components/listing/listing.component';
+import { ListingComponent } from './components/global/listing/listing.component';
 import { SortByYearPipe } from './components/global/pipe/sort-by-year.pipe';
 import { MovieCategoryComponent } from './components/movie-category/movie-category.component';
 import { TvCategoryComponent } from './components/tv-category/tv-category.component';
 import { GenreComponent } from './components/genre/genre.component';
 import { LanguageNamePipe } from './components/global/pipe/language-name.pipe';
+import { EpisodesComponent } from './components/global/episodes/episodes.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { LanguageNamePipe } from './components/global/pipe/language-name.pipe';
     TvCategoryComponent,
     GenreComponent,
     LanguageNamePipe,
+    EpisodesComponent,
   ],
   imports: [
     BrowserModule,

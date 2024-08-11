@@ -17,15 +17,6 @@
   background-color: $secondary-color;
   transition: transform 0.3s ease-in-out;
 
-  svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.97);
-    width: 50px;
-    height: 50px;
-  }
-
   img,
   span {
     position: absolute;

@@ -25,7 +25,7 @@ export class MoviesInfoComponent implements OnInit {
   type: 'movie' = 'movie';
 
 
-  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) {}
+  constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.router.params.subscribe((params: Params) => {
@@ -35,7 +35,7 @@ export class MoviesInfoComponent implements OnInit {
       this.getMovieVideos(this.id);
       this.getMoviesBackdrop(this.id);
       this.getMovieCast(this.id);
-      this.getMovieRecommended(this.id, 1); 
+      this.getMovieRecommended(this.id, 1);
       setTimeout(() => {
         this.spinner.hide();
       }, 2000);
@@ -76,23 +76,30 @@ export class MoviesInfoComponent implements OnInit {
 
   getMoviesBackdrop(id: number) {
     this.apiService.getBackdrops(id, 'movie').subscribe((res: any) => {
-      this.backdrops = res.backdrops || [];
-      this.posters = res.posters || [];
+      this.backdrops = res.backdrops;
+      this.posters = [];
+      res.posters.forEach((poster: { file_path: string; }) => {
+        this.posters.push({
+          ...poster,
+          full_path: `https://image.tmdb.org/t/p/w342${poster.file_path}`
+        });
+      });
     });
   }
 
   getMovieCast(id: number) {
     this.apiService.getCredits(id, 'movie').subscribe(
       (res: any) => {
-        console.log(res.cast);
-        this.cast_data = res.cast.map((item: any) => ({
-          
-          link: `/person/${item.id}`,
-          imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
-          name: item.name,
-          character: item.character,
-          popularity: item.popularity,
-        }));
+        this.cast_data = [];
+        for (let item of res.cast) {
+          this.cast_data.push({
+            link: `/person/${item.id}`,
+            imgSrc: item.profile_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.profile_path}` : null,
+            name: item.name,
+            character: item.character,
+            popularity: item.popularity,
+          });
+        }
       },
       error => {
         console.error('Error fetching credits data', error);
@@ -117,5 +124,5 @@ export class MoviesInfoComponent implements OnInit {
     );
   }
 
-  
+
 }

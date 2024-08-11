@@ -16,6 +16,7 @@ export class PersonComponent {
   activeTab: string = 'knownfor';
   posters: any;
   knownfor: any
+  posters_data: any[] = [];
 
   constructor(private apiService: ApiService, private router: ActivatedRoute, private spinner: NgxSpinnerService, private cdr: ChangeDetectorRef) { }
 
@@ -51,10 +52,18 @@ export class PersonComponent {
   }
 
   getPersonPoster(id: number) {
-    this.apiService.getPersonImages(id).subscribe((res) => {
-      this.posters = res.profiles || [];
+    this.apiService.getPersonImages(id).subscribe((res: any) => {
+        this.posters_data = [];
+
+        for (let profile of res.images.profiles) {  // Fixed the loop variable and path
+            this.posters_data.push({
+                ...profile,
+                full_path: `https://image.tmdb.org/t/p/w342${profile.file_path}`  // Fixed the reference to `profile`
+            });
+        }
     });
-  }
+}
+
   getKnowFor(id: number) {
     this.apiService.getPersonCredit(id).subscribe((result: any) => {
       this.knownfor = result.cast.map((item: any) => {
