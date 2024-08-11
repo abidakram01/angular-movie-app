@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { StoreModule } from '@ngrx/store';
-import { searchReducer } from './store/search.reducer';
 
 // Pipes
 import { RuntimePipe } from './components/global/pipe/runtime.pipe';
@@ -94,7 +93,6 @@ import { EpisodesComponent } from './components/global/episodes/episodes.compone
     CommonModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    StoreModule.forRoot({ search: searchReducer })
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

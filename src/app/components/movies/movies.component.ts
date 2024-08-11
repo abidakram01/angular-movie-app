@@ -57,8 +57,8 @@ export class MoviesComponent implements OnInit {
       (response) => {
         this.movieCategories[property] = response.results.map((item: any) => ({
           link: `/movie/${item.id}`,
-          linkExplorer: `/movie/category/${category}`,  // Dynamically set the category
-          imgSrc: `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`,
+          linkExplorer: `/movie/category/${category}`,
+          imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
           title: item.title,
           rating: item.vote_average * 10,
           vote: item.vote_average,

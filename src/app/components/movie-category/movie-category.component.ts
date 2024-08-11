@@ -54,7 +54,7 @@ export class MovieCategoryComponent implements OnInit {
         for (const item of results) {
           const movie = {
             link: `/movie/${item.id}`,
-            imgSrc: `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`,
+            imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
             title: item.title,
             rating: item.vote_average * 10,
             vote: item.vote_average,

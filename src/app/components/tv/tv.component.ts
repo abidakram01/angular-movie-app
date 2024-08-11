@@ -56,8 +56,8 @@ export class TvComponent {
         response => {
           this.tvCategories[property] = response.results.map((item: any) => ({
             link: `/tv/${item.id}`,
-            imgSrc: `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}`,
-            title: item.title,
+            imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
+            title: item.name,
             rating: item.vote_average * 10,
             vote: item.vote_average
           }));

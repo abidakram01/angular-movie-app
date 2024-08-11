@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AppState } from '../../../store/app.state';
-import * as SearchActions from '../../../store/search.actions';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../api/api.service';
+
 
 @Component({
   selector: 'app-search',
@@ -11,52 +9,42 @@ import * as SearchActions from '../../../store/search.actions';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  searchResults: any[] = [];
   query: string = '';
-  showButton$: Observable<boolean> = new Observable<boolean>();
-
-  @ViewChild('input', { static: false }) inputElement!: ElementRef;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
-  ) {}
+    private apiService: ApiService
+  ) { }
 
-  ngOnInit() {
-    this.query = this.route.snapshot.queryParams['q'] || '';
-    this.showButton$ = this.store.pipe(select(state => state.search.searchOpen));
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.query = params['query'];
+      if (this.query) {
+        this.performSearch(this.query);
+      }
+    });
   }
 
-  ngAfterViewInit() {
-    this.inputElement.nativeElement.focus();
+  performSearch(query: string): void {
+    this.apiService.search(query, 1).subscribe(
+      (response: any) => {
+        this.searchResults = response.results.map((item: any) => {
+          return {
+            link: item.media_type === 'movie' ? `/movie/${item.id}` : item.media_type === 'tv' ? `/tv/${item.id}` : `/person/${item.id}`,
+            imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : '',
+            title: item.title || item.name,
+            rating: item.vote_average ? item.vote_average * 10 : 'N/A',
+            vote: item.vote_average ? item.vote_average : 'N/A',
+            poster_path: item.poster_path
+          };
+        });
+      },
+      error => {
+        console.error('Search failed', error);
+      }
+    );
   }
-
-  onSubmit(event: Event) {
-    event.preventDefault();
-  }
-
-  goToRoute() {
-    if (this.query) {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { q: this.query },
-        queryParamsHandling: 'merge'
-      });
-    } else {
-      this.router.navigateByUrl(this.route.snapshot.queryParams['fromPage']);
-    }
-  }
-
-  goBack() {
-    this.query = '';
-    this.router.navigateByUrl(this.route.snapshot.queryParams['fromPage']);
-  }
-
-  unFocus(event: FocusEvent) {
-    const target = event.relatedTarget as HTMLElement;
-    if (target && !target.classList.contains('search-toggle')) {
-      this.query = '';
-      this.store.dispatch(SearchActions.closeSearch());
-    }
-  }
+  
 }
+

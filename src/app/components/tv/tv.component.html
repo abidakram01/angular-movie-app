@@ -1,19 +1,19 @@
 <app-slider [data]="tv_data"></app-slider>
 
-<app-carousel [title]="'Popular TV Shows'" [exploreLink]="'/tv/category/popular'"
+<app-carousel [title]="'Popular TV Shows'" [isExplore]="false" [exploreLink]="'/tv/category/popular'"
     [items]="tvCategories['popularTv']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
 
 
-<app-carousel [title]="'Top Rated TV Shows'" [exploreLink]="'/tv/category/top_rated'"
+<app-carousel [title]="'Top Rated TV Shows'" [isExplore]="false" [exploreLink]="'/tv/category/top_rated'"
     [items]="tvCategories['topRatedTv']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
 
 
-<app-carousel [title]="'Currently Airing TV Shows'" [exploreLink]="'/tv/category/on_the_air'"
+<app-carousel [title]="'Currently Airing TV Shows'" [isExplore]="false" [exploreLink]="'/tv/category/on_the_air'"
     [items]="tvCategories['onTheAirTv']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
 
-<app-carousel [title]="'TV Shows Airing Today'" [exploreLink]="'/tv/category/airing_today'"
+<app-carousel [title]="'TV Shows Airing Today'" [isExplore]="false" [exploreLink]="'/tv/category/airing_today'"
     [items]="tvCategories['airingTodayTv']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>

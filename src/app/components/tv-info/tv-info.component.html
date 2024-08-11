@@ -39,8 +39,8 @@
 </div>
 
 
-<app-carousel [title]="'Cast'" [exploreLink]="'/person'" [items]="cast_data" [isCastCarousel]="true"
+<app-carousel [title]="'Cast'" [isExplore]="false" [exploreLink]="'/person'" [items]="cast_data" [isCastCarousel]="true"
     [isDefaultCarousel]="false"></app-carousel>
 
-<app-carousel [title]="'More Like This'" [exploreLink]="'/movie'" [items]="recom_data" [canNavigateLeft]="true"
+<app-carousel [title]="'More Like This'" [isExplore]="true" [exploreLink]="'/movie'" [items]="recom_data" [canNavigateLeft]="true"
     [canNavigateRight]="true"></app-carousel>

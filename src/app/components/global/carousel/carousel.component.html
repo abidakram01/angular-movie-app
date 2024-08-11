@@ -1,7 +1,7 @@
 <div class="listing listing--carousel">
   <div class="listing__head">
     <h2 class="listing__title">{{ title }}</h2>
-    <a *ngIf="isDefaultCarousel" [routerLink]="[exploreLink]" routerLinkActive="router-link-active" class="listing__explore">
+    <a *ngIf="isDefaultCarousel && !isExplore" [routerLink]="[exploreLink]" routerLinkActive="router-link-active" class="listing__explore">
       <strong>Explore All</strong>
     </a>
   </div>

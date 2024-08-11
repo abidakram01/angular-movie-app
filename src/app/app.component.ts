@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from './store/app.state';
-import { selectSearchOpen } from './store/search.selectors';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, NavigationEnd } from '@angular/router';
@@ -27,7 +25,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   searchOpen$!: Observable<boolean>; // Observable for searchOpen
 
-  constructor(private store: Store<AppState>, private spinner: NgxSpinnerService, private router: Router) {}
+  constructor(private spinner: NgxSpinnerService, private router: Router) {}
 
   ngOnInit() {
     // reset page while clicking
@@ -37,7 +35,6 @@ export class AppComponent implements OnInit {
       window.scrollTo(0, 0);
     });
 
-    this.searchOpen$ = this.store.pipe(select(selectSearchOpen));
 
     this.spinner.show();
     setTimeout(() => {

@@ -1,17 +1,17 @@
 <app-slider [data]="movies_data"></app-slider>
 
-<app-carousel [title]="'Popular Movies'" [exploreLink]="'/movie/category/popular'" 
+<app-carousel [title]="'Popular Movies'" [isExplore]="false" [exploreLink]="'/movie/category/popular'" 
     [items]="movieCategories['popularMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
 
-<app-carousel [title]="'Top Rated Movies'" [exploreLink]="'/movie/category/top_rated'"
+<app-carousel [title]="'Top Rated Movies'" [isExplore]="false" [exploreLink]="'/movie/category/top_rated'"
     [items]="movieCategories['topRatedMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
 
-<app-carousel [title]="'Upcoming Movies'" [exploreLink]="'/movie/category/upcoming'"
+<app-carousel [title]="'Upcoming Movies'" [isExplore]="false" [exploreLink]="'/movie/category/upcoming'"
     [items]="movieCategories['upcomingMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
 
-<app-carousel [title]="'Now Playing Movies'" [exploreLink]="'/movie/category/now_playing'"
+<app-carousel [title]="'Now Playing Movies'" [isExplore]="false" [exploreLink]="'/movie/category/now_playing'"
     [items]="movieCategories['nowPlayingMovies']" [canNavigateLeft]="true" [canNavigateRight]="true">
 </app-carousel>
