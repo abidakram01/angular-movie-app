@@ -1,0 +1,22 @@
+
+    <div class="listing">
+        <div class="listing__head">
+            <h2 class="listing__title">TV Genre: {{ title }}</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-2 listing__items" *ngFor="let tv of _tv; let i = index;">
+                <div [routerLink]="['/tv/', tv.id]">
+                    <div class="movie-item-style">
+                        <div class="overlay">
+                            <div class="hover-inner"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                        </div>
+                        <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{tv?.poster_path}}">
+                        <h6>{{ tv?.title }}</h6>
+                        <p class="rate"><i class="material-icons">star</i><span>{{tv?.vote_average}}</span> /10</p>
+                        <p class="year"><span>{{tv?.release_date | date: 'yyyy'}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

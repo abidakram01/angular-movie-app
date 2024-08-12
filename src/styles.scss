@@ -1,1 +1,35 @@
-@import '../src/assets/css/global.scss';
+@import '../src/assets/scss/bootstrap';
+@import '../src/assets/scss/base';
+@import '../src/assets/scss/helpers';
+@import '../src/assets/scss/normalize';
+@import '../src/assets/scss/forms';
+@import '../src/assets/scss/transitions';
+
+
+//Common Styles
+@import '../src/assets/scss/hero';
+@import '../src/assets/scss/listing';
+@import '../src/assets/scss/overview';
+@import '../src/assets/scss/videos';
+@import '../src/assets/scss/image';
+
+.paybtn{
+    text-align: center;
+    background: #212121;
+    padding-bottom: 20px;
+    .PaymentButton-securedBy{
+        display: none;
+    }
+    svg{
+        display: none;
+    }
+    .PaymentButton {
+        background: #dc4666 !important;
+    }
+    .PaymentButton-contents {
+        padding: 10px 0px 10px 0px !important;
+        .PaymentButton-text{
+            color: #fff;
+        }
+    }
+}

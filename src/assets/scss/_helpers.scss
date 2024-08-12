@@ -1,0 +1,145 @@
+.addLoader {
+  position: relative;
+  z-index: 6;
+}
+
+.addLoader:after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  content: "";
+  background: url(~assets/images/loader.svg) rgba(34, 34, 34, 0.8) no-repeat;
+  left: 0px;
+  top: 0px;
+  background-position: center center;
+  background-size: 70px;
+}
+
+.spacing {
+  margin: 5rem 1.7rem 5rem;
+
+  @media (min-width: $breakpoint-small) {
+    margin: 5rem 1.7rem 5rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    margin: 5rem 1.7rem 5rem;
+  }
+}
+
+.listing-space {
+  margin: 40px 0px 40px;
+}
+
+
+.nolist {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.visuallyhidden {
+  position: absolute;
+  height: 1px; width: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
+
+.cdk-overlay-dark-backdrop{
+  background: #000c;
+}
+
+.cross-icon{
+  font-size: 25px;
+  font-weight: 100;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  background-color: transparent;
+  color: #fff;
+}
+
+.mat-ink-bar {
+  border-bottom: 2px solid #fff;
+}
+
+
+.mat-dialog-container {
+  color: #fff;
+  background: none;
+}
+
+.mat-tab-label {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #585858;
+  letter-spacing: $letter-spacing;
+  background: none;
+  opacity: 1 !important;
+  transition: color 0.2s ease;
+  text-transform: uppercase;
+  height: 60px;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+}
+
+.ui-carousel-dot-item{
+  display: none;
+}
+
+.ml-15{
+  margin-left: 15px;
+}
+
+.mt-20{
+  margin-top: 20px;
+}
+.mb-20{
+  margin-bottom: 20px;
+}
+
+// #pr_id_2 .ui-carousel-item{
+//   flex: 0 0 16.666666666666668% !important;
+// }
+
+.ui-carousel-prev, .ui-carousel-next{
+  background-color: $secondary-color !important;
+  color: $text-color !important;
+  border-radius: 1px !important;
+  opacity: 1;
+  border: 1px solid $secondary-color !important;
+  &:focus{
+    outline: none !important;
+    box-shadow: none !important
+  }
+
+  // @media (max-width: $breakpoint-xsmall) {
+  //   display: none;
+  // }
+}
+
+.ui-carousel-content,
+.ui-carousel-container{
+  padding: 0;
+}
+
+body .ui-sidebar{
+  background: #212121;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body .pi{
+  font-size: 3rem;
+  color: $text-color;
+}
+
+.ui-sidebar-top{
+  height: 5em;
+}

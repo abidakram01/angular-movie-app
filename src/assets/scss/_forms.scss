@@ -1,0 +1,64 @@
+@import '../scss/variables';
+
+.button,
+a.button {
+  display: inline-block;
+  padding: 1.5rem 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  background-color: $secondary-color;
+  transition: all 0.2s;
+
+  &:hover,
+  &:focus {
+    background-color: $secondary-color;
+    outline-style: none;
+    opacity: 0.9;
+  }
+
+  &:disabled,
+  &[disabled] {
+    color: #666;
+    cursor: default;
+    background-color: #000;
+  }
+
+  .icon {
+    margin-right: 1rem;
+  }
+}
+
+.button--icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+
+// Make sure we are not setting a height / background to multi select
+select[multiple="multiple"] {
+  height: auto;
+  background-image: none;
+}
+
+// IE hide the select arrow
+select::-ms-expand {
+  display: none;
+}
+
+input {
+  font-size: 1.3rem;
+  border-radius: 0;
+}
+
+button {
+  text-align: center;
+  border: 0;
+  border-radius: 0;
+  &:focus{
+    outline-style: none;
+  }
+}

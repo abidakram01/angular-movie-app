@@ -1,44 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: [
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate('300ms', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  searchOpen$!: Observable<boolean>; // Observable for searchOpen
+export class AppComponent {
+  title = 'FlixMovies';
+  loading = false;
+  color: ThemePalette = 'warn';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  value = 50;
 
-  constructor(private spinner: NgxSpinnerService, private router: Router) {}
 
-  ngOnInit() {
-    // reset page while clicking
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      window.scrollTo(0, 0);
+  constructor(private router: Router) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.loading = true;
+      } else if (event instanceof NavigationEnd) {
+        setTimeout (() => {
+          this.loading = false;
+       }, 1000);
+      }
     });
-
-
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 2000);
   }
+
+
 }

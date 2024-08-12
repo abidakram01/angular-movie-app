@@ -1,0 +1,71 @@
+<div class="listing">
+    <div class="listing__head">
+        <h3 class="listing__title">TV Shows</h3>
+    </div>
+
+    <form>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control searchdesign" placeholder="Search for movies..."
+                            [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary btnDesign" type="button"
+                                (click)="searchMovies()">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <ng-container *ngIf="searchRes">
+        <app-skeleton *ngIf="loader"></app-skeleton>
+        <div class="row" *ngIf="!loader">
+            <div class="col-md-2 listing__items" *ngFor="let item of searchRes | slice:0:18">
+                <div [routerLink]="['/tv/', item.id]">
+                    <div class="listing-item-style">
+                        <div class="overlay">
+                            <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                        </div>
+                        <img *ngIf="item?.poster_path"
+                            src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{item?.poster_path}}"
+                            [alt]="item.title ? item.title : item.name">
+                        <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png"
+                            [alt]="item.title ? item.title : item.name">
+                        <h6>{{ item?.name }}</h6>
+                        <p class="rate"><i class="material-icons">star</i><span>{{item?.vote_average}}</span> /10</p>
+                        <p class="year"><span>{{item?.first_air_date | date: 'yyyy'}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <div class="row" *ngIf="!loader">
+        <div class="col-md-2 listing__items" *ngFor="let item of topRatedTv | slice:0:18">
+            <div [routerLink]="['/tv/', item.id]">
+                <div class="listing-item-style">
+                    <div class="overlay">
+                        <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                    </div>
+                    <img *ngIf="item?.poster_path"
+                        src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{item?.poster_path}}"
+                        [alt]="item.title ? item.title : item.name">
+                    <img *ngIf="!item?.poster_path" src="assets/images/default-movie.png"
+                        [alt]="item.title ? item.title : item.name">
+                    <h6>{{ item?.name }}</h6>
+                    <p class="rate"><i class="material-icons">star</i><span>{{item?.vote_average}}</span> /10</p>
+                    <p class="year"><span>{{item?.first_air_date | date: 'yyyy'}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-paginator [length]="totalResults" [pageSize]="20" (page)="changePage($event)"></mat-paginator>
+
+</div>

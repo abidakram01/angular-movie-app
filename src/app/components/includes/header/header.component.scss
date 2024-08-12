@@ -1,0 +1,138 @@
+@import '../../../../assets/scss/variables';
+
+.navbar {
+  height: 65px;
+  background-color: #212121;
+  padding: 0 47px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+
+
+  .navbar-brand {
+    color: $base-font-color !important;
+    margin-right: 2rem;
+    font-size: 24px;
+  }
+
+  .navbar-nav {
+    .nav-item {
+      margin-right: 10px;
+    }
+
+    .nav-link {
+      color: $base-font-color !important;
+      font-size: 17px;
+      font-weight: 700;
+    }
+  }
+
+  @media (max-width: $breakpoint-xsmall) {
+    .listMenu {
+      display: none;
+    }
+  }
+
+  .search-icon {
+    background-image: url(../../../../assets/images/Search.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+@media (max-width: $breakpoint-xsmall) {
+  .navbar {
+    height: auto;
+    padding: 0 15px;
+
+  }
+}
+
+.sidebar-nav-btn {
+  display: none;
+}
+
+@media (max-width: $breakpoint-xsmall) {
+  .sidebar-nav-btn {
+    display: block;
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+  }
+}
+
+.sidebarNav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100% - 60px);
+    width: 100%;
+
+  }
+
+  .sidebarMenu {
+    margin: 10px 0;
+    position: relative;
+    a {
+      font-size: 2rem;
+      letter-spacing: 0.4px;
+      color: #fff !important;
+      margin-left: 40px;
+    }
+    img{
+      height: 25px;
+      width: 25px;
+      position: absolute;
+    }    
+  }
+}
+
+
+.form {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+
+  input[type='text'] {
+    flex: 1;
+    height: 6rem;
+    padding: 2.1rem 1.5rem;
+    font-size: 1.6rem;
+    color: #fff;
+    background: none;
+    border: 0;
+    outline: 0;
+
+    @media (min-width: $breakpoint-large) {
+      height: 8rem;
+      padding: 3.1rem 5rem;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: none;
+
+    @media (min-width: $breakpoint-large) {
+      padding: 0 5rem;
+    }
+  }
+}
+
+.field {
+  display: flex;
+  background-color: #202124;
+}

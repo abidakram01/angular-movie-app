@@ -1,89 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../api/api.service';
-import { delay } from 'rxjs/operators';
-import { NgxSpinnerService } from 'ngx-spinner';
-
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MoviesService } from 'src/app/service/movies.service';
+import { TvService } from 'src/app/service/tv.service';
+import { delay } from 'rxjs/internal/operators/delay';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  moviesSlider: any[] = [];
-  tvSlider: any[] = [];
-  movies_data: any[] = [];
+  nowPlaying: any;
+  tvShows: any;
+  responsiveOptions;
+  loader = true;
 
-
-  constructor(private apiService: ApiService, private spinner: NgxSpinnerService) { }
-
-  ngOnInit() {
-    this.spinner.show();
-    this.fetchTrendingContent('movie', 1, 'movies');
-    this.fetchTrendingContent('tv', 1, 'tvShows');
-    this.getNowPlaying('movie', 1);
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 2000);
-  }
-
-  // Slider Data
-  getNowPlaying(mediaType: 'movie', page: number) {
-  this.apiService.getNowPlaying(mediaType, page).pipe(delay(2000)).subscribe(
-    (res: any) => {
-      this.movies_data = res.results.map((item: any) => {
-        const movieItem = {
-          ...item,
-          link: `/movie/${item.id}`,
-          videoId: '' // Initialize with an empty string
-        };
-
-        // Fetch the trailer video key for each movie
-        this.apiService.getYouTubeVideo(item.id, 'movie').subscribe(
-          (videoRes: any) => {
-            const video = videoRes.results.find((vid: any) => vid.site === 'YouTube' && vid.type === 'Trailer');
-            if (video) {
-              movieItem.videoId = video.key; // Set the video key if available
-            }
-          },
-          videoError => {
-            console.error('Error fetching YouTube video for Movie:', videoError);
-          }
-        );
-
-        return movieItem;
-      });
-    },
-    error => {
-      console.error('Error fetching now playing data', error);
-    }
-  );
-}
-
-  fetchTrendingContent(media: string, page: number, type: string): void {
-    this.apiService.getTrending(media, page).subscribe(
-      response => {
-        if (type === 'movies') {
-          this.moviesSlider = response.results.map((item: any) => ({
-            link: `/movie/${item.id}`,
-            imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
-            title: item.title,
-            rating: item.vote_average * 10,
-            vote: item.vote_average
-          }));
-        } else if (type === 'tvShows') {
-          this.tvSlider = response.results.map((item: any) => ({
-            link: `/tv/${item.id}`,
-            imgSrc: item.poster_path ? `https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path}` : null,
-            title: item.name,
-            rating: item.vote_average * 10,
-            vote: item.vote_average
-          }));
-        }
+  constructor(
+    private movies: MoviesService,
+    private tv: TvService
+  ) {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
       },
-      error => {
-        console.error(`Error fetching trending ${type}:`, error);
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
       }
-    );
+    ];
+  }
+  ngOnInit() {
+    this.trendingMovies(1);
+    this.tvShow(1);
   }
 
+  trendingMovies(page: number) {
+    this.movies.getNowPlaying(page).pipe(delay(2000)).subscribe((res: any) => {
+      this.nowPlaying = res.results;
+      this.loader = false;
+    });
+  }
+
+  tvShow(page: number) {
+    this.tv.getTvOnTheAir(page).pipe(delay(2000)).subscribe((res: any) => {
+      this.tvShows = res.results;
+      this.loader = false;
+    });
+  }
 }

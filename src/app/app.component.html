@@ -1,6 +1,7 @@
-<div @fade>
-  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "ball-triangle-path" [fullScreen] = "true"></ngx-spinner>
-  <app-navbar></app-navbar>
-  <router-outlet #routerOutlet="outlet"></router-outlet>
-  <app-footer></app-footer>
+<app-header></app-header>
+<div class="loading" *ngIf="loading">
+    <mat-progress-bar [color]="color" [mode]="mode" [value]="value"></mat-progress-bar>
 </div>
+
+<router-outlet></router-outlet>
+<app-footer></app-footer>

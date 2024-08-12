@@ -1,0 +1,28 @@
+<div class="hero">
+    <ng-container *ngFor="let slider of movies_data; let i = index">
+        <div class="slider" *ngIf="current == i" @fade>
+            <div class="backdrop">
+                <div class="lazyloaded">
+                    <img alt="{{slider?.title}}" class="lazyload image" src="https://image.tmdb.org/t/p/original/{{slider?.backdrop_path}}">
+                </div>
+            </div>
+            <div class="pane">
+                <div>
+                    <h1 class="name" [routerLink]="['/movies/', slider.id]">
+                        {{slider?.title}}
+                    </h1>
+                    <div class="meta">
+                        <div class="info">
+                            <span class="rate"><i class="material-icons">star</i><span>{{slider?.vote_average}}</span>/10</span>
+                            <span> {{slider?.vote_count | numberWithCommas }} Reviews</span>
+                            <span>{{slider?.release_date | date: 'yyyy' }}</span>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        {{slider?.overview }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,203 @@
+<div class="hero">
+    <div class="backdrop">
+        <div class="lazyloaded">
+            <button class="play" type="button" (click)="openDialogTv(this.video)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+                    <circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" />
+                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z" /></svg>
+            </button>
+            <img class="lazyload image" src="https://image.tmdb.org/t/p/original/{{ episode?.backdrop_path }}">
+        </div>
+    </div>
+    <div class="pane">
+        <div>
+            <div class="name">{{ episode?.name }}</div>
+            <div class="meta">
+                <div class="info">
+                    <span class="rate">
+                        <i class="material-icons">star</i><span>{{ episode?.vote_average }}</span> /10
+                    </span>
+                    <span> {{ episode?.vote_count | numberWithCommas }} Reviews</span>
+                    <span>Season {{ episode?.number_of_seasons }}</span>
+                    <span>{{ episode?.first_air_date | date: 'yyyy' }}</span>
+                </div>
+            </div>
+            <div class="desc">{{ episode?.overview }}</div>
+            <button type="button" class="button button--icon trailer" (click)="openDialogTv(this.video)">
+                <span class="mr-2"><img src="assets/images/play.svg"></span>
+                <span class="txt">Watch Trailer</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-tab-group class="mt-5 mb-5" mat-align-tabs="center" animationDuration="0ms">
+                <mat-tab label="Overview">
+                    <div class="listing-space info">
+                        <div class="left">
+                            <div class="poster">
+                                <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ episode?.poster_path }}">
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="overview">
+                                <h2 class="title">Storyline</h2>
+                                <div>{{ episode?.overview}}</div>
+                            </div>
+                            <div class="stats">
+                                <ul class="nolist">
+                                    <li *ngIf="episode?.first_air_date">
+                                        <div class="label">
+                                            First Aired
+                                        </div>
+                                        <div class="value">
+                                            {{episode?.first_air_date | fullDate }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="episode?.last_air_date">
+                                        <div class="label">
+                                            Last Aired
+                                        </div>
+                                        <div class="value">
+                                            {{episode?.last_air_date | fullDate }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="episode?.episode_run_time">
+                                        <div class="label">
+                                            Runtime
+                                        </div>
+                                        <div class="value">
+                                            {{ episode?.episode_run_time | time  }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="episode?.created_by.length">
+                                        <div class="label">
+                                            Creater
+                                        </div>
+                                        <div class="comma_" *ngFor="let creater of episode?.created_by">
+                                            <a [routerLink]="['/person/', creater.id]">{{ creater?.name }}</a>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="episode?.genres.length">
+                                        <div class="label">
+                                            Genre
+                                        </div>
+                                        <div class="comma_" *ngFor="let genre of episode?.genres">
+                                            <a routerLink="/genres-tv/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a>
+                                        </div>
+                                    </li>
+
+                                    <li *ngIf="episode?.number_of_seasons">
+                                        <div class="label">
+                                            Seasons
+                                        </div>
+                                        <div class="value">
+                                            {{ episode?.number_of_seasons }}
+                                        </div>
+                                    </li>
+
+                                    <li *ngIf="episode?.status">
+                                        <div class="label">
+                                            Status
+                                        </div>
+                                        <div class="value">
+                                            {{ episode?.status }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="episode?.original_language">
+                                        <div class="label">
+                                            Language
+                                        </div>
+                                        <div class="value">
+                                            {{ episode?.original_language | fullLanguage }}
+                                        </div>
+                                    </li>
+                                    <li *ngIf="episode?.networks?.length">
+                                        <div class="label">
+                                            Network
+                                        </div>
+                                        <div class="comma_" *ngFor="let netwok of episode?.networks">
+                                            {{ netwok?.name }}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Videos">
+                    <div class="listing-space videos__status">
+                        <div class="items">
+                            <div class="item" *ngFor="let list of related_video">
+                                <div (click)="openDialogTv(list)" class="link">
+                                    <div class="image lazyloaded">
+                                        <img class="lazyload"
+                                            src="https://img.youtube.com/vi/{{list?.key}}/mqdefault.jpg">
+                                        <div class="play__icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                                viewBox="0 0 55 55">
+                                                <circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                                                <path fill="none" stroke="#fff" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        {{list?.name}}
+                                    </div>
+                                    <div class="type">
+                                        {{list?.type}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Photos">
+                    <div class="listing-space backdrop_">
+                        <div class="head">
+                            <h2 class="title">Backdrops</h2>
+                        </div>
+                        <div class="items">
+                            <div class="item backdrop_" *ngFor="let item of backdrop | slice: 1:10">
+                                <div class="image">
+                                    <img class="lazyload"
+                                        src="https://image.tmdb.org/t/p/w533_and_h300_bestv2/{{ item?.file_path }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="listing-space mt-20 mb-5">
+                <div class="listing__head">
+                    <h2 class="listing__title">Recommended Movies</h2>
+                </div>
+                <p-carousel [value]="_recomend" [numVisible]="6" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+                    <ng-template let-recomend pTemplate="item">
+                        <div class="listing-item-style" [routerLink]="['/tv/', recomend.id]">
+                            <div class="overlay">
+                                <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                            </div>
+                            <img *ngIf="recomend?.poster_path"
+                                src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{recomend?.poster_path}}">
+                            <img *ngIf="!recomend?.poster_path" src="assets/images/default-movie.png">
+                            <h6>{{ recomend?.name }}</h6>
+                            <p class="rate"><i class="material-icons">star</i><span>{{recomend?.vote_average}}</span>
+                                /10</p>
+                            <div class="year"><span>{{recomend?.release_date | date: 'yyyy'}}</span></div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+
+
+<div class="container-fluid mt-20 mb-20">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <div class="row">
+        <div class="col-md-12 text-center" *ngIf="!loader">
+            <h2 class="mb-5 mt-5">Movies Genres</h2>
+            <a *ngFor="let genre of genreslist" routerLink="/genres/{{genre.id}}/{{genre.name}}">
+                <button mat-raised-button color="primary" class="genre-card blue-theme" aria-label="Genres">
+                    {{genre.name}}
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-20 mb-20">
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <div class="row">
+        <div class="col-md-12 text-center" *ngIf="!loader">
+            <h2 class="mt-5 mb-5">TV GENRES</h2>
+            <a *ngFor="let genre of genreslist" routerLink="/genres-tv/{{genre.id}}/{{genre.name}}">
+                <button mat-raised-button color="primary" class="genre-card blue-theme" aria-label="Genres">
+                    {{genre.name}}
+                </button>
+            </a>
+        </div>
+    </div>
+</div>

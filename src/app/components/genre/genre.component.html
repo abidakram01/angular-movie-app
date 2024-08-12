@@ -1,23 +1,24 @@
-<div class="spacing">
-    <app-listing class="listing" [items]="genre_data" [title]="title" [exploreLink]="'/' + type"></app-listing>
-
-
-    <div class="infinite-scroll-loading" *ngIf="isLoading">
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 44 44" stroke="#a6db38">
-            <g fill="none" fill-rule="evenodd" stroke-width="2">
-                <circle cx="22" cy="22" r="1">
-                    <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1"
-                        keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite" />
-                    <animate attributeName="stroke-opacity" begin="0s" dur="1.8s" values="1; 0" calcMode="spline"
-                        keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite" />
-                </circle>
-                <circle cx="22" cy="22" r="1">
-                    <animate attributeName="r" begin="-0.9s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1"
-                        keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite" />
-                    <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.8s" values="1; 0" calcMode="spline"
-                        keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite" />
-                </circle>
-            </g>
-        </svg>
+<div class="listing">
+    <div class="listing__head">
+        <h2 class="listing__title">Movie Genre: {{ title }}</h2>
     </div>
+    <app-skeleton *ngIf="loader"></app-skeleton>
+    <div class="row" *ngIf="!loader">
+        <div class="col-md-2 listing__items" *ngFor="let movie of moviesGenre | slice:0:18">
+            <div [routerLink]="['/movies/', movie.id]">
+                <div class="listing-item-style">
+                    <div class="overlay">
+                        <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+                    </div>
+                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
+
+                    <h6>{{ movie?.title }}</h6>
+                    <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+                    <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
