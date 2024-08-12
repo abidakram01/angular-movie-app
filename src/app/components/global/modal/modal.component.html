@@ -1,0 +1,6 @@
+<div *ngIf="isVisible" class="modal-backdrop" (click)="closeModal()"></div>
+<div *ngIf="isVisible" class="modal-content">
+    <iframe *ngIf="videoUrl" [src]="videoUrl | safeUrl" frameborder="0" allowfullscreen>
+    </iframe>
+    <button (click)="closeModal()" class="close-button">X</button>
+</div>

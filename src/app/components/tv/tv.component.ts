@@ -37,18 +37,35 @@ export class TvComponent {
   }
 
   getTvDiscover(page: number) {
-    this.apiService.getTvDiscover(page).pipe(delay(2000)).subscribe(
-      (res: any) => {
-        this.tv_data = res.results.map((item: any) => ({
+  this.apiService.getTvDiscover(page).pipe(delay(2000)).subscribe(
+    (res: any) => {
+      this.tv_data = res.results.map((item: any) => {
+        const tvItem = {
           ...item,
-          link: `/tv/${item.id}`
-        }));
-      },
-      error => {
-        console.error('Error fetching TV discover data', error);
-      }
-    );
-  }
+          link: `/tv/${item.id}`,
+          videoId: '' // Initialize with an empty string
+        };
+
+        this.apiService.getYouTubeVideo(item.id, 'tv').subscribe(
+          (videoRes: any) => {
+            const video = videoRes.results.find((vid: any) => vid.site === 'YouTube' && vid.type === 'Trailer');
+            if (video) {
+              tvItem.videoId = video.key; // Set the video key if available
+            }
+          },
+          videoError => {
+            console.error('Error fetching YouTube video for TV:', videoError);
+          }
+        );
+
+        return tvItem;
+      });
+    },
+    error => {
+      console.error('Error fetching TV discover data', error);
+    }
+  );
+}
 
   fetchMovies(category: string, property: string): void {
     this.apiService.getCategory(category, 1, 'tv')

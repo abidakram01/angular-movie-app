@@ -25,7 +25,7 @@
     </div>
 
     <div *ngIf="activeTab === 'videos'">
-        <app-videos class="videos" [filteredVideos]="filteredVideos" [videoTypes]="videoTypes"></app-videos>
+        <app-videos class="videos" [videosData]="videos" [videoTypes]="videoTypes"></app-videos>
     </div>
 
     <div *ngIf="activeTab === 'episodes'" id="episodes">

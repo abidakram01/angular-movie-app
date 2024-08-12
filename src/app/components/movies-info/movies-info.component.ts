@@ -13,9 +13,7 @@ export class MoviesInfoComponent implements OnInit {
   movie_data: any;
   external_data: any;
   activeTab: string = 'overview';
-  video_data: any;
   videos: any[] = [];
-  filteredVideos: any[] = [];
   videoTypes: string[] = [];
   backdrops: any[] = [];
   posters: any[] = [];
@@ -49,6 +47,22 @@ export class MoviesInfoComponent implements OnInit {
   getMovieInfo(id: number) {
     this.apiService.getMovie(id).subscribe((result: any) => {
       this.movie_data = result;
+
+      // Fetch YouTube trailer video
+      this.apiService.getYouTubeVideo(id, 'movie').subscribe(
+        (videoRes: any) => {
+          const video = videoRes.results.find((vid: any) => vid.site === 'YouTube' && ['Trailer', 'Teaser', 'Clip'].includes(vid.type));
+          if (video) {
+            this.movie_data.videoId = video.key; // Set the video key in movie_data
+          } else {
+            console.warn('No trailer or relevant video found for this movie.');
+          }
+        },
+        videoError => {
+          console.error('Error fetching YouTube video:', videoError);
+        }
+      );
+
       this.getExternal(id);
     });
   }
@@ -62,16 +76,7 @@ export class MoviesInfoComponent implements OnInit {
   getMovieVideos(id: number) {
     this.apiService.getYouTubeVideo(id, 'movie').subscribe((res: any) => {
       this.videos = res.results;
-      this.filteredVideos = this.videos;
-      this.videoTypes = ['ALL', ...new Set(this.videos.map(video => video.type))];
     });
-  }
-
-  filterVideos(event: Event): void {
-    const filterValue = (event.target as HTMLSelectElement).value;
-    this.filteredVideos = filterValue === 'ALL'
-      ? this.videos
-      : this.videos.filter(video => video.type === filterValue);
   }
 
   getMoviesBackdrop(id: number) {

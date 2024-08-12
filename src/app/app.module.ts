@@ -46,6 +46,8 @@ import { TvCategoryComponent } from './components/tv-category/tv-category.compon
 import { GenreComponent } from './components/genre/genre.component';
 import { LanguageNamePipe } from './components/global/pipe/language-name.pipe';
 import { EpisodesComponent } from './components/global/episodes/episodes.component';
+import { ModalComponent } from './components/global/modal/modal.component';
+import { SafeUrlPipe } from './components/global/pipe/safe-url.pipe';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { EpisodesComponent } from './components/global/episodes/episodes.compone
     GenreComponent,
     LanguageNamePipe,
     EpisodesComponent,
+    ModalComponent,
+    SafeUrlPipe,
   ],
   imports: [
     BrowserModule,

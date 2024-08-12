@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-videos',
@@ -6,13 +7,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./videos.component.scss']
 })
 export class VideosComponent {
-  @Input() filteredVideos: any[] = [];
+  @Input() videosData: any[] = [];
   @Input() videoTypes: string[] = [];
 
-  filterVideos(event: Event): void {
-    const filterValue = (event.target as HTMLSelectElement).value;
-    this.filteredVideos = filterValue === 'ALL'
-      ? this.filteredVideos
-      : this.filteredVideos.filter(video => video.type === filterValue);
+  @ViewChild(ModalComponent) modal!: ModalComponent;
+
+  openVideoModal(videoKey: string): void {
+    const videoUrl = `https://www.youtube.com/embed/${videoKey}?rel=0&autoplay=1&mute=1`;
+    this.modal.openModal(videoUrl);
   }
 }
