@@ -28,7 +28,7 @@ git clone https://github.com/abidakram01/angular-movie-app.git
 cd angular-movie-app
 
 # Install the dependencies
-npm install
+npm install or yarn install
 
 # Serve the application locally
 ng serve
