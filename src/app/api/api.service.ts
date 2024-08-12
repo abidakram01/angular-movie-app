@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
   private apiUrl = 'https://api.themoviedb.org/3';
-  private apiKey = 'dd4d819639705d332d531217b4f7c6b6';
+  private apiKey = ''; // your API key
   private language = 'en-US';
 
 
