@@ -1,0 +1,101 @@
+@import '../../../../assets/css/utilities/variables';
+
+.head {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+
+    @media (min-width: $breakpoint-large) {
+        margin-bottom: 2rem;
+    }
+}
+
+.count {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    color: $text-color-grey;
+    letter-spacing: $letter-spacing;
+
+    @media (min-width: $breakpoint-large) {
+        font-size: 1.4rem;
+    }
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.4rem;
+    margin-left: -0.4rem;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    padding: .4rem;
+    width: 100%;
+
+    @media (min-width: $breakpoint-xsmall) {
+        width: 50%;
+    }
+
+    @media (min-width: $breakpoint-medium) {
+        width: 33.3333333%;
+    }
+
+    @media (min-width: 1450px) {
+        width: 25%;
+    }
+
+    .name {
+        margin-bottom: 1rem;
+        font-size: 1.6rem;
+        letter-spacing: $letter-spacing;
+
+        strong {
+            color: $primary-color;
+        }
+    }
+
+    .overview {
+        flex: 1 0 auto;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        color: $text-color;
+    }
+
+    .aired {
+        font-size: 1.2rem;
+        color: $text-color-grey;
+        letter-spacing: $letter-spacing;
+
+        @media (min-width: $breakpoint-large) {
+            font-size: 1.4rem;
+        }
+    }
+
+    .image {
+        background-color: #17291c;
+        height: 0;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        padding-top: 56.25%;
+        position: relative;
+
+        img,
+        span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+}

@@ -1,0 +1,22 @@
+$font-family--sans-serif: 'Roboto', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+
+// 1rem = 10px
+$base-font-size: 62.5%;
+$base-line-height: 1.6;
+$base-font-family: $font-family--sans-serif;
+$base-font-weight: 400;
+$base-font-style: normal;
+$letter-spacing: 0.4px;
+
+$base-bg: #0f0415;
+$base-font-color: #fff;
+$primary-color: #a6db38;
+$secondary-color: #17291C;
+$text-color: #ebd9f8;
+$text-color-grey: #80868b;
+
+$breakpoint-xsmall: 640px;
+$breakpoint-small: 768px;
+$breakpoint-medium: 1024px;
+$breakpoint-large: 1200px;
+$breakpoint-xlarge: 1400px;

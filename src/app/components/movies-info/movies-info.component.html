@@ -1,0 +1,42 @@
+<app-hero [data]="movie_data"></app-hero>
+
+<div class="nav">
+    <button type="button" id="overview" class="buttonTab" [class.buttonActive]="activeTab === 'overview'"
+        (click)="setActiveTab('overview')">
+        Overview
+    </button>
+    <button type="button" id="videos" class="buttonTab" [class.buttonActive]="activeTab === 'videos'"
+        (click)="setActiveTab('videos')">
+        Videos
+    </button>
+    <button type="button" id="backdrop" class="buttonTab" [class.buttonActive]="activeTab === 'backdrop'"
+        (click)="setActiveTab('backdrop')">
+        Photos
+    </button>
+</div>
+
+
+<div *ngIf="activeTab === 'overview'" id="overview">
+    <div class="spacing">
+        <app-media [data]="movie_data" [type]="type" [externalData]="external_data" class="info"></app-media>
+    </div>
+</div>
+
+<div *ngIf="activeTab === 'videos'">
+    <div class="spacing">
+        <app-videos class="videos" [videosData]="videos" [videoTypes]="videoTypes"></app-videos>
+    </div>
+</div>
+
+<div *ngIf="activeTab === 'backdrop'" id="backdrop">
+    <div class="spacing">
+        <app-images [backdrops]="backdrops" [posters]="posters"></app-images>
+    </div>
+</div>
+
+
+<app-carousel [title]="'Cast'" [exploreLink]="'/person'" [items]="cast_data" [isExplore]="false" [isCastCarousel]="true"
+    [isDefaultCarousel]="false"></app-carousel>
+
+<app-carousel [title]="'More Like This'" [exploreLink]="'/movie'" [isExplore]="true" [items]="recom_data" [canNavigateLeft]="true"
+    [canNavigateRight]="true"></app-carousel>

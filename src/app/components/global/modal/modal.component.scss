@@ -1,0 +1,69 @@
+$modal-width: 900px;
+$modal-height: 600px;
+$backdrop-color: rgba(0, 0, 0, 0.9);
+$modal-bg-color: #000;
+$close-btn-color: #fff;
+$fade-duration: 0.3s;
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $backdrop-color;
+  z-index: 999;
+  opacity: 0;
+  animation: fadeInBackdrop $fade-duration forwards;
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $modal-width;
+  height: $modal-height;
+  background: $modal-bg-color;
+  padding: 1px;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInModal $fade-duration forwards;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.close-button {
+  position: absolute;
+  top: -30px;
+  right: 0px;
+  background: none;
+  border: none;
+  color: $close-btn-color;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

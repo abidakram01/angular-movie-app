@@ -1,55 +1,9 @@
-<ng-container>
-    <app-slider></app-slider>
-</ng-container>
+<app-slider [data]="movies_data"></app-slider>
 
-<div class="listing">
-    <div class="listing__head">
-        <h3 class="listing__title">Trending Movies</h3>
-        <a [routerLink]="['/movies']" routerLinkActive="router-link-active" class="listing__explore">
-            <strong>Explore All</strong>
-        </a>
-    </div>
-    
-    <app-skeleton *ngIf="loader" ></app-skeleton>
-    <p-carousel [value]="nowPlaying" [numVisible]="6" [numScroll]="4" [circular]="false" *ngIf="!loader"
-        [responsiveOptions]="responsiveOptions">
-        <ng-template let-movie pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/movies/', movie.id]">
-                <div class="overlay">
-                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                </div>
-                <img *ngIf="movie?.poster_path"
-                    src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
-                <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png">
-                <h6>{{ movie?.title }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
-                <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
-                </p>
-            </div>
-        </ng-template>
-    </p-carousel>
-</div>
+<app-carousel [title]="'Popular Movies'" [isExplore]="false" [exploreLink]="'/movie/category/now_playing'" 
+    [items]="moviesSlider" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>
 
-<div class="listing">
-    <div class="listing__head">
-        <h3 class="listing__title">Trending TV Shows</h3>
-        <a [routerLink]="['/tv']" routerLinkActive="router-link-active" class="listing__explore">
-            <strong>Explore All</strong>
-        </a>
-    </div>
-    <app-skeleton *ngIf="loader"></app-skeleton>
-    <p-carousel [value]="tvShows" [numVisible]="6" [numScroll]="4" [circular]="false" *ngIf="!loader"
-        [responsiveOptions]="responsiveOptions">
-        <ng-template let-tv pTemplate="item">
-            <div class="listing-item-style" [routerLink]="['/tv/', tv.id]">
-                <div class="overlay">
-                    <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
-                </div>
-                <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{tv?.poster_path}}">
-                <h6>{{ tv?.original_name }}</h6>
-                <p class="rate"><i class="material-icons">star</i><span>{{tv?.vote_average}}</span>/10</p>
-                <p class="year"><span>{{tv?.first_air_date | date: 'yyyy'}}</span>
-            </div>
-        </ng-template>
-    </p-carousel>
-</div>
+<app-carousel [title]="'Popular TV Shows'" [isExplore]="false" [exploreLink]="'/tv/category/airing_today'" 
+    [items]="tvSlider" [canNavigateLeft]="true" [canNavigateRight]="true">
+</app-carousel>

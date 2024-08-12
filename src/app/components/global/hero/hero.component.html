@@ -1,0 +1,44 @@
+<div class="hero">
+    <div class="backdrop">
+        <div class="lazyloaded">
+            <img alt="{{data?.title || data?.name}}" class="lazyload image"
+                [src]="'https://image.tmdb.org/t/p/original/' + data?.backdrop_path" />
+        </div>
+    </div>
+    <div class="pane">
+        <div>
+            <h1 class="name" [routerLink]="[data?.name]">
+                {{data?.title || data?.name}}
+            </h1>
+            <div class="meta">
+                <div class="rating">
+                    <div class="stars">
+                        <div [style.width.%]="(data?.vote_average / 10) * 100"></div>
+                    </div>
+                    <div *ngIf="data?.vote_count > 0">
+                        {{ data?.vote_count | numberWithCommas }} Reviews
+                    </div>
+                </div>
+                <div class="info">
+                    <span *ngIf="data?.number_of_seasons">Season {{ data?.number_of_seasons }}</span>
+                    <span *ngIf="data?.release_date || data?.first_air_date">{{ data?.release_date
+                        || data?.first_air_date | date }}</span>
+                </div>
+            </div>
+            <div class="desc">
+                {{ data?.overview | truncate }}
+            </div>
+            <button *ngIf="data.videoId" type="button" class="button button--icon trailer" (click)="openTrailer()">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#fff">
+                        <path d="M3 22v-20l18 10-18 10z"></path>
+                    </svg>
+                </span>
+                <span class="txt">Watch Trailer</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<app-modal></app-modal>

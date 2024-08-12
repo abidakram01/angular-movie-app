@@ -1,0 +1,48 @@
+<div class="hero">
+  <ng-container *ngFor="let hero of data; let i = index">
+    <div class="hero-slide" *ngIf="current === i" @fade>
+      <div class="backdrop">
+        <div class="lazyloaded">
+          <img alt="{{hero?.title || hero?.name}}" class="lazyload image"
+            src="https://image.tmdb.org/t/p/original/{{hero?.backdrop_path}}">
+        </div>
+      </div>
+      <div class="pane">
+        <div>
+          <h1 class="name" [routerLink]="[hero.link]">
+            {{hero?.title || hero?.name}}
+          </h1>
+          <div class="meta">
+            <div class="rating">
+              <div class="stars">
+                <div [style.width.%]="(hero.vote_average / 10) * 100"></div>
+              </div>
+              <div *ngIf="hero.vote_count > 0">
+                {{ hero.vote_count | numberWithCommas }} Reviews
+              </div>
+            </div>
+            <div class="info">
+              <span *ngIf="hero.number_of_seasons">Season {{ hero.number_of_seasons }}</span>
+              <span *ngIf="hero?.release_date || hero?.first_air_date">{{ hero?.release_date || hero?.first_air_date |
+                date }}</span>
+            </div>
+          </div>
+          <div class="desc">
+            {{ hero?.overview | truncate }}
+          </div>
+          <button *ngIf="hero.videoId" type="button" class="button button--icon trailer" (click)="openTrailer(hero)">
+            <span class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#fff">
+                <path d="M3 22v-20l18 10-18 10z"></path>
+              </svg>
+            </span>
+            <span class="txt">Watch Trailer</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+<app-modal></app-modal>

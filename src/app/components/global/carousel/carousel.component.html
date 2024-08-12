@@ -1,0 +1,64 @@
+<div class="listing listing--carousel">
+  <div class="listing__head">
+    <h2 class="listing__title">{{ title }}</h2>
+    <a *ngIf="isDefaultCarousel && !isExplore" [routerLink]="[exploreLink]" routerLinkActive="router-link-active" class="listing__explore">
+      <strong>Explore All</strong>
+    </a>
+  </div>
+  <div class="carousel">
+    <button aria-label="Previous" type="button" [attr.disabled]="!canNavigateLeft ? true : null"
+      (click)="prevSlide()" class="carousel__nav carousel__nav--left">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+          stroke-miterlimit="10" d="M17.9 23.2L6.1 12 17.9.8"></path>
+      </svg>
+    </button>
+    <div class="carousel__items" #carouselContainer>
+      <div *ngFor="let item of items" class="card">
+        <a [routerLink]="[item.link]" class="card__link">
+          <div class="card__img">
+            <img *ngIf="item.imgSrc" [attr.src]="item.imgSrc" [alt]="item.title || item.name" class="lazyload">
+            <span *ngIf="!item.imgSrc">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" fill="#999">
+              <path d="M24 22h-24v-20h24v20zm-1-19h-22v18h22v-18zm-1 16h-19l4-7.492 3 3.048 5.013-7.556 6.987 12zm-11.848-2.865l-2.91-2.956-2.574 4.821h15.593l-5.303-9.108-4.806 7.243zm-4.652-11.135c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5zm0 1c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"></path>
+            </svg>
+          </span>
+       
+          </div>
+
+          <!-- Default Carousel -->
+          <div *ngIf="isDefaultCarousel">
+            <h2 class="card__name">{{ item.title }}</h2>
+            <div class="card__rating">
+              <div class="card__stars">
+                <div [style.width.%]="item.rating"></div>
+              </div>
+              <div class="card__vote">{{ item.vote }}</div>
+            </div>
+          </div>
+
+          <!-- Cast Carousel -->
+          <div *ngIf="isCastCarousel">
+            <h2 class="credits-item__name">{{ item.name }}</h2>
+            <h2 class="credits-item__character">{{ item.character }}</h2>
+          </div>
+      
+        </a>
+      </div>
+      <div class="card">
+        <a [routerLink]="[exploreLink]" class="card__link">
+          <div class="card__img">
+            <span>Explore All</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <button aria-label="Next" type="button" [attr.disabled]="!canNavigateRight ? true : null"
+      (click)="nextSlide()" class="carousel__nav carousel__nav--right">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+          stroke-miterlimit="10" d="M6.1 23.2L17.9 12 6.1.8"></path>
+      </svg>
+    </button>
+  </div>
+</div>
